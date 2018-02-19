@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="java.util.Random"/>
+<fullyQualifiedTypeName name="java.sql.Ref"/>
+<fullyQualifiedTypeName name="java.lang.ref.Reference"/>
+<fullyQualifiedTypeName name="java.lang.Math"/>
+<fullyQualifiedTypeName name="spel.Box"/>
+<fullyQualifiedTypeName name="spel.Spel"/>
+<fullyQualifiedTypeName name="spel.Red"/>
+<fullyQualifiedTypeName name="java.nio.charset.MalformedInputException"/>
+<fullyQualifiedTypeName name="spel.Main"/>
+<fullyQualifiedTypeName name="java.lang.IllegalArgumentException"/>
+<fullyQualifiedTypeName name="opdracht2.Wielactuator"/>
+<fullyQualifiedTypeName name="opdracht2.Stuurwiel"/>
+<fullyQualifiedTypeName name="opdracht2.Obstakelsensor"/>
+<fullyQualifiedTypeName name="opdracht2.AantalPerKwaliteit"/>
+<fullyQualifiedTypeName name="java.util.Scanner"/>
+<fullyQualifiedTypeName name="java.lang.System"/>
+<fullyQualifiedTypeName name="opdracht3.GesplitsteLijst"/>
+</qualifiedTypeNameHistroy>
