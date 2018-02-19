@@ -3,7 +3,10 @@ package Connect;
 public class board {
 
 	private static int width = 7, height = 6;
-	private static char[][] board = new char[width][height];
+	private static Object[][] board = new Object[width][height];
+	public static Empty empty = new Empty();										//state of a box in the board
+	public static Red red = new Red();												//state of a box in the board
+	public static Yellow yellow = new Yellow();									//state of a box in the board
 	
 	public board()
 	{		
@@ -11,11 +14,11 @@ public class board {
 		{
 			for(int y = 0; y < height; y++)
 			{
-				board[x][y] = 'o';
+				board[x][y] = empty;
 			}
 		}
 	}
-	public int place_move(int column, char player)
+	public int place_move(int column, Object player)
 	{
 		//the x tells wich player does the move.
 		int lowest_free = check_empty(column-1);
@@ -36,21 +39,24 @@ public class board {
 	{
 		for(int i = 0; i < 6; i++)
 		{
-			if(board[index_x][i] == 'o') { return i;} 
+			if(board[index_x][i] == empty) { return i;} 
 		}
 		return 6;
 	}
 	private static void print_board()
 	{
 		System.out.println("");
+		System.out.println("| 1   2   3   4   5   6   7 |");
 		for(int y = height -1; y >= 0; y--)
 		{
 			System.out.print("| ");
 			for(int x = 0; x < width; x++)
 			{
-				System.out.print(board[x][y] + " | ");
+				if(board[x][y] == empty) System.out.print(empty.name + " | ");
+				else if(board[x][y] == red) System.out.print(red.name + " | ");
+				else System.out.print(yellow.name + " | ");
 			}
-			System.out.println("");
+			System.out.println();
 		}
 		
 	}
