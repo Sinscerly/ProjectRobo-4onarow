@@ -8,6 +8,7 @@ public class Main {
 		while(end == false)
 		{
 			Spel.nextMoveRed();
+			if(end == false)
 			Spel.nextMoveYellow();
 		}
 	}

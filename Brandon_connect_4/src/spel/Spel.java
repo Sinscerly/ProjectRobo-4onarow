@@ -106,15 +106,15 @@ public class Spel {
 		boolean win = false;
 		win = checkHor(player);
 		if(win != true) win = checkVer(player);
-		//if(win != true) win = checkLD(player);
-		//if(win != true) win = checkRD(player);
+		if(win != true) win = checkLD(player);
+		if(win != true) win = checkRD(player);
 		if(win == true)
 		{
 			if(player == Red)
 				System.out.println("Player red has won");
 			else
 				System.out.println("Player Yellow has won");
-			Main.end = win;
+			Main.end = true;
 		}
 	}
 	
@@ -168,13 +168,13 @@ public class Spel {
 	public static boolean checkRD(Box player)
 	{
 		int i = 0;
-		for(int x = 0; x != 7; x++)
+		for(int x = 0; x != 4; x++)
 		{
-			for(int y = 0; y != 6; y++)
+			for(int y = 0; y != 3; y++)
 			{
-				for(int z = 0; z <= x && z <= y - 4; z++)
+				for(int z = 0; z <= x && z <= 4; z++)
 				{
-					if(board[y - z][x - z] == player)
+					if(board[y + z][x + z] == player)
 					{
 						i++;
 					}
@@ -195,11 +195,11 @@ public class Spel {
 	public static boolean checkLD(Box player)
 	{
 		int i = 0;
-		for(int x = 0; x != 7; x++)
+		for(int x = 0; x != 4; x++)
 		{
-			for(int y = 0; y != 6; y++)
+			for(int y = 5; y != 2; y--)
 			{
-				for(int z = 0 + x; z <= x && z <= y - 4; z++)
+				for(int z = 0; z != 4; z++)
 				{
 					if(board[y - z][x + z] == player)
 					{
