@@ -15,8 +15,13 @@ public class board {
 			for(int y = 0; y < height; y++)
 			{
 				board[x][y] = empty;
+				
 			}
 		}
+	}
+	public static Object[][] getBoard()
+	{
+		return board;
 	}
 	public int place_move(int column, Object player)
 	{
@@ -32,18 +37,31 @@ public class board {
 			print_board();
 			return 0;
 		}
-		print_board();
 		return 1;
+	}
+	public static int[] free_slots() {
+		int[] moves = new int[width];
+		for(int x = 0; x < 7; x++) {
+			moves[x] = check_empty(x);
+		}
+		return moves;
 	}
 	private static int check_empty(int index_x)
 	{
-		for(int i = 0; i < 6; i++)
+		for(int y = 0; y < 6; y++)
 		{
-			if(board[index_x][i] == empty) { return i;} 
+			if(board[index_x][y] == empty) { return y;} 
 		}
 		return 6;
 	}
-	private static void print_board()
+	public static boolean is_empty(int index_x)
+	{
+		for(int y = 0; y < 6; y++) {
+			if(board[index_x][y] == empty) {return true;}
+		}
+		return false;
+	}
+	public static void print_board()
 	{
 		System.out.println("");
 		System.out.println("| 1   2   3   4   5   6   7 |");
@@ -58,6 +76,9 @@ public class board {
 			}
 			System.out.println();
 		}
-		
+	}
+	public static Object[][] add(Object[][] grid, int x, int y) {
+		grid[x][y] = red;
+		return grid;
 	}
 }
