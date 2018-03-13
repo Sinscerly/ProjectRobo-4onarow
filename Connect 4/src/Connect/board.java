@@ -4,6 +4,7 @@ public class board {
 
 	private static int width = 7, height = 6;
 	private static Object[][] board = new Object[width][height];
+	private static Object[][] copiedBoard = new Object[width][height];
 	public static Empty empty = new Empty();										//state of a box in the board
 	public static Red red = new Red();												//state of a box in the board
 	public static Yellow yellow = new Yellow();									//state of a box in the board
@@ -19,12 +20,14 @@ public class board {
 			}
 		}
 	}
-	public static Object[][] getBoard()
-	{
+	public static Object[][] getCopiedBoard() {
+		copiedBoard = board;
+		return copiedBoard;
+	}
+	public static Object[][] getBoard() {
 		return board;
 	}
-	public int place_move(int column, Object player)
-	{
+	public int place_move(int column, Object player) {
 		//the x tells wich player does the move.
 		int lowest_free = check_empty(column-1);
 		if(lowest_free != 6)
@@ -78,7 +81,10 @@ public class board {
 		}
 	}
 	public static Object[][] add(Object[][] grid, int x, int y) {
-		grid[x][y] = red;
-		return grid;
+		copiedBoard[x][y] = red;
+		return copiedBoard;
+	}
+	public static void remove(Object[][] grid, int x, int y) {
+		copiedBoard[x][y] = empty;
 	}
 }

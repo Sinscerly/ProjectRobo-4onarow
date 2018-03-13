@@ -21,7 +21,7 @@ public class main {
 				computer = 7;
 				while(computer == 7)
 				{
-					computer = best_move(board.getBoard());
+					computer = best_move(board.getCopiedBoard());
 					if(computer == 7) {
 						computer = r.nextInt(7);
 					}
@@ -51,7 +51,7 @@ public class main {
 		}
 		board.print_board();
 	}
-	public static int best_move(Object[][] grid) {
+	public static int (Object[][] grid) {
 		//get position y position of all colums.
 		int[] moves = new int[7];
 		int do_move = 7;
@@ -62,7 +62,9 @@ public class main {
 	}
 	private static boolean doIwin(Object[][] grid, int x, int y) {
 		grid = board.add(grid, x, y);
-		return rules.checkWin(grid, false);
+		boolean win = rules.checkWin(grid, false);
+		board.remove(grid, x, y);
+		return win;
 	}
 	public static int isWin(Object[][] grid, int[] moves) {
 		for(int x = 0; x < 7; x++) {
