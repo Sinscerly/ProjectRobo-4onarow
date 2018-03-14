@@ -29,10 +29,10 @@ public class board {
 	}
 	public int place_move(int column, Object player) {
 		//the x tells wich player does the move.
-		int lowest_free = check_empty(column-1);
+		int lowest_free = check_empty(column);
 		if(lowest_free != 6)
 		{
-			board[column-1][lowest_free] = player;
+			board[column][lowest_free] = player;
 		}
 		else
 		{

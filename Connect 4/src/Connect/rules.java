@@ -25,6 +25,10 @@ public class rules {
 							return winMSG(aString, MSG);
 						}
 					}
+					if(x > 2 && y < 3) {
+						if(current == grid[x-1][y+1] && current == grid[x-2][y+2] && current == grid[x-3][y+3])
+							return winMSG(aString, MSG);
+					}
 				}				
 			}
 		}

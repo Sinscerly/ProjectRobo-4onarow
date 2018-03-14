@@ -42,7 +42,7 @@ public class main {
 					player = scanner.nextInt();
 					if(player < 1 || player > 7) System.out.println("Number out of bounds");
 				}
-				play.place_move(player, board.yellow);
+				play.place_move(player-1, board.yellow);
 			}
 			if(wich_turn < 1)
 				wich_turn++;
@@ -51,7 +51,7 @@ public class main {
 		}
 		board.print_board();
 	}
-	public static int (Object[][] grid) {
+	public static int best_move(Object[][] grid) {
 		//get position y position of all colums.
 		int[] moves = new int[7];
 		int do_move = 7;
