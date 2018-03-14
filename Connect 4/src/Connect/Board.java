@@ -2,18 +2,18 @@ package Connect;
 
 public class Board {
 
-	private static int width = 7, height = 6;
-	private static Object[][] board = new Object[width][height];
-	private static Object[][] copiedBoard = new Object[width][height];
+	private static final int ROWS = 7, COLUMS = 6; 	//dimensions of the grid
+	private static Object[][] board = new Object[ROWS][COLUMS];
+	private static Object[][] copiedBoard = new Object[ROWS][COLUMS];
 	public static Empty empty = new Empty();										//state of a box in the board
 	public static Red red = new Red();												//state of a box in the board
 	public static Yellow yellow = new Yellow();									//state of a box in the board
 	
 	public Board()
 	{		
-		for(int x = 0; x < width; x++)
+		for(int x = 0; x < ROWS; x++)
 		{
-			for(int y = 0; y < height; y++)
+			for(int y = 0; y < COLUMS; y++)
 			{
 				board[x][y] = empty;
 				
@@ -43,7 +43,7 @@ public class Board {
 		return 1;
 	}
 	public static int[] free_slots() {
-		int[] moves = new int[width];
+		int[] moves = new int[ROWS];
 		for(int x = 0; x < 7; x++) {
 			moves[x] = check_empty(x);
 		}
@@ -69,10 +69,10 @@ public class Board {
 	{
 		System.out.println("");
 		System.out.println("| 1   2   3   4   5   6   7 |");
-		for(int y = height -1; y >= 0; y--)
+		for(int y = COLUMS -1; y >= 0; y--)
 		{
 			System.out.print("| ");
-			for(int x = 0; x < width; x++)
+			for(int x = 0; x < ROWS; x++)
 			{
 				if(board[x][y] == empty) System.out.print(empty.name + " | ");
 				else if(board[x][y] == red) System.out.print(red.name + " | ");
