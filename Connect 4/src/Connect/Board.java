@@ -81,8 +81,8 @@ public class Board {
 			System.out.println();
 		}
 	}
-	public static Object[][] add(Object[][] grid, int x, int y) {
-		copiedBoard[x][y] = red;
+	public static Object[][] add(Object[][] grid, int x, int y, Object color) {
+		copiedBoard[x][y] = color;
 		return copiedBoard;
 	}
 	public static void remove(Object[][] grid, int x, int y) {

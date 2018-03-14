@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class Game {
 	static Scanner scanner = new Scanner(System.in);
-	Game() {
+	void start() {
 		int computer = 0, player = 0;
 		//player player1 = new player(board.red);
 		Board play = new Board();
@@ -51,20 +51,22 @@ public class Game {
 		int[] moves = new int[7];
 		int do_move = 7;
 		moves = Board.free_slots();
-		do_move = isWin(grid, moves);
+		do_move = isWin(grid, moves, Board.red);
+		if(do_move < 7) { return do_move; }
+		do_move = isWin(grid, moves, Board.yellow);
 		if(do_move < 7) { return do_move; }
 		return 7;
 	}
-	int isWin(Object[][] grid, int[] moves) {
+	int isWin(Object[][] grid, int[] moves, Object color) {
 		for(int x = 0; x < 7; x++) {
-			if(moves[x] != -1 && doIwin(grid, x, moves[x])) {
+			if(moves[x] != -1 && doIwin(grid, x, moves[x], color)) {
 				return x;
 			}
 		}
 		return 7;
 	}
-	boolean doIwin(Object[][] grid, int x, int y) {
-		grid = Board.add(grid, x, y);
+	boolean doIwin(Object[][] grid, int x, int y, Object color) {
+		grid = Board.add(grid, x, y, color);
 		boolean win = Rules.checkWin(grid, false);
 		Board.remove(grid, x, y);
 		return win;
