@@ -1,6 +1,6 @@
 package Connect;
 
-public class board {
+public class Board {
 
 	private static int width = 7, height = 6;
 	private static Object[][] board = new Object[width][height];
@@ -9,7 +9,7 @@ public class board {
 	public static Red red = new Red();												//state of a box in the board
 	public static Yellow yellow = new Yellow();									//state of a box in the board
 	
-	public board()
+	public Board()
 	{		
 		for(int x = 0; x < width; x++)
 		{
@@ -57,6 +57,7 @@ public class board {
 		}
 		return -1;
 	}
+	/* Deze kan nog versimpeld worden met check_empty */
 	public static boolean is_empty(int index_x)
 	{
 		for(int y = 0; y < 6; y++) {

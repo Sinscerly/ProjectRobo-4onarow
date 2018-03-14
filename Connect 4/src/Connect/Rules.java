@@ -1,33 +1,37 @@
 package Connect;
 
 
-public class rules {
+public class Rules {
 	public static boolean checkWin(Object[][] grid, boolean MSG) {
+		/* Check if there are 4 stone of the same color in one line on the board */
 		for(int y = 0; y < 6; y++)
 		{
 			for(int x = 0; x < 6; x++)
 			{
 				Object current = grid[x][y];
-				String aString = grid[x][y].toString();
-				if(!aString.contains("Empty")) {
+				if(!current.toString().contains("Empty")) {
+					/* Horizontal check 4 on a row */
 					if(x < 4) {
 						if(current == grid[x+1][y] && current == grid[x+2][y] && current == grid[x+3][y]) {
-							return winMSG(aString, MSG);
+							return winMSG(current.toString(), MSG);
 						}
 					}
+					/* Vertical check 4 on a row */
 					if(y < 3) {
 						if(current == grid[x][y+1] && current == grid[x][y+2] && current == grid[x][y+3]) {
-							return winMSG(aString, MSG);
+							return winMSG(current.toString(), MSG);
 						}
 					}
+					/* Left under to right upper check 4 on a row */
 					if(x < 4 && y < 3) {
 						if(current == grid[x+1][y+1] && current == grid[x+2][y+2] && current == grid[x+3][y+3]) {
-							return winMSG(aString, MSG);
+							return winMSG(current.toString(), MSG);
 						}
 					}
+					/* Right upper to left under check 4 on a row */
 					if(x > 2 && y < 3) {
 						if(current == grid[x-1][y+1] && current == grid[x-2][y+2] && current == grid[x-3][y+3])
-							return winMSG(aString, MSG);
+							return winMSG(current.toString(), MSG);
 					}
 				}				
 			}
