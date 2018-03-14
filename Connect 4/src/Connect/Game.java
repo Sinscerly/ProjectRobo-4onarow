@@ -12,7 +12,7 @@ public class Game {
 		Random r = new Random();
 		
 		int wich_turn = 0;
-		while(Rules.checkWin(Board.getBoard(), true) == false) {
+		while(Rules.checkWin(Board.getBoard(), true) == false /* && check of het bord niet meer leeg is. */) {
 			if(wich_turn == 0) {
 				computer = 7;
 				while(computer == 7)
