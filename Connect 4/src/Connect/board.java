@@ -30,7 +30,7 @@ public class board {
 	public int place_move(int column, Object player) {
 		//the x tells wich player does the move.
 		int lowest_free = check_empty(column);
-		if(lowest_free != 6)
+		if(lowest_free != -1)
 		{
 			board[column][lowest_free] = player;
 		}
@@ -55,7 +55,7 @@ public class board {
 		{
 			if(board[index_x][y] == empty) { return y;} 
 		}
-		return 6;
+		return -1;
 	}
 	public static boolean is_empty(int index_x)
 	{

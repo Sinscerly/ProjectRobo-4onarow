@@ -19,17 +19,19 @@ public class main {
 		while(rules.checkWin(board.getBoard(), true) == false) {
 			if(wich_turn == 0) {
 				computer = 7;
+				//int ai = 0;
 				while(computer == 7)
 				{
 					computer = best_move(board.getCopiedBoard());
+				//	if(computer != 7) { ai = 1; }
 					if(computer == 7) {
 						computer = r.nextInt(7);
 					}
 					if(!board.is_empty(computer))
 							computer = 7;
 				}
-				System.out.println("");
-				System.out.print("Computer placed in row: " + computer);
+				//if(ai == 1) { System.out.println("AI Did: "); }
+				System.out.print("Computer placed in row: " + (computer+1));
 				play.place_move(computer, board.red);
 				board.print_board();
 			}
@@ -60,18 +62,18 @@ public class main {
 		if(do_move < 7) { return do_move; }
 		return 7;
 	}
+	public static int isWin(Object[][] grid, int[] moves) {
+		for(int x = 0; x < 7; x++) {
+			if(moves[x] != -1 && doIwin(grid, x, moves[x])) {
+				return x;
+			}
+		}
+		return 7;
+	}
 	private static boolean doIwin(Object[][] grid, int x, int y) {
 		grid = board.add(grid, x, y);
 		boolean win = rules.checkWin(grid, false);
 		board.remove(grid, x, y);
 		return win;
-	}
-	public static int isWin(Object[][] grid, int[] moves) {
-		for(int x = 0; x < 7; x++) {
-			if(doIwin(grid, x, moves[x])) {
-				return x;
-			}
-		}
-		return 7;
 	}
 }
