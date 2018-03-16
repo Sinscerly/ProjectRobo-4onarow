@@ -55,6 +55,7 @@ public class Game {
 		}
 		Board.print_board();
 	}
+	/* Dit staat nu in AI
 	int doAI(Object[][] grid) {
 		//get position y position of all colums.
 		int[] moves = new int[7];
@@ -80,4 +81,5 @@ public class Game {
 		Board.remove(grid, x, y);
 		return win;
 	}
+	*/
 }
