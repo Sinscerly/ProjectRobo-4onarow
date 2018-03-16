@@ -23,14 +23,14 @@ public class Game {
 		while(Rules.checkWin(Board.getBoard(), true) == false /* && check of het bord niet meer leeg is. */) {
 			if(wich_turn == 0) {
 				computer = 7;
-				while(computer == 7)
+				while(computer < 0 || 6 < computer)
 				{
 					//computer = doAI(Board.getCopiedBoard());
 					computer = helloAI.doSet(Board.getCopiedBoard());
-					if(computer == 7) {
+					if(computer < 0 || 6 < computer) {
 						computer = r.nextInt(7);
 					}
-					if(!Board.is_empty(computer))
+					if(Board.check_empty(computer) == -1)
 							computer = 7;
 				}
 				System.out.print("Computer placed in row: " + (computer+1));

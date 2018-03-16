@@ -49,7 +49,7 @@ public class Board {
 		}
 		return moves;
 	}
-	private static int check_empty(int index_x)
+	public static int check_empty(int index_x)
 	{
 		for(int y = 0; y < 6; y++)
 		{
@@ -87,5 +87,9 @@ public class Board {
 	}
 	public static void remove(Object[][] grid, int x, int y) {
 		copiedBoard[x][y] = empty;
+	}
+	public boolean check_board_empty() {
+		
+		return false;
 	}
 }
