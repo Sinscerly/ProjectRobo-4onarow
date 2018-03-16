@@ -38,7 +38,7 @@ public class AI {
 	boolean check_2_to_win(Object[][] grid, int x, int y, Object color) {
 		boolean win = false;
 		//
-		if(x != 6 && y != 0) {
+		if(x != 6 && y != 1) {
 			if(Board.is_empty(x + 1, y + 1)) {
 			grid = Board.add(grid, x, y, color);
 			grid = Board.add(grid, x + 1, y + 1, color);
@@ -48,7 +48,7 @@ public class AI {
 			}
 		}
 		//
-		if(x != 0 && y != 0) {
+		if(x != 0 && y != 1) {
 			if(Board.is_empty(x - 1, y + 1)) {
 			grid = Board.add(grid, x, y, color);
 			grid = Board.add(grid, x - 1, y + 1, color);
@@ -77,7 +77,7 @@ public class AI {
 			Board.remove(grid, x - 1, y);
 			}
 		}
-		if(y != 0) {
+		if(y != 1) {
 			grid = Board.add(grid, x, y, color);
 			grid = Board.add(grid, x, y + 1, color);
 			win = Rules.checkWin(grid, false);
