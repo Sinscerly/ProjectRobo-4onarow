@@ -1,3 +1,0 @@
-INDEX VERSION 1.129+C:\Users\brand\OneDrive\Documenten\GitHub\ProjectRobo\schoolworkspace\.metadata\.plugins\org.eclipse.jdt.core
-3632818876.index
-4005436680.index

@@ -72,6 +72,11 @@ enum move{
 		}
 		return false;
 	}
+	public static boolean is_empty(int index_x, int index_y)
+	{
+		if(board[index_x][index_y] == empty) {return true;}
+		return false;
+	}
 	public static void print_board()
 	{
 		System.out.println("");
