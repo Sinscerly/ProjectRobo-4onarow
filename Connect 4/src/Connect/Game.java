@@ -48,6 +48,7 @@ public class Game {
 				}
 				play.place_move(player-1, Board.yellow);
 			}
+			/* Let the other player make a move */
 			if(wich_turn < 1)
 				wich_turn++;
 			else
