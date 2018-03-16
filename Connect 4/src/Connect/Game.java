@@ -6,9 +6,11 @@ import java.util.Scanner;
 public class Game {
 	static Scanner scanner = new Scanner(System.in);
 	private int wich_turn = 0;
-	Game(int startPlayer, int dificulty) {
+	private int dificulty;
+	Game(int startPlayer, int set_dificulty) {
 		/* startPlayer = 0 Computer starts, = 1 Player starts */
 		if(startPlayer == 1) { wich_turn = startPlayer; }
+		dificulty = set_dificulty;
 	}
 	
 	void start() {
@@ -17,12 +19,14 @@ public class Game {
 		Board play = new Board();
 		Random r = new Random();
 		Board.print_board();
+		AI helloAI = new AI(dificulty); //rename this yet to be done
 		while(Rules.checkWin(Board.getBoard(), true) == false /* && check of het bord niet meer leeg is. */) {
 			if(wich_turn == 0) {
 				computer = 7;
 				while(computer == 7)
 				{
-					computer = ai(Board.getCopiedBoard());
+					//computer = doAI(Board.getCopiedBoard());
+					computer = helloAI.doSet(Board.getCopiedBoard());
 					if(computer == 7) {
 						computer = r.nextInt(7);
 					}
@@ -51,7 +55,7 @@ public class Game {
 		}
 		Board.print_board();
 	}
-	int ai(Object[][] grid) {
+	int doAI(Object[][] grid) {
 		//get position y position of all colums.
 		int[] moves = new int[7];
 		int do_move = 7;
