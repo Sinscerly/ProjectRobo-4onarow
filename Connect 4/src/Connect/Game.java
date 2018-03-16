@@ -5,13 +5,18 @@ import java.util.Scanner;
 
 public class Game {
 	static Scanner scanner = new Scanner(System.in);
+	private int wich_turn = 0;
+	Game(int startPlayer, int dificulty) {
+		/* startPlayer = 0 Computer starts, = 1 Player starts */
+		if(startPlayer == 1) { wich_turn = startPlayer; }
+	}
+	
 	void start() {
 		int computer = 0, player = 0;
 		//player player1 = new player(board.red);
 		Board play = new Board();
 		Random r = new Random();
-		
-		int wich_turn = 0;
+		Board.print_board();
 		while(Rules.checkWin(Board.getBoard(), true) == false /* && check of het bord niet meer leeg is. */) {
 			if(wich_turn == 0) {
 				computer = 7;
