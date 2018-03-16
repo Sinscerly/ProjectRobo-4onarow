@@ -20,7 +20,7 @@ public class Game {
 		Random r = new Random();
 		Board.print_board();
 		AI helloAI = new AI(dificulty); //rename this yet to be done
-		while(Rules.checkWin(Board.getBoard(), true) == false /* && check of het bord niet meer leeg is. */) {
+		while(Rules.checkWin(Board.getBoard(), true) == false && play.check_not_full()) {
 			if(wich_turn == 0) {
 				computer = 7;
 				while(computer < 0 || 6 < computer)

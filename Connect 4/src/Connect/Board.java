@@ -1,13 +1,18 @@
 package Connect;
 
 public class Board {
-
+enum move{
+	;
+	int co_x; //x coördinaat van de zet.
+	int co_y; //y coördinaat van de zet.
+}
 	private static final int ROWS = 7, COLUMS = 6; 	//dimensions of the grid
 	private static Object[][] board = new Object[ROWS][COLUMS];
 	private static Object[][] copiedBoard = new Object[ROWS][COLUMS];
 	public static Empty empty = new Empty();										//state of a box in the board
 	public static Red red = new Red();												//state of a box in the board
 	public static Yellow yellow = new Yellow();									//state of a box in the board
+	public move last_move;
 	
 	public Board()
 	{		
@@ -33,6 +38,8 @@ public class Board {
 		if(lowest_free != -1)
 		{
 			board[column][lowest_free] = player;
+			//last_move.co_x = column;
+			//last_move.co_y = lowest_free;
 		}
 		else
 		{
@@ -88,8 +95,10 @@ public class Board {
 	public static void remove(Object[][] grid, int x, int y) {
 		copiedBoard[x][y] = empty;
 	}
-	public boolean check_board_empty() {
-		
+	public boolean check_not_full() {
+		for(int i = 0; i < COLUMS; i++) {
+			if(check_empty(i) != -1) { return true; }
+		}
 		return false;
 	}
 }
