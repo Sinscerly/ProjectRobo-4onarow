@@ -22,9 +22,9 @@ public class AI {
 			if(moves[x] != -1 && check_winning_move(grid, x, color)) {
 				return x;
 			}
-//			if(moves[x] != -1 && check_2_to_win(grid, x, moves[x], color)) {
-//				return x;
-//			} 
+			if(moves[x] != -1 && check_2_to_win(grid, x, moves[x], color)) {
+				return x;
+			} 
 		}
 		return 7;
 	}
@@ -40,36 +40,42 @@ public class AI {
 		boolean win = false;
 		//
 		if(x != 6 && y != 1) {
+			win = brandonvereenvoudig(grid, x, 1, y, 1, color);
+			/*
 			if(Board.is_empty(x + 1, y + 1)) {
 			grid = Board.add(grid, x, y, color);
 			grid = Board.add(grid, x + 1, y + 1, color);
 			win = Rules.checkWin(grid, false);
 			Board.remove(grid, x, y);
 			Board.remove(grid, x + 1, y + 1);
-			}
+			}*/
 		}
 		//
 		if(x != 0 && y != 1) {
-			if(Board.is_empty(x - 1, y + 1)) {
+			win = brandonvereenvoudig(grid, x, -1, y, 1, color);
+			/*if(Board.is_empty(x - 1, y + 1)) {
 			grid = Board.add(grid, x, y, color);
 			grid = Board.add(grid, x - 1, y + 1, color);
 			win = Rules.checkWin(grid, false);
 			Board.remove(grid, x, y);
 			Board.remove(grid, x - 1, y + 1);
-			}
+			}*/
 		}
 		//
 		if(x != 6) {
-			if(Board.is_empty(x + 1, y)) {
+			win = brandonvereenvoudig(grid, x, 1, y, 0, color);
+			/*if(Board.is_empty(x + 1, y)) {
 			grid = Board.add(grid, x, y, color);
 			grid = Board.add(grid, x + 1, y, color);
 			win = Rules.checkWin(grid, false);
 			Board.remove(grid, x, y);
 			Board.remove(grid, x + 1, y);
-			}
+			} */
 		}
 		//
 		if(x != 0) {
+			win = brandonvereenvoudig(grid, x, -1, y, 0, color);
+			/*
 			if(Board.is_empty(x - 1, y)) {
 			grid = Board.add(grid, x, y, color);
 			grid = Board.add(grid, x - 1, y, color);
@@ -77,15 +83,30 @@ public class AI {
 			Board.remove(grid, x, y);
 			Board.remove(grid, x - 1, y);
 			}
+			*/
 		}
 		if(y != 1) {
+			win = brandonvereenvoudig(grid, x, 0, y, 1, color);
+			/*
 			grid = Board.add(grid, x, y, color);
 			grid = Board.add(grid, x, y + 1, color);
 			win = Rules.checkWin(grid, false);
 			Board.remove(grid, x, y);
 			Board.remove(grid, x , y + 1);
+			*/
 		}
 		
 		return win;
+	}
+	boolean brandonvereenvoudig(Object[][] grid, int x, int xx, int y, int yy, Object color) {
+		if(Board.is_empty(x + xx, y)) {
+			grid = Board.add(grid, x, y, color);
+			grid = Board.add(grid, x+xx, y+yy, color);
+			boolean win = Rules.checkWin(grid, false);
+			Board.remove(grid, x, y);
+			Board.remove(grid, x+xx, y+yy);
+			return win;
+		}
+		return false;
 	}
 }
