@@ -70,7 +70,7 @@ public class AI {
 			else
 				bestValue = -1000000 + diff;
 		//else check if there has been a tie and assign that as the route
-		else if (Board.check_not_full(copy))
+		else if (!Board.check_not_full(copy))
 			bestValue = 0;
 		//else check if this is the last turn that the AI 'thinks' forward
 		else if (diff == dificulty) {
