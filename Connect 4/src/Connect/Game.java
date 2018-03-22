@@ -6,6 +6,7 @@ import java.util.Scanner;
 public class Game {
 	static Scanner scanner = new Scanner(System.in);
 	private int wich_turn = 0;
+	Object whoBegan = Board.red;
 	private int dificulty;
 	Game(int startPlayer, int set_dificulty) {
 		/* startPlayer = 0 Computer starts, = 1 Player starts */
@@ -25,8 +26,7 @@ public class Game {
 				computer = 7;
 				while(computer < 0 || 6 < computer)
 				{
-					//computer = doAI(Board.getCopiedBoard());
-					computer = helloAI.doSet(Board.getCopiedBoard());
+					computer = helloAI.doSet(Board.getBoard(), whoBegan);
 					if(computer < 0 || 6 < computer) {
 						computer = r.nextInt(7);
 					}
@@ -54,6 +54,10 @@ public class Game {
 			else
 				wich_turn = 0;	
 		}
+		if(wich_turn == 1)
+			whoBegan = Board.yellow;
+		else
+			whoBegan = Board.red;
 		Board.print_board();
 	}
 }

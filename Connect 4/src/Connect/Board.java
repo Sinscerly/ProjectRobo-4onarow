@@ -64,6 +64,14 @@ enum move{
 		}
 		return -1;
 	}
+	public static int check_empty(int index_x, Object[][] grid)
+	{
+		for(int y = 0; y < 6; y++)
+		{
+			if(grid[index_x][y] == empty) { return y;} 
+		}
+		return -1;
+	}
 	/* Deze kan nog versimpeld worden met check_empty */
 	public static boolean is_empty(int index_x)
 	{
@@ -104,6 +112,18 @@ enum move{
 		for(int i = 0; i < COLUMS; i++) {
 			if(check_empty(i) != -1) { return true; }
 		}
+		return false;
+	}
+	public static boolean check_not_full(Object[][] grid)
+	{
+		for(int i = 0; i < COLUMS; i++) {
+			if(check_empty(i, grid) != -1) return true;
+		}
+		return false;
+	}
+	public static boolean check_if_can_place(Object[][] grid, int place)
+	{
+		if(check_empty(place, grid) != -1) return true;
 		return false;
 	}
 }
