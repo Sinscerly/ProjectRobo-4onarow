@@ -1,41 +1,30 @@
 package Connect;
 
-import java.util.Random;
 import java.util.Scanner;
 
 public class Game {
 	static Scanner scanner = new Scanner(System.in);
-	private int wich_turn = 0;
-	Object whoBegan = Board.red;
-	private int dificulty;
+	private int whosTurn = 0;
+	Box whoBegan = Board.red;
+	private int difficulty;
+	public static int AI = 0, player = 1;
 	Game(int startPlayer, int set_dificulty) {
 		/* startPlayer = 0 Computer starts, = 1 Player starts */
-		if(startPlayer == 1) { wich_turn = startPlayer; }
-		dificulty = set_dificulty;
+		if(startPlayer == 1) { whosTurn = startPlayer; }
+		difficulty = set_dificulty;
 	}
 	
 	void start() {
 		int computer = 0, player = 0;
-		//player player1 = new player(board.red);
-		Board play = new Board();
-		Random r = new Random();
-		Board.print_board();
-		AI helloAI = new AI(dificulty); //rename this yet to be done
-		while(Rules.checkWin(Board.getBoard(), true) == false && play.check_not_full()) {
-			if(wich_turn == 0) {
-				computer = 7;
-				while(computer < 0 || 6 < computer)
-				{
-					computer = helloAI.doSet(Board.getBoard(), whoBegan);
-					if(computer < 0 || 6 < computer) {
-						computer = r.nextInt(7);
-					}
-					if(Board.check_empty(computer) == -1)
-							computer = 7;
-				}
+		Board newBoard = new Board();
+		Board.printBoard();
+		AI miniMaxAI = new AI(difficulty); //rename this yet to be done
+		while(Rules.checkWin(Board.getBoard(), true) == false && Board.checkNotFull()) {
+			if(whosTurn == 0) {
+				computer = miniMaxAI.doSet(Board.getBoard(), whoBegan);
 				System.out.print("Computer placed in row: " + (computer+1));
-				play.place_move(computer, Board.red);
-				Board.print_board();
+				Board.placeMove(computer, Board.red);
+				Board.printBoard();
 			}
 			else {
 				player = 0;
@@ -46,18 +35,18 @@ public class Game {
 					player = scanner.nextInt();
 					if(player < 1 || player > 7) System.out.println("Number out of bounds");
 				}
-				play.place_move(player-1, Board.yellow);
+				Board.placeMove(player-1, Board.yellow);
 			}
 			/* Let the other player make a move */
-			if(wich_turn < 1)
-				wich_turn++;
+			if(whosTurn < 1)
+				whosTurn++;
 			else
-				wich_turn = 0;	
+				whosTurn = 0;	
 		}
-		if(wich_turn == 1)
+		if(whosTurn == 1)
 			whoBegan = Board.yellow;
 		else
 			whoBegan = Board.red;
-		Board.print_board();
+		Board.printBoard();
 	}
 }

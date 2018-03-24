@@ -2,13 +2,13 @@ package Connect;
 
 
 public class Rules {
-	public static String checkWin(Object[][] grid) {
+	public static String checkWin(Box[][] grid) {
 		/* Check if there are 4 stone of the same color in one line on the board */
 		for(int y = 0; y < 6; y++)
 		{
 			for(int x = 0; x < 6; x++)
 			{
-				Object current = grid[x][y];
+				Box current = grid[x][y];
 				if(!current.toString().contains("Empty")) {
 					/* Horizontal check 4 on a row */
 					if(x < 4) {
@@ -38,13 +38,13 @@ public class Rules {
 		}
 		return "Empty";
 	}
-	public static boolean checkWin(Object[][] grid, boolean MSG) {
+	public static boolean checkWin(Box[][] grid, boolean MSG) {
 		/* Check if there are 4 stone of the same color in one line on the board */
 		for(int y = 0; y < 6; y++)
 		{
 			for(int x = 0; x < 6; x++)
 			{
-				Object current = grid[x][y];
+				Box current = grid[x][y];
 				if(!current.toString().contains("Empty")) {
 					/* Horizontal check 4 on a row */
 					if(x < 4) {
