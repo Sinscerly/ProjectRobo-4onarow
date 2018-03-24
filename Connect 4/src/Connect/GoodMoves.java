@@ -1,7 +1,7 @@
 package Connect;
 
 
-public class Rules {
+public class GoodMoves {
 	public static String checkWin(Box[][] grid) {
 		/* Check if there are 4 stones of the same color in one line on the board */
 		for(int y = 0; y < 6; y++)

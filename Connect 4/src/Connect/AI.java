@@ -62,8 +62,8 @@ public class AI {
 			nextColor = Board.red;
 		}
 		//check if there is a win and assign that as the route
-		if (Rules.checkWin(copy, false))
-			if (Rules.checkWin(copy) == "Red")
+		if (GoodMoves.checkWin(copy, false))
+			if (GoodMoves.checkWin(copy) == "Red")
 				bestValue = 1000000 - diff;
 			else
 				bestValue = -1000000 + diff;

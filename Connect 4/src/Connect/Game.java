@@ -19,7 +19,7 @@ public class Game {
 		Board newBoard = new Board();
 		Board.printBoard();
 		AI miniMaxAI = new AI(difficulty); //rename this yet to be done
-		while(Rules.checkWin(Board.getBoard(), true) == false && Board.checkNotFull()) {
+		while(GoodMoves.checkWin(Board.getBoard(), true) == false && Board.checkNotFull()) {
 			if(whosTurn == 0) {
 				computer = miniMaxAI.doSet(Board.getBoard(), whoBegan);
 				System.out.print("Computer placed in row: " + (computer+1));
