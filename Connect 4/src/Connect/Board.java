@@ -1,11 +1,11 @@
 package Connect;
 
 public class Board {
-	private static final int ROWS = 7, COLUMS = 6; 	//dimensions of the grid
-	private static Box[][] board = new Box[ROWS][COLUMS];
+	private static final int ROWS = 7, COLUMS = 6; 									//dimensions of the board
+	private static Box[][] board = new Box[ROWS][COLUMS];							//board that consist of boxes
 	public static Empty empty = new Empty();										//state of a box in the board
 	public static Red red = new Red();												//state of a box in the board
-	public static Yellow yellow = new Yellow();									//state of a box in the board
+	public static Yellow yellow = new Yellow();										//state of a box in the board
 	
 	public Board()
 	{		
@@ -22,13 +22,10 @@ public class Board {
 		return board;
 	}
 	public static int placeMove(int column, Box player) {
-		//the x tells wich player does the move.
 		int lowest_free = checkEmpty(column, board);
 		if(lowest_free != -1)
 		{
 			board[column][lowest_free] = player;
-			//last_move.co_x = column;
-			//last_move.co_y = lowest_free;
 		}
 		else
 		{

@@ -31,7 +31,7 @@ public class AI {
 				turns++;
 			}
 		}
-		// if no turns has been had or one by the player than place a piece.
+		// if no turns has been had or one by the player than place a stone.
 		if (turns == 0 && whoBegan == Board.red || turns == 1 && whoBegan == Board.yellow) {
 			if (grid[2][5] == Board.yellow) {
 				return 4;
@@ -81,7 +81,7 @@ public class AI {
 			else
 				bestValue = i;
 		} else {
-			//for every place that is free place a piece and repeat until diff == dificulty, c stands for column
+			//for every place that is free place a stone and repeat until diff == dificulty, c stands for column
 			for (int c = 0; c < 7; c++) {
 				//if the column has space left, r stands for row
 				int r = Board.checkEmpty(c, copy);

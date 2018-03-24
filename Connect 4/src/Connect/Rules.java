@@ -3,7 +3,7 @@ package Connect;
 
 public class Rules {
 	public static String checkWin(Box[][] grid) {
-		/* Check if there are 4 stone of the same color in one line on the board */
+		/* Check if there are 4 stones of the same color in one line on the board */
 		for(int y = 0; y < 6; y++)
 		{
 			for(int x = 0; x < 6; x++)
