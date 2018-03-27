@@ -8,9 +8,12 @@ public class AI {
 		difficulty = set_dificulty;
 	}
 
-	// decides a turn for the AI.
+	// returns the turn from the AI.
 	int doSet(Box[][] grid, Box whoBegan) {
+		long start = System.currentTimeMillis();
 		int bestMove = miniMax(grid, whoBegan);
+		long end = System.currentTimeMillis();
+		System.out.println("Took: " + ((end - start) / 1000) + "S.");
 		return bestMove;
 	}
 	// copies the grid so not to change the original
@@ -63,12 +66,12 @@ public class AI {
 		}
 		//check if there is a win and assign that as the route
 		if (GoodMoves.checkWin(copy, false))
-			if (GoodMoves.checkWin(copy) == "Red")
+			if (GoodMoves.checkWinningCondition(copy) == "Red")
 				bestValue = 1000000 - diff;
 			else
 				bestValue = -1000000 + diff;
 		//else check if there has been a tie and assign that as the route
-		else if (!Board.checkNotFull(copy))
+		else if (!Board.checkFull(copy))
 			bestValue = 0;
 		//else check if this is the last turn that the AI 'thinks' forward
 		else if (diff == difficulty) {
@@ -84,7 +87,7 @@ public class AI {
 			//for every place that is free place a stone and repeat until diff == dificulty, c stands for column
 			for (int c = 0; c < 7; c++) {
 				//if the column has space left, r stands for row
-				int r = Board.checkEmpty(c, copy);
+				int r = Board.checkColumnEmpty(c, copy);
 				if (r != -1) {
 					Box[][] newGrid = new Box[7][6];
 					//if this is not the last turn
@@ -110,7 +113,7 @@ public class AI {
 		else
 			return bestValue;
 	}
-	//check the value of the board
+	//check the value of the given grid
 	int check_value(Box[][] grid, Box color) {
 		int value = 0;
 		// vertical modifier = 10
