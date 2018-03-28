@@ -30,8 +30,10 @@ public class AI {
 		int turns = 0;
 		// checks if the player took more than one turn.
 		for (int col = 0; col < 7; col++) {
-			if (grid[col][0] == Board.yellow) {
-				turns++;
+			for (int row = 0; row < 6; row++) {
+				if (grid[col][row] == Board.yellow) {
+					turns++;
+				}
 			}
 		}
 		// if no turns has been had or one by the player than place a stone.
