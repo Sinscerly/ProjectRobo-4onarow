@@ -8,7 +8,7 @@ public class GoodMoves {
 		 * board
 		 */
 		for (int y = 0; y < 6; y++) {
-			for (int x = 0; x < 6; x++) {
+			for (int x = 0; x < 7; x++) {
 				Box current = grid[x][y];
 				if (!current.toString().contains("Empty")) {
 					/* Horizontal check 4 on a row */
@@ -49,7 +49,7 @@ public class GoodMoves {
 		 * board
 		 */
 		for (int y = 0; y < 6; y++) {
-			for (int x = 0; x < 6; x++) {
+			for (int x = 0; x < 7; x++) {
 				Box current = grid[x][y];
 				if (!current.toString().contains("Empty")) {
 					/* Horizontal check 4 on a row */
