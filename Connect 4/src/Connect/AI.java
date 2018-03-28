@@ -1,5 +1,7 @@
 package Connect;
 
+import java.util.Random;
+
 public class AI {
 	private int difficulty;
 
@@ -53,8 +55,9 @@ public class AI {
 	// decides which move is the best move. (The Board, total amount of turns the AI 'thinks' forward, who's turn it is checking)
 	int miniMax_move(Box[][] grid, int diff, Box color) {
 		//copies the grid to a temporary grid
+		Random rand = new Random();
 		Box[][] copy = copyGrid(grid);
-		int bestMove = 0;
+		int bestMove = -1;
 		int bestValue = -1000000;
 		int player;
 		Box nextColor;
@@ -80,11 +83,17 @@ public class AI {
 			//check the value of the last turn and if it is not 0 than change the value = player * (i - diff) else make best value 0
 			//red = 2
 			//yellow = 1
-			int i = check_value(copy, color);
-			if (i != 0)
-				bestValue = player * (i - diff);
-			else
-				bestValue = i;
+			if (difficulty != 0) {
+				int i = check_value(copy, color);
+				if (i != 0)
+					bestValue = player * (i - diff);
+				else
+					bestValue = i;
+			} else {
+				bestMove = rand.nextInt(6);
+				if(Board.checkColumnEmpty(bestMove, grid) == -1)
+				bestMove = rand.nextInt(6);
+			}
 		} else {
 			//for every place that is free place a stone and repeat until diff == dificulty, c stands for column
 			for (int c = 0; c < 7; c++) {
