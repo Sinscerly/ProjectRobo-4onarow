@@ -9,12 +9,11 @@ public class Game {
 	private int difficulty;
 	public static int AI = 0, player = 1;
 
-	Game(int startPlayer, int set_dificulty) {
+	Game(int startPlayer) {
 		/* startPlayer = 0 Computer starts, = 1 Player starts */
 		if (startPlayer == 1) {
 			whosTurn = startPlayer;
 		}
-		difficulty = set_dificulty;
 	}
 	//starts the game
 	void start() {
@@ -49,5 +48,8 @@ public class Game {
 		else
 			whoBegan = Board.red;
 		Board.printBoard();
+	}
+	public void setDifficulty(int difficulty) {
+		this.difficulty = difficulty;
 	}
 }
