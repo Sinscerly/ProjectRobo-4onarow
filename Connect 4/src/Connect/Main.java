@@ -3,11 +3,12 @@ package Connect;
 public class Main {
 
 	public static void main(String[] args) {
-		int difficulty = -1;
+		int difficulty;
 		int x = 0;
 		Game startGame = new Game(Game.AI);
 		while (x == 0) {
 			System.out.println("Do you want to play a game?");
+			difficulty = -1;
 			while(0 > difficulty || difficulty > 8) {
 				System.out.println(
 					"At what difficulty do you want to play? \n"
