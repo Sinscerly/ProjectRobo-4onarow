@@ -20,10 +20,12 @@ public class Game {
 		int computer = 0, player = 0;
 		Board.setupBoard();
 		Board.printBoard();
-		AI miniMaxAI = new AI(difficulty);
+		//AI miniMaxAI = new AI(difficulty);
+		AI_neural neuralAI = new AI_neural();
 		while (GoodMoves.checkWin(Board.getBoard(), true) == false && Board.checkFull(Board.getBoard())) {
 			if (whosTurn == 0) {
-				computer = miniMaxAI.doSet(Board.getBoard(), whoBegan);
+				//computer = miniMaxAI.doSet(Board.getBoard(), whoBegan);
+				computer = neuralAI.guess();
 				System.out.print("Computer placed in row: " + (computer + 1));
 				Board.placeMove(computer, Board.red);
 				Board.printBoard();
