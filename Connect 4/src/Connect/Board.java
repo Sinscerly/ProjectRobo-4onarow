@@ -1,5 +1,9 @@
 package Connect;
 
+import org.fusesource.jansi.AnsiConsole;
+import static org.fusesource.jansi.Ansi.*;
+import static org.fusesource.jansi.Ansi.Color.*;
+
 public class Board {
 	private static final int ROWS = 7, COLUMS = 6; // dimensions of the board
 	private static Box[][] board = new Box[ROWS][COLUMS]; // board that consist of boxes
@@ -43,6 +47,7 @@ public class Board {
 	}
 	//prints the board (for testing purposes only)
 	public static void printBoard() {
+		AnsiConsole.systemInstall();
 		System.out.println("");
 		System.out.println("| 1   2   3   4   5   6   7 |");
 		for (int y = COLUMS - 1; y >= 0; y--) {
@@ -51,7 +56,7 @@ public class Board {
 				if (board[x][y] == empty)
 					System.out.print(empty.name + " | ");
 				else if (board[x][y] == red)
-					System.out.print(red.name + " | ");
+					System.out.print(ansi().fg(RED).a(red.name) + " | ");
 				else
 					System.out.print(yellow.name + " | ");
 			}

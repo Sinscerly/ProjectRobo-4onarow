@@ -6,7 +6,7 @@ public class Game {
 	static Scanner scanner = new Scanner(System.in);
 	private int whosTurn = 0;
 	Box whoBegan = Board.red;
-	private int difficulty1, difficulty2 = 2;
+	private int difficulty1 = 4, difficulty2 = 5;
 	public static int AI = 0, player = 1;
 	public int sets; // total number of sets of a game..
 
@@ -16,10 +16,10 @@ public class Game {
 			whosTurn = startPlayer;
 		}
 	}
-	AI miniMaxAI = new AI(difficulty1);
-	AI m2 = new AI(difficulty2);
 	//starts the game
 	void start() {
+		AI miniMaxAI = new AI(difficulty1);
+		AI m2 = new AI(difficulty2);
 		//change set to move
 		int p1_set = 0, p2_set = 0;
 		sets = 0;
@@ -69,5 +69,6 @@ public class Game {
 	}
 	public void setDifficulty(int difficulty) {
 		this.difficulty1 = difficulty;
+		System.out.println("check diff");
 	}
 }
