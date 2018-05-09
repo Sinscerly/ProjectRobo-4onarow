@@ -1,7 +1,10 @@
 package Connect;
 
+import java.util.Random;
+
 public class AI {
 	private int difficulty;
+	public long start, end;
 
 	AI(int set_dificulty) {
 		// sets the total amount of turns the AI 'thinks' forward.
@@ -10,10 +13,9 @@ public class AI {
 
 	// returns the turn from the AI.
 	int doSet(Box[][] grid, Box whoBegan) {
-		long start = System.currentTimeMillis();
+		start = System.currentTimeMillis();
 		int bestMove = miniMax(grid, whoBegan);
-		long end = System.currentTimeMillis();
-		System.out.println("Took: " + ((end - start) / 1000) + "S.");
+		end = System.currentTimeMillis();
 		return bestMove;
 	}
 	// copies the grid so not to change the original
@@ -54,6 +56,7 @@ public class AI {
 	int miniMax_move(Box[][] grid, int diff, Box color) {
 		//copies the grid to a temporary grid
 		Box[][] copy = copyGrid(grid);
+		Random rand = new Random();
 		int bestMove = 0;
 		int bestValue = -1000000;
 		int player;
@@ -76,15 +79,22 @@ public class AI {
 		else if (!Board.checkFull(copy))
 			bestValue = 0;
 		//else check if this is the last turn that the AI 'thinks' forward
-		else if (diff == difficulty) {
-			//check the value of the last turn and if it is not 0 than change the value = player * (i - diff) else make best value 0
-			//red = 2
-			//yellow = 1
-			int i = check_value(copy, color);
-			if (i != 0)
-				bestValue = player * (i - diff);
-			else
-				bestValue = i;
+		//else check if this is the last turn that the AI 'thinks' forward
+				else if (diff == difficulty) {
+					//check the value of the last turn and if it is not 0 than change the value = player * (i - diff) else make best value 0
+					//red = 2
+					//yellow = 1
+					if (difficulty != 0) {
+						int i = check_value(copy, color);
+						if (i != 0)
+							bestValue = player * (i - diff);
+						else
+							bestValue = i;
+					} else {
+						bestMove = rand.nextInt(6);
+						if(Board.checkColumnEmpty(bestMove, grid) == -1)
+						bestMove = rand.nextInt(6);
+					}
 		} else {
 			//for every place that is free place a stone and repeat until diff == dificulty, c stands for column
 			for (int c = 0; c < 7; c++) {
@@ -399,6 +409,19 @@ public class AI {
 						&& grid[col + 3][row] == color && grid[col + 4][row] == Board.empty) {
 					value += 2000 * h;
 				}
+		for (int row = 0; row < 2; row ++)
+		{
+			if(grid[0][row+3] == Board.empty && grid[1][row+2] == color && grid[2][row+1] == color && grid[3][row] == color && grid[4][row+1] == color && grid[5][row+2] == color && grid[6][row+3] == Board.empty)
+			{
+				value+= 10000;
+			}
+			if(grid[0][row] == Board.empty && grid[1][row+1] == color && grid[2][row+2] == color && grid[3][row+3] == color && grid[4][row+2] == color && grid[5][row+1] == color && grid[6][row] == Board.empty)
+			{
+				value+= 10000;
+			}
+		}
+		
+				
 		return value;
 	}
 }
