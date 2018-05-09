@@ -1,5 +1,19 @@
 package Connect;
 
+import java.awt.List;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.io.Writer;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Game {
@@ -18,8 +32,7 @@ public class Game {
 		}
 	}
 	//starts the game
-	void start() throws InterruptedException {
-		System.out.println(difficulty2);
+	void start() throws InterruptedException, UnsupportedEncodingException, IOException {
 		if(difficulty2 == -1)
 		{
 			pvc();
@@ -33,7 +46,7 @@ public class Game {
 	{
 		AI miniMaxAI = new AI(difficulty1);
 		//change set to move
-		int p1_set = 0, p2_set = 0;
+		int p1_set = 0;
 		sets = 0;
 		Board.setupBoard();
 		Board.printBoard();
@@ -67,7 +80,7 @@ public class Game {
 			whoBegan = Board.red;
 		Board.printBoard();
 	}
-	void cvc() throws InterruptedException
+	void cvc() throws InterruptedException, UnsupportedEncodingException, IOException
 	{
 		AI miniMaxAI = new AI(difficulty1);
 		AI m2 = new AI(difficulty2);
@@ -99,9 +112,9 @@ public class Game {
 		}
 		// what was this???
 		if (whosTurn == 1)
-			whoBegan = Board.yellow;
+			Main.printString += difficulty1 + " VS " + difficulty2 + ": cpu 1 wins.";
 		else
-			whoBegan = Board.red;
+			Main.printString += difficulty1 + " VS " + difficulty2 + ": cpu 2 wins.";
 		Board.printBoard();
 	}
 	public int ai_move(AI smart) {
@@ -128,7 +141,6 @@ public class Game {
 	}
 	public void setDifficulty1(int difficulty) {
 		this.difficulty1 = difficulty;
-		System.out.println("check diff");
 	}
 	public void setDifficulty2(int difficulty){
 		this.difficulty2 = difficulty;

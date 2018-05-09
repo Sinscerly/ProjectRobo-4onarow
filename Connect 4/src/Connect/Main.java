@@ -1,17 +1,27 @@
 package Connect;
 
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.io.Writer;
+
 public class Main {
 
 	static int diffCpu1;
 	static int diffCpu2;
-	public static boolean vali = false;
+	public static String printString = "";
+	public static boolean print = false;
 
-	public static void main(String[] args) throws InterruptedException {
+	public static void main(String[] args) throws InterruptedException, UnsupportedEncodingException, IOException {
 		String input;
 		while (true) {
 			System.out.println("What type of game do you want?");
 			System.out.println("a: player VS cpu.");
 			System.out.println("b: cpu VS cpu.");
+			System.out.println("c: cpu VS cpu all diff.");
 			System.out.println("x: exit.");
 			System.out.print("Your anwser: ");
 			input =  Game.scanner.next();
@@ -23,6 +33,12 @@ public class Main {
 			{
 				cvc();
 			}
+			else if(input.equals("c"))
+			{
+				print = true;
+				cvcad();
+				print = false;
+			}
 			else if(input.equals("x"))
 			{
 				break;
@@ -30,7 +46,7 @@ public class Main {
 		}
 	}
 	
-	private static void pvc() throws InterruptedException
+	private static void pvc() throws InterruptedException, UnsupportedEncodingException, IOException
 	{
 		Game startGame = new Game(Game.AI);
 		System.out.println("Do you want to play a game?");
@@ -44,7 +60,7 @@ public class Main {
 		System.out.println("");
 		startGame.start();
 	}
-	private static void cvc() throws InterruptedException
+	private static void cvc() throws InterruptedException, UnsupportedEncodingException, IOException
 	{
 		System.out.println("Do you want to see the progress?");
 		System.out.println("y/n?");
@@ -67,6 +83,33 @@ public class Main {
 		System.out.println(diffCpu1 + " vs " + diffCpu2);
 		System.out.println("");
 		startGame.start();
+	}
+	private static void cvcad() throws InterruptedException, UnsupportedEncodingException, IOException
+	{
+		diffCpu1 = 1;
+		diffCpu2 = 1;
+		for(int i = 1; i < 9; i++)
+		{
+			diffCpu1 = i;
+			for(int j = 1; j < 9; j++)
+			{
+				long start = System.currentTimeMillis();
+				diffCpu2 = j;
+				Game startGame = new Game(Game.AI);
+				startGame.setDifficulty1(diffCpu1);
+				startGame.setDifficulty2(diffCpu2);
+				System.out.println(diffCpu1 + " vs " + diffCpu2);
+				System.out.println("");
+				startGame.start();
+				long end = System.currentTimeMillis();
+				System.out.println("Total time = " + ((end - start) / 1000) + "S.");
+				printString += " Time it took: " + ((end - start) / 1000) + "S.\n";
+			}
+		}
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+	              new FileOutputStream("wins.txt"), "utf-8"))) {
+	   writer.write(printString);
+	}
 	}
 	static void printDiff(String player)
 	{
