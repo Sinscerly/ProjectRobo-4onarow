@@ -90,9 +90,9 @@ public class GoodMoves {
 		else if (MSG == true)
 			Board.printBoard();
 			if (aString.contains("Red"))
-				System.out.println("Red has won, you lost");
+				System.out.println("Red has won.");
 			else
-				System.out.println("Yellow has won, you won");
+				System.out.println("Yellow has won.");
 		return true;
 	}
 }

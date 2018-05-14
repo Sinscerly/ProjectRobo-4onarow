@@ -28,18 +28,7 @@ public class Game {
 		AI miniMaxAI = new AI(difficulty);
 		Board.setupBoard();
 		Board.printBoard();
-<<<<<<< HEAD
-		//AI miniMaxAI = new AI(difficulty);
-		AI_neural neuralAI = new AI_neural();
-		while (GoodMoves.checkWin(Board.getBoard(), true) == false && Board.checkFull(Board.getBoard())) {
-			if (whosTurn == 0) {
-				//computer = miniMaxAI.doSet(Board.getBoard(), whoBegan);
-				computer = neuralAI.guess();
-				System.out.print("Computer placed in row: " + (computer + 1));
-				Board.placeMove(computer, Board.red);
-				Board.printBoard();
-=======
-
+		
 		while (GoodMoves.checkWin(Board.getBoard(), true) == false && Board.checkFull(Board.getBoard())) {
 			if (whosTurn == 0) {
 				AI(miniMaxAI, Board.red);
@@ -65,7 +54,6 @@ public class Game {
 					Board.printBoard();
 					Thread.sleep(1000);
 				}
->>>>>>> refs/remotes/origin/aiVSai_alldiff
 				whosTurn = 1;
 			} else {
 				AI(m2, Board.yellow);
