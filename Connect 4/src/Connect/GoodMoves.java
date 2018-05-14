@@ -1,7 +1,7 @@
 package Connect;
 
 public class GoodMoves {
-	//checks if there is a winning condition
+	// checks if there is a winning condition
 	public static String checkWinningCondition(Box[][] grid) {
 		/*
 		 * Check if there are 4 stones of the same color in one line on the
@@ -88,6 +88,7 @@ public class GoodMoves {
 		if (aString.contains("Empty"))
 			return false;
 		else if (MSG == true)
+			Board.printBoard();
 			if (aString.contains("Red"))
 				System.out.println("Red has won, you lost");
 			else
