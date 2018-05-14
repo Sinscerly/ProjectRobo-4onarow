@@ -33,7 +33,7 @@ public class Game {
 	{
 		AI miniMaxAI = new AI(difficulty1);
 		//change set to move
-		int p1_set = 0, p2_set = 0;
+		int p1_set = 0;
 		sets = 0;
 		Board.setupBoard();
 		Board.printBoard();
@@ -45,17 +45,7 @@ public class Game {
 				Board.printBoard();
 				whosTurn = 1;
 			} else {
-				player = 0;
-				System.out.println("");
-				System.out.print("Enter a row Yellow: ");
-				while (player < 1 || player > 7) // check of het tussen de 1 en
-													// 7 is
-				{
-					player = scanner.nextInt();
-					if (player < 1 || player > 7)
-						System.out.println("Number out of bounds");
-				}
-				Board.placeMove(player - 1, Board.yellow);
+				player();
 				whosTurn = 0;
 			}
 			sets++;
@@ -103,6 +93,20 @@ public class Game {
 		else
 			whoBegan = Board.red;
 		Board.printBoard();
+	}
+	void player()
+	{
+		player = 0;
+		System.out.println("");
+		System.out.print("Enter a row Yellow: ");
+		while (player < 1 || player > 7) // check of het tussen de 1 en
+											// 7 is
+		{
+			player = scanner.nextInt();
+			if (player < 1 || player > 7)
+				System.out.println("Number out of bounds");
+		}
+		Board.placeMove(player - 1, Board.yellow);
 	}
 	public int ai_move(AI smart) {
 		//change set to move
