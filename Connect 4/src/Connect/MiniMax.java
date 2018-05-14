@@ -2,11 +2,11 @@ package Connect;
 
 import java.util.Random;
 
-public class AI {
+public class MiniMax {
 	private int difficulty;
 	public long start, end;
 
-	AI(int set_dificulty) {
+	MiniMax(int set_dificulty) {
 		// sets the total amount of turns the AI 'thinks' forward.
 		difficulty = set_dificulty;
 	}
@@ -56,17 +56,10 @@ public class AI {
 	// decides which move is the best move. (The Board, total amount of turns
 	// the AI 'thinks' forward, who's turn it is checking)
 	int miniMax_move(Box[][] grid, int diff, Box color) {
-<<<<<<< HEAD
-		//copies the grid to a temporary grid
-		Random rand = new Random();
-		Box[][] copy = copyGrid(grid);
-		int bestMove = -1;
-=======
 		// copies the grid to a temporary grid
 		Box[][] copy = copyGrid(grid);
 		Random rand = new Random();
 		int bestMove = 0;
->>>>>>> refs/remotes/origin/aiVSai_alldiff
 		int bestValue = -1000000;
 		int player;
 		Box nextColor;
@@ -90,16 +83,10 @@ public class AI {
 		// else check if this is the last turn that the AI 'thinks' forward
 		// else check if this is the last turn that the AI 'thinks' forward
 		else if (diff == difficulty) {
-<<<<<<< HEAD
-			//check the value of the last turn and if it is not 0 than change the value = player * (i - diff) else make best value 0
-			//red = 2
-			//yellow = 1
-=======
 			// check the value of the last turn and if it is not 0 than change
 			// the value = player * (i - diff) else make best value 0
 			// red = 2
 			// yellow = 1
->>>>>>> refs/remotes/origin/aiVSai_alldiff
 			if (difficulty != 0) {
 				int i = check_value(copy, color);
 				if (i != 0)
@@ -108,13 +95,8 @@ public class AI {
 					bestValue = i;
 			} else {
 				bestMove = rand.nextInt(6);
-<<<<<<< HEAD
-				if(Board.checkColumnEmpty(bestMove, grid) == -1)
-				bestMove = rand.nextInt(6);
-=======
 				if (Board.checkColumnEmpty(bestMove, grid) == -1)
 					bestMove = rand.nextInt(6);
->>>>>>> refs/remotes/origin/aiVSai_alldiff
 			}
 		} else {
 			// for every place that is free place a stone and repeat until diff

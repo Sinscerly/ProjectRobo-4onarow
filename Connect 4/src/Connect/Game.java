@@ -25,7 +25,7 @@ public class Game {
 	}
 
 	void pvc(int difficulty) {
-		AI miniMaxAI = new AI(difficulty);
+		MiniMax miniMaxAI = new MiniMax(difficulty);
 		Board.setupBoard();
 		Board.printBoard();
 		
@@ -42,8 +42,8 @@ public class Game {
 	}
 
 	void cvc(int difficulty1, int difficulty2) throws InterruptedException {
-		AI miniMaxAI = new AI(difficulty1);
-		AI m2 = new AI(difficulty2);
+		MiniMax miniMaxAI = new MiniMax(difficulty1);
+		MiniMax m2 = new MiniMax(difficulty2);
 		Board.setupBoard();
 		Board.printBoard();
 
@@ -91,12 +91,12 @@ public class Game {
 		Board.placeMove(player - 1, color);
 	}
 
-	void AI(AI ai, Box color) {
+	void AI(MiniMax ai, Box color) {
 		int set = ai_move(ai);
 		Board.placeMove(set, color);
 	}
 
-	public int ai_move(AI smart) {
+	public int ai_move(MiniMax smart) {
 		// change set to move
 		int ai_set = 0;
 		ai_set = smart.doSet(Board.getBoard(), whoBegan);
