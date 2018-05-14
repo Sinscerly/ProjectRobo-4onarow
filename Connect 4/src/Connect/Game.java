@@ -58,17 +58,7 @@ public class Game {
 				Board.printBoard();
 				whosTurn = 1;
 			} else {
-				player = 0;
-				System.out.println("");
-				System.out.print("Enter a row Yellow: ");
-				while (player < 1 || player > 7) // check of het tussen de 1 en
-													// 7 is
-				{
-					player = scanner.nextInt();
-					if (player < 1 || player > 7)
-						System.out.println("Number out of bounds");
-				}
-				Board.placeMove(player - 1, Board.yellow);
+				player();
 				whosTurn = 0;
 			}
 			sets++;
@@ -116,6 +106,20 @@ public class Game {
 		else
 			Main.printString += difficulty1 + " VS " + difficulty2 + ": cpu 2 wins.";
 		Board.printBoard();
+	}
+	void player()
+	{
+		player = 0;
+		System.out.println("");
+		System.out.print("Enter a row Yellow: ");
+		while (player < 1 || player > 7) // check of het tussen de 1 en
+											// 7 is
+		{
+			player = scanner.nextInt();
+			if (player < 1 || player > 7)
+				System.out.println("Number out of bounds");
+		}
+		Board.placeMove(player - 1, Board.yellow);
 	}
 	public int ai_move(AI smart) {
 		//change set to move
