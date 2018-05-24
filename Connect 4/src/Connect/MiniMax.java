@@ -12,9 +12,9 @@ public class MiniMax {
 	}
 
 	// returns the turn from the AI.
-	int doSet(Box[][] grid, Box whoBegan) {
+	int doSet(Box[][] grid, Box whoBegan, Box Ai, Box eAi) {
 		start = System.currentTimeMillis();
-		int bestMove = miniMax(grid, whoBegan);
+		int bestMove = miniMax(grid, whoBegan, Ai, eAi);
 		end = System.currentTimeMillis();
 		return bestMove;
 	}
@@ -29,33 +29,33 @@ public class MiniMax {
 	}
 
 	// decides the first turn of the game for the AI.
-	public int miniMax(Box[][] grid, Box whoBegan) {
+	public int miniMax(Box[][] grid, Box whoBegan, Box Ai, Box eAi) {
 		int turns = 0;
 		// checks if the player took more than one turn.
 		for (int col = 0; col < 7; col++) {
 			for (int row = 0; row < 6; row++) {
-				if (grid[col][row] == Board.yellow) {
+				if (grid[col][row] == eAi) {
 					turns++;
 				}
 			}
 		}
 		// if no turns has been had or one by the player than place a stone.
-		if (turns == 0 && whoBegan == Board.red || turns == 1 && whoBegan == Board.yellow) {
-			if (grid[2][5] == Board.yellow) {
+		if (turns == 0 && whoBegan == Ai || turns == 1 && whoBegan == eAi) {
+			if (grid[2][5] == eAi) {
 				return 4;
-			} else if (grid[4][5] == Board.yellow) {
+			} else if (grid[4][5] == eAi) {
 				return 2;
 			} else {
 				return 3;
 			}
 		}
 		// if the AI took a turn.
-		return miniMax_move(grid, 0, whoBegan);
+		return miniMax_move(grid, 0, Ai, eAi);
 	}
 
 	// decides which move is the best move. (The Board, total amount of turns
 	// the AI 'thinks' forward, who's turn it is checking)
-	int miniMax_move(Box[][] grid, int diff, Box color) {
+	int miniMax_move(Box[][] grid, int diff, Box Ai, Box eAi) {
 		// copies the grid to a temporary grid
 		Box[][] copy = copyGrid(grid);
 		Random rand = new Random();
@@ -63,17 +63,19 @@ public class MiniMax {
 		int bestValue = -1000000;
 		int player;
 		Box nextColor;
+		String c;
+		if (Ai == Board.red)
+			c = "red";
+		else
+			c = "yellow";
 		// checks who's turn it is.
-		if (color == Board.red) {
+		if (Ai == Board.red)
 			player = 2;
-			nextColor = Board.yellow;
-		} else {
+		else 
 			player = 1;
-			nextColor = Board.red;
-		}
 		// check if there is a win and assign that as the route
 		if (GoodMoves.checkWin(copy, false))
-			if (GoodMoves.checkWinningCondition(copy) == "Red")
+			if (GoodMoves.checkWinningCondition(copy) == c)
 				bestValue = 1000000 - diff;
 			else
 				bestValue = -1000000 + diff;
@@ -88,7 +90,7 @@ public class MiniMax {
 			// red = 2
 			// yellow = 1
 			if (difficulty != 0) {
-				int i = check_value(copy, color);
+				int i = check_value(copy, Ai);
 				if (i != 0)
 					bestValue = player * (i - diff);
 				else
@@ -101,9 +103,9 @@ public class MiniMax {
 		} else {
 			// for every place that is free place a stone and repeat until diff
 			// == dificulty, c stands for column
-			for (int c = 0; c < 7; c++) {
+			for (int col = 0; col < 7; col++) {
 				// if the column has space left, r stands for row
-				int r = Board.checkColumnEmpty(c, copy);
+				int r = Board.checkColumnEmpty(col, copy);
 				if (r != -1) {
 					Box[][] newGrid = new Box[7][6];
 					// if this is not the last turn
@@ -111,14 +113,14 @@ public class MiniMax {
 						// copy the grid to newGrid
 						newGrid = copyGrid(grid);
 						// place a piece on (c,r)
-						newGrid[c][r] = color;
+						newGrid[col][r] = Ai;
 						// do this over again but than the returning number
 						// times -1 since it is the other player, v stands for
 						// value
-						int v = -miniMax_move(newGrid, diff + 1, nextColor);
+						int v = -miniMax_move(newGrid, diff + 1,  eAi, Ai);
 						// if the next move has a higher value
 						if (v >= bestValue) {
-							bestMove = c;
+							bestMove = col;
 							bestValue = v;
 						}
 					}

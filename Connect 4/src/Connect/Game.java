@@ -31,7 +31,7 @@ public class Game {
 		
 		while (GoodMoves.checkWin(Board.getBoard(), true) == false && Board.checkFull(Board.getBoard())) {
 			if (whosTurn == 0) {
-				AI(miniMaxAI, Board.red);
+				AI(miniMaxAI, Board.red, Board.yellow);
 				whosTurn = 1;
 			} else {
 				player(Board.yellow);
@@ -49,14 +49,14 @@ public class Game {
 
 		while (GoodMoves.checkWin(Board.getBoard(), true) == false && Board.checkFull(Board.getBoard())) {
 			if (whosTurn == 0) {
-				AI(miniMaxAI, Board.red);
+				AI(miniMaxAI, Board.red, Board.yellow);
 				if (seeProgress) {
 					Board.printBoard();
 					Thread.sleep(1000);
 				}
 				whosTurn = 1;
 			} else {
-				AI(m2, Board.yellow);
+				AI(m2, Board.yellow, Board.red);
 				if (seeProgress) {
 					Board.printBoard();
 					Thread.sleep(1000);
@@ -91,15 +91,15 @@ public class Game {
 		Board.placeMove(player - 1, color);
 	}
 
-	void AI(MiniMax ai, Box color) {
-		int set = ai_move(ai);
-		Board.placeMove(set, color);
+	void AI(MiniMax ai, Box Ai, Box eAi) {
+		int set = ai_move(ai, Ai, eAi);
+		Board.placeMove(set, Ai);
 	}
 
-	public int ai_move(MiniMax smart) {
+	public int ai_move(MiniMax smart, Box Ai, Box eAi) {
 		// change set to move
 		int ai_set = 0;
-		ai_set = smart.doSet(Board.getBoard(), whoBegan);
+		ai_set = smart.doSet(Board.getBoard(), whoBegan, Ai, eAi);
 		System.out.print("Computer placed in row: " + (ai_set + 1));
 		System.out.println("Took: " + ((smart.end - smart.start) / 1000) + "S.");
 		return ai_set;
