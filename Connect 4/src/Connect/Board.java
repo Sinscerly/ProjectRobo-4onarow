@@ -2,7 +2,8 @@ package Connect;
 
 public class Board {
 	private static final int ROWS = 7, COLUMS = 6; // dimensions of the board
-	private static Box[][] board = new Box[ROWS][COLUMS]; // board that consist of boxes
+	private static Box[][] board = new Box[ROWS][COLUMS]; // board that consist
+															// of boxes
 	public static Empty empty = new Empty(); // state of a box in the board
 	public static Red red = new Red(); // state of a box in the board
 	public static Yellow yellow = new Yellow(); // state of a box in the board
@@ -32,7 +33,8 @@ public class Board {
 		}
 		return 1;
 	}
-	//checks if the chosen grid has space in the desired column
+
+	// checks if the chosen grid has space in the desired column
 	public static int checkColumnEmpty(int index_x, Box[][] grid) {
 		for (int y = 0; y < 6; y++) {
 			if (grid[index_x][y] == empty) {
@@ -41,7 +43,8 @@ public class Board {
 		}
 		return -1;
 	}
-	//prints the board (for testing purposes only)
+
+	// prints the board (for testing purposes only)
 	public static void printBoard() {
 		System.out.println("");
 		System.out.println("| 1   2   3   4   5   6   7 |");
@@ -58,12 +61,14 @@ public class Board {
 			System.out.println();
 		}
 	}
-	//checks if the board is full
+
+	// checks if the board is full
 	public static boolean checkFull(Box[][] grid) {
-		for (int i = 0; i < COLUMS; i++) {
+		for (int i = 0; i < ROWS; i++) {
 			if (checkColumnEmpty(i, grid) != -1)
 				return true;
 		}
+		System.out.println("It's a tie!");
 		return false;
 	}
 }
