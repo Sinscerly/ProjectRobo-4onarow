@@ -49,9 +49,6 @@ def main():
 	if index > 41:
 		order_array(array, index)
 	print_circles(array, index, 1000)
-	i = 2
-	for i in range(i, 5):
-		print(str(i))
     cv.imshow("source", src)
     cv.waitKey(0)
 
