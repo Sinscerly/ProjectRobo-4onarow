@@ -43,69 +43,69 @@ def main():
 	array = read_circles(circles, index)
 #Output graphic
 	cv.imshow("detected circles", output)
-	print("total amount of circles: " + str(index))
-	print_circles(array, index, 140)
-	print()
+
 	if index > 41:
 		order_array(array, index)
-	print_circles(array, index, 1000)
+	print_circles(array, index)
     cv.imshow("source", src)
     cv.waitKey(0)
 
 def read_circles(a_circles, i):
+#Conferting the array from circles to what we need
 	data = [[0 for x in range(2)] for y in range(i)]
 	for j in range(i):
 		point_x = a_circles[0][j][0]
 		point_y = a_circles[0][j][1]
 		data[j][0] = point_x
 		data[j][1] = point_y
-#	print (str(data[0][0]))
 	return data
 
-def print_circles(array, top, high):
+def print_circles(array, top):
+#Function for printing the new created array. Splitted in COLLUMS.
 	print()
 	x = 0
 	for index in range(top):
-		if array[index][0] < high:
-			print("\tx:" + str(array[index][0]) + "\t\ty:" + str(array[index][1]))
+		print("\tx:" + str(array[index][0]) + "\t\ty:" + str(array[index][1]))
 		x += 1
 		if x > 5:
 			print()
 			x = 0
+	print("total amount of circles: " + str(top))
 	return 1
 
 def order_array(array, length):
-# gesorteerd op kollommen, van links naar rechts
+#Sorting the COLLUMS, the X positions from LOW to HIGH
 	start_pos = 0
 	for k in range(7):	
 		for j in range(start_pos, 6 + start_pos):
 			next_lowest = find_lowest_x(array, j, length)
 			array = swapp(array, next_lowest, length, j, 0, 0)
 		start_pos += 6
-# nu sorteren op rijen, van laag naar hoog
+#Sorting the ROWS, the Y positions from HIGH to LOW
 	start_pos 	= 0
 	end_pos 	= 6
 	for k in range(7):
 		for j in range(start_pos, end_pos):
-			next_lowest = find_lowest_y(array, j, end_pos)
-			array = swapp(array, next_lowest, length, j, 1, end_pos)
+			next_highest = find_highest_y(array, j, end_pos)
+			array = swapp(array, next_highest, length, j, 1, end_pos)
 		start_pos 	+= 6
 		end_pos 	+= 6
 	return array
 
 def find_lowest_x(array, index, length):
+#Finds the next lowest in the array that isn't been processed yet.
 	lowest = 10000
 	for i in range(index, length):
 		if array[i][0] < lowest:
 			lowest = array[i][0]
 	return lowest
-def find_lowest_y(array, index, length):
-	lowest = 10000
+def find_highest_y(array, index, length):
+#Finds the next highest in the array that isn't been processed yet.
+	highest = 0
 	for i in range(index, length):
-		if array[i][1] < lowest:
-			lowest = array[i][1]
-			print("plek: " + str(i) + ". waarde: " + str(lowest))
-	return lowest
+		if array[i][1] > highest:
+			highest = array[i][1]
+	return highest
 
 def swapp(array, num, length, new_place, x_or_y, end_pos):
 	from_j = 0
