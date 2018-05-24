@@ -62,11 +62,16 @@ def read_circles(a_circles, i):
 #	print (str(data[0][0]))
 	return data
 
-def print_circles(array, i, high):
+def print_circles(array, top, high):
 	print()
-	for j in range(i):
-		if array[j][0] < high:
-			print("\tx:" + str(array[j][0]) + "\t\ty:" + str(array[j][1]))
+	x = 0
+	for index in range(top):
+		if array[index][0] < high:
+			print("\tx:" + str(array[index][0]) + "\t\ty:" + str(array[index][1]))
+		x += 1
+		if x > 5:
+			print()
+			x = 0
 	return 1
 
 def order_array(array, length):
@@ -75,24 +80,39 @@ def order_array(array, length):
 	for k in range(7):	
 		for j in range(start_pos, 6 + start_pos):
 			next_lowest = find_lowest_x(array, j, length)
-			array = swapped(array, next_lowest, length, j)
+			array = swapp(array, next_lowest, length, j, 0, 0)
 		start_pos += 6
 # nu sorteren op rijen, van laag naar hoog
-	
+	start_pos 	= 0
+	end_pos 	= 6
+	for k in range(7):
+		for j in range(start_pos, end_pos):
+			next_lowest = find_lowest_y(array, j, end_pos)
+			array = swapp(array, next_lowest, length, j, 1, end_pos)
+		start_pos 	+= 6
+		end_pos 	+= 6
 	return array
 
 def find_lowest_x(array, index, length):
 	lowest = 10000
-	nearest = 0
 	for i in range(index, length):
 		if array[i][0] < lowest:
 			lowest = array[i][0]
 	return lowest
+def find_lowest_y(array, index, length):
+	lowest = 10000
+	for i in range(index, length):
+		if array[i][1] < lowest:
+			lowest = array[i][1]
+			print("plek: " + str(i) + ". waarde: " + str(lowest))
+	return lowest
 
-def swapped(array, num, length, new_place):
+def swapp(array, num, length, new_place, x_or_y, end_pos):
 	from_j = 0
+	if x_or_y == 1:
+		length = end_pos
 	for j in range(length):
-		if array[j][0] == num:
+		if array[j][x_or_y] == num:
 			from_j = j
 	tmp_x = array[new_place][0]
 	tmp_y = array[new_place][1]
