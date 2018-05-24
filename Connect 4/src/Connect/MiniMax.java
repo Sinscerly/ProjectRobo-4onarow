@@ -62,7 +62,6 @@ public class MiniMax {
 		int bestMove = 0;
 		int bestValue = -1000000;
 		int player;
-		Box nextColor;
 		String c;
 		if (Ai == Board.red)
 			c = "red";
