@@ -17,7 +17,10 @@ public class AI {
 			cFree = Board.checkColumnEmpty(i, copiedgrid);
 			if (cFree != -1) {
 				copiedgrid[i][cFree] = ai;
-
+				if(GoodMoves.checkWinningCondition(copiedgrid) == Ai) {
+					return i;
+				}
+				copiedgrid[i][cFree] = Board.empty;
 			}
 		}
 		return 0;
