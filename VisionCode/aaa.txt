@@ -1,0 +1,10 @@
+colorPfilter.py
+redcirckels
+houghcirkels
+
+
+redfilter en houghcircels combineren.
+
+om commando uit te voeren vanuit python naar commandline:
+from subprocess import call
+call(["ls", "-l"])
