@@ -47,6 +47,9 @@ def main():
 	if index > 41:
 		order_array(array, index)
 	print_circles(array, index)
+
+	make_grid(array)
+
     cv.imshow("source", src)
     cv.waitKey(0)
 
@@ -103,7 +106,7 @@ def find_highest_y(array, index, length):
 #Finds the next highest in the array that isn't been processed yet.
 	highest = 0
 	for i in range(index, length):
-		if array[i][1] > highest:
+    	if array[i][1] > highest:
 			highest = array[i][1]
 	return highest
 
@@ -112,7 +115,7 @@ def swapp(array, num, length, new_place, x_or_y, end_pos):
 	if x_or_y == 1:
 		length = end_pos
 	for j in range(length):
-		if array[j][x_or_y] == num:
+        if array[j][x_or_y] == num:
 			from_j = j
 	tmp_x = array[new_place][0]
 	tmp_y = array[new_place][1]
@@ -121,6 +124,11 @@ def swapp(array, num, length, new_place, x_or_y, end_pos):
 	array[from_j][0] = tmp_x
 	array[from_j][1] = tmp_y
 	return array
+
+def make_grid(array):
+	grid = [[0 for x in range(6)] for y in range(7)]
+	grid[6][5] = 1
+	print(grid[6][5])
 
 if __name__ == '__main__':
 	main()
