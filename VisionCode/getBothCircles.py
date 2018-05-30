@@ -32,17 +32,38 @@ def main():
 #HSV. H: Hue, S: Saturation, V: Value
 #lower_red lowest values.	H:  0, S:90, V:0
 #upper_red highest values	H:20, S:255, V:255
-	lower_red = np.array([0, 80,0])
-	upper_red = np.array([18, 255,255])
+	lower_red = np.array([0, 71,0])
+	upper_red = np.array([15, 255,255])
+
+        lower_red2 = np.array([177, 0, 0])
+        upper_red2 = np.array([255, 255, 255])
 #lower_yellow lowest values H: 20, S:190, V: 20
 #upper_yellow lowest values H: 30, S:255, V:255
 	lower_yellow = np.array([20,190,20])
 	upper_yellow = np.array([30,255,255])
 #apply the filter ranges
-	mask_red	= cv.inRange(hsv, lower_red, upper_red)
+	mask_red_low	= cv.inRange(hsv, lower_red, upper_red)
+        mask_red_high   = cv.inRange(hsv, lower_red2, upper_red2)
 	mask_yellow = cv.inRange(hsv, lower_yellow, upper_yellow)
+#output masks
+    	#out_red 	= mask_red_low
+	out_red = cv.add(mask_red_low, mask_red_high)
+        out_yellow 	= mask_yellow
+#erode
+        kernel = np.ones((5,5), np.uint8)
+        red_erode = cv.erode(out_red, kernel, iterations = 4)
+        yellow_erode = cv.erode(out_yellow, kernel, iterations = 4)
+        for i in range(5): 
+                red_erode = cv.dilate(red_erode, kernel, iterations = 1)
+                red_erode = cv.bitwise_and(red_erode, out_red, mask = out_red)
+                yellow_erode = cv.dilate(yellow_erode, kernel, iterations = 1)
+                yellow_erode = cv.bitwise_and(yellow_erode, out_yellow, mask = out_yellow)
+#output mask for futher work
+        out_red     = red_erode
+        out_yellow  = yellow_erode
+        
 #show the color image with mask.
-	res_red 	= cv.bitwise_and(blur, blur, mask = mask_red)
+	res_red 	= cv.bitwise_and(blur, blur, mask = out_red)
 	res_yellow 	= cv.bitwise_and(blur, blur, mask = mask_yellow)
 #show image
 	cv.imshow("source", source)
@@ -51,8 +72,6 @@ def main():
 #	cv.imshow("rest-red", 		res_red)
 #	cv.imshow("rest-yellow", 	res_yellow)
 	
-	out_red 	= mask_red
-	out_yellow 	= mask_yellow
 #save the black/white image of the board where only the RED disc are visible
 	save_red = "REDblackwhiteboard.jpg"
 	cv.imwrite(save_red, out_red)
@@ -78,7 +97,7 @@ def main():
 	src_y = cv.imread(save_yellow)	
 	img_y = cv.medianBlur(cv.cvtColor(src_y, cv.COLOR_BGR2GRAY), 5)
 	cimg_y = src_y.copy() # numpy function
-	circles2 = cv.HoughCircles(img_y, cv.HOUGH_GRADIENT, 1, 10, np.array([]), 100, 10, 20, 45)
+	circles2 = cv.HoughCircles(img_y, cv.HOUGH_GRADIENT, 1, 10, np.array([]), 100, 10, 20, 30)
 	# Check if circles have been found and only then iterate over these and add them to the image
 	if circles2 is not None and len(circles2): 
 		print(circles2)
@@ -100,8 +119,9 @@ def main():
 		array1 = read_circles(circles, 	index_red)
 		array2 = read_circles(circles2, index_yellow)
 #Show found circels and output on display
-	cv.imshow("detected circles red", 		cir_red)
+	cv.imshow("detected circles red", 	cir_red)
 	cv.imshow("detected circles yellow", 	cir_yellow)
+        cv.imshow("all", cv.add(cir_red, cir_yellow))
 	print_arrays(array1, array2, index_red, index_yellow)
 #End the program with ESC
 	while True:
@@ -110,6 +130,7 @@ def main():
 			break
 	cv.destroyAllWindows()
 
+#Functions ---------------------------------------------------------------------------
 def read_circles(a_circles, i):
 	data = [[0 for x in range(2)] for y in range(i)]
 	for j in range(i):

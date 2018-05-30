@@ -28,7 +28,7 @@ def main():
 #   img = cv.medianBlur(img, 5)
     cimg = src.copy() # numpy function
 
-    circles = cv.HoughCircles(img, cv.HOUGH_GRADIENT, 1, 10, np.array([]), 100, 30, 20, 30)
+    circles = cv.HoughCircles(img, cv.HOUGH_GRADIENT, 1, 10, np.array([]), 100, 20, 22, 30)
 
     # Check if circles have been found and only then iterate over these and add them to the image
     if circles is not None and len(circles): 
@@ -40,15 +40,15 @@ def main():
         index = (i+1) 
     
 	output = cimg
-	array = read_circles(circles, index)
+	#array = read_circles(circles, index)
 #Output graphic
 	cv.imshow("detected circles", output)
 
-	if index > 41:
-		order_array(array, index)
-	print_circles(array, index)
+	#if index > 41:
+	#	order_array(array, index)
+	#print_circles(array, index)
 
-	make_grid(array)
+	#make_grid(array)
 
     cv.imshow("source", src)
     cv.waitKey(0)
