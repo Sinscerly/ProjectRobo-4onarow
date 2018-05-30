@@ -88,9 +88,9 @@ def order_array(array, length):
 	start_pos 	= 0
 	end_pos 	= 6
 	for k in range(7):
-		for j in range(start_pos, end_pos):
-			next_highest = find_highest_y(array, j, end_pos)
-			array = swapp(array, next_highest, length, j, 1, end_pos)
+	    for j in range(start_pos, end_pos):
+                next_highest = find_highest_y(array, j, end_pos)
+                array = swapp(array, next_highest, length, j, 1, end_pos)
 		start_pos 	+= 6
 		end_pos 	+= 6
 	return array
@@ -99,24 +99,24 @@ def find_lowest_x(array, index, length):
 #Finds the next lowest in the array that isn't been processed yet.
 	lowest = 10000
 	for i in range(index, length):
-		if array[i][0] < lowest:
-			lowest = array[i][0]
+            if array[i][0] < lowest:
+	        lowest = array[i][0]
 	return lowest
 def find_highest_y(array, index, length):
 #Finds the next highest in the array that isn't been processed yet.
 	highest = 0
 	for i in range(index, length):
-    	if array[i][1] > highest:
-			highest = array[i][1]
+            if array[i][1] > highest:
+		    highest = array[i][1]
 	return highest
 
 def swapp(array, num, length, new_place, x_or_y, end_pos):
 	from_j = 0
 	if x_or_y == 1:
-		length = end_pos
+	    length = end_pos
 	for j in range(length):
-        if array[j][x_or_y] == num:
-			from_j = j
+            if array[j][x_or_y] == num:
+		from_j = j
 	tmp_x = array[new_place][0]
 	tmp_y = array[new_place][1]
 	array[new_place][0] = array[from_j][0]
