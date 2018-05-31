@@ -9,12 +9,9 @@ import os
 
 def main():
         '''
-	This code will filter out the board and will take cirlces then.
+	This code crops the board.
 	'''
 	print(__doc__)
-
-	c_red = "red"
-	c_yellow = "yellow"
 
 	try:
 		fn = sys.argv[1]
@@ -30,8 +27,8 @@ def main():
 #HSV. H: Hue, S: Saturation, V: Value
 #lower_red lowest values.	H:  0, S:90, V:0
 #upper_red highest values	H:20, S:255, V:255
-	lower_blue = np.array([100, 0,0])
-	upper_blue = np.array([200, 255,255])
+	lower_blue = np.array([104, 15,90])
+	upper_blue = np.array([150, 255,255])
         
         mask_blue = cv.inRange(hsv, lower_blue, upper_blue)
         res_blue = cv.bitwise_and(source, source, mask = cv.bitwise_not(mask_blue))
@@ -47,10 +44,12 @@ def main():
         y_high  = nonzero[(len(nonzero)-1)][0][1]
 #Crop the img to the desired format. First you give the lowest y coordinate then the end y. Same for x.
         crop_source     = source[y_low:y_high, x_low:x_high]
-        crop_mask_blue  = source[y_low:y_high, x_low:x_high]
+        crop_mask_blue  = mask_blue[y_low:y_high, x_low:x_high]
 #Show the images.
         cv.imshow("crop"            ,crop_source)
         cv.imshow("Crop Mask Blue"  ,crop_mask_blue)
+        cv.imwrite("cropped.jpg"    ,crop_source)
+        cv.imwrite("cropped_mask.jpg" ,crop_mask_blue)
 #the end -----------------------------------------------
 	while True:
 		k = cv.waitKey(5) & 0xFF
@@ -66,9 +65,9 @@ def start_board(nonzero, more):
             y = nonzero[i][0][1]
             for j in range(more*2):
                 if(x + j == y):
-                    print(nonzero[i][0])
+                    #print(nonzero[i][0])
                     return i
-        print("Found nothing")
+        print("Found nothing, error: start_board, cannot find two points that are close enough to each other")
         return 0
 
 if __name__ == '__main__':
