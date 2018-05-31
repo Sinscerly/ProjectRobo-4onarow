@@ -13,7 +13,7 @@ def main():
 	Then it will search for circles and will find only the RED circles.
 	'''
 	print(__doc__)
-
+        d_hc = [30, 10, 20, 30]
 	c_red = "red"
 	c_yellow = "yellow"
 
@@ -47,22 +47,25 @@ def main():
 	mask_yellow     = cv.inRange(hsv, lower_yellow, upper_yellow)
 #output for erode
 	red_erode       = cv.add(mask_red_low, mask_red_high)
+        cv.imshow("mask_yellow", mask_yellow)
         yellow_erode 	= mask_yellow
 #erode for better quality
         kernel = np.ones((5,5), np.uint8)
         red_erode       = cv.erode(red_erode, kernel, iterations = 4)
-        yellow_erode    = cv.erode(red_erode, kernel, iterations = 4)
-        for i in range(5): 
+        yellow_erode    = cv.erode(yellow_erode, kernel, iterations = 4)
+        cv.imshow("rip", yellow_erode)
+        for i in range(4): 
                 red_erode = cv.dilate(red_erode, kernel, iterations = 1)
-                red_erode = cv.bitwise_and(red_erode, out_red, mask = out_red)
+                #red_erode = cv.bitwise_and(red_erode, out_red, mask = out_red)
+        for i in range(4):
                 yellow_erode = cv.dilate(yellow_erode, kernel, iterations = 1)
-                yellow_erode = cv.bitwise_and(yellow_erode, out_yellow, mask = out_yellow)
+                #yellow_erode = cv.bitwise_and(yellow_erode, out_yellow, mask = out_yellow)
 #output mask for futher work
         out_red     = red_erode
         out_yellow  = yellow_erode
 #show the color image with mask.
 	res_red 	= cv.bitwise_and(blur, blur, mask = out_red)
-	res_yellow 	= cv.bitwise_and(blur, blur, mask = mask_yellow)
+	res_yellow 	= cv.bitwise_and(blur, blur, mask = out_yellow)
 #show image
 	cv.imshow("source", source)
 #	cv.imshow("mask_red-black/white", 		mask_red)
@@ -79,8 +82,9 @@ def main():
 	src_r = cv.imread(save_red)	
 	img_r = cv.medianBlur(cv.cvtColor(src_r, cv.COLOR_BGR2GRAY), 5)
 	cimg_r = src_r.copy() # numpy function
-	circles = cv.HoughCircles(img_r, cv.HOUGH_GRADIENT, 1, 10, np.array([]), 100, 10, 22, 30)
+	circles = cv.HoughCircles(img_r, cv.HOUGH_GRADIENT, 1, 10, np.array([]), d_hc[0], d_hc[1], d_hc[2], d_hc[3])
 	# Check if circles have been found and only then iterate over these and add them to the image
+        cir_red = src_r
 	if circles is not None and len(circles): 
 		print(circles)
 		a, b, c = circles.shape
@@ -93,8 +97,9 @@ def main():
 	src_y = cv.imread(save_yellow)	
 	img_y = cv.medianBlur(cv.cvtColor(src_y, cv.COLOR_BGR2GRAY), 5)
 	cimg_y = src_y.copy() # numpy function
-	circles2 = cv.HoughCircles(img_y, cv.HOUGH_GRADIENT, 1, 10, np.array([]), 100, 10, 20, 30)
-	if circles2 is not None and len(circles2): 
+	circles2 = cv.HoughCircles(img_y, cv.HOUGH_GRADIENT, 1, 10, np.array([]), d_hc[0], d_hc[1], d_hc[2], d_hc[3])
+	cir_yellow = src_y
+        if circles2 is not None and len(circles2): 
 		print(circles2)
 		a, b, c = circles2.shape
 		for i in range(b):
@@ -109,13 +114,13 @@ def main():
 #		print ("x:" + str(point_x) + " y:" + str(point_y))
 
 #make new arrays for both colors.
-		array1 = read_circles(circles, 	index_red)
-		array2 = read_circles(circles2, index_yellow)
+		#array1 = read_circles(circles, 	index_red)
+		#array2 = read_circles(circles2, index_yellow)
 #Show found circels and output on display
 	cv.imshow("detected circles red", 	cir_red)
 	cv.imshow("detected circles yellow", 	cir_yellow)
         cv.imshow("all", cv.add(cir_red, cir_yellow))
-	print_arrays(array1, array2, index_red, index_yellow)
+	#print_arrays(array1, array2, index_red, index_yellow)
 #End the program with ESC
 	while True:
 		k = cv.waitKey(5) & 0xFF
@@ -142,7 +147,7 @@ def print_arrays(array_r, array_y, index_r, index_y):
 	print("Colortype: Yellow. \tDiscs: " + str(index_y))
 	print_circles(array_y, index_y)
 	print("Total amount of discs: " + str(index_r + index_y))
-	if index_r > index_y :
+        if index_r > index_y:
 		print("Yellow is on set")
 	else:
 		print("Red is on set")
