@@ -46,20 +46,19 @@ def main():
         mask_red_high   = cv.inRange(hsv, lower_red2, upper_red2)
 	mask_yellow     = cv.inRange(hsv, lower_yellow, upper_yellow)
 #output for erode
-	red_erode       = cv.add(mask_red_low, mask_red_high)
-        cv.imshow("mask_yellow", mask_yellow)
-        yellow_erode 	= mask_yellow
+	red_mask       = cv.add(mask_red_low, mask_red_high)
+        #cv.imshow("mask_yellow", mask_yellow)
+        yellow_mask 	= mask_yellow
 #erode for better quality
         kernel = np.ones((5,5), np.uint8)
-        red_erode       = cv.erode(red_erode, kernel, iterations = 4)
-        yellow_erode    = cv.erode(yellow_erode, kernel, iterations = 4)
+        red_erode       = cv.erode(red_mask, kernel, iterations = 4)
+        yellow_erode    = cv.erode(yellow_mask, kernel, iterations = 4)
         cv.imshow("rip", yellow_erode)
         for i in range(4): 
                 red_erode = cv.dilate(red_erode, kernel, iterations = 1)
-                #red_erode = cv.bitwise_and(red_erode, out_red, mask = out_red)
-        for i in range(4):
+                red_erode = cv.bitwise_and(red_erode, red_erode, mask = red_mask)
                 yellow_erode = cv.dilate(yellow_erode, kernel, iterations = 1)
-                #yellow_erode = cv.bitwise_and(yellow_erode, out_yellow, mask = out_yellow)
+                yellow_erode = cv.bitwise_and(yellow_erode, yellow_mask, mask = yellow_mask)
 #output mask for futher work
         out_red     = red_erode
         out_yellow  = yellow_erode
