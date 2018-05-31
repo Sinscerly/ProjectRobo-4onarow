@@ -44,15 +44,14 @@ def main():
 #apply the filter ranges
 	mask_red_low	= cv.inRange(hsv, lower_red, upper_red)
         mask_red_high   = cv.inRange(hsv, lower_red2, upper_red2)
-	mask_yellow = cv.inRange(hsv, lower_yellow, upper_yellow)
-#output masks
-    	#out_red 	= mask_red_low
-	out_red = cv.add(mask_red_low, mask_red_high)
-        out_yellow 	= mask_yellow
-#erode
+	mask_yellow     = cv.inRange(hsv, lower_yellow, upper_yellow)
+#output for erode
+	red_erode       = cv.add(mask_red_low, mask_red_high)
+        yellow_erode 	= mask_yellow
+#erode for better quality
         kernel = np.ones((5,5), np.uint8)
-        red_erode = cv.erode(out_red, kernel, iterations = 4)
-        yellow_erode = cv.erode(out_yellow, kernel, iterations = 4)
+        red_erode       = cv.erode(red_erode, kernel, iterations = 4)
+        yellow_erode    = cv.erode(red_erode, kernel, iterations = 4)
         for i in range(5): 
                 red_erode = cv.dilate(red_erode, kernel, iterations = 1)
                 red_erode = cv.bitwise_and(red_erode, out_red, mask = out_red)
@@ -61,7 +60,6 @@ def main():
 #output mask for futher work
         out_red     = red_erode
         out_yellow  = yellow_erode
-        
 #show the color image with mask.
 	res_red 	= cv.bitwise_and(blur, blur, mask = out_red)
 	res_yellow 	= cv.bitwise_and(blur, blur, mask = mask_yellow)
@@ -72,13 +70,11 @@ def main():
 #	cv.imshow("rest-red", 		res_red)
 #	cv.imshow("rest-yellow", 	res_yellow)
 	
-#save the black/white image of the board where only the RED disc are visible
+#save the black/white image of the board, for RED and YELLOW.
 	save_red = "REDblackwhiteboard.jpg"
-	cv.imwrite(save_red, out_red)
-#save the black/white image of the board where only the RED disc are visible
 	save_yellow = "YELLOWblackwhiteboard.jpg"
-	cv.imwrite(save_yellow, out_yellow)
-
+	cv.imwrite(save_red, out_red)	
+        cv.imwrite(save_yellow, out_yellow)
 #detect the red circles 
 	src_r = cv.imread(save_red)	
 	img_r = cv.medianBlur(cv.cvtColor(src_r, cv.COLOR_BGR2GRAY), 5)
@@ -90,22 +86,19 @@ def main():
 		a, b, c = circles.shape
 		for i in range(b):
 		    cv.circle(cimg_r, (circles[0][i][0], circles[0][i][1]), circles[0][i][2], (0, 0, 255), 3, cv.LINE_AA)
-		    cv.circle(cimg_r, (circles[0][i][0], circles[0][i][1]), 2, (0, 255, 0), 3, cv.LINE_AA)  # draw center of circle
+		    cv.circle(cimg_r, (circles[0][i][0], circles[0][i][1]), 2, (0, 255, 0), 3, cv.LINE_AA)  
 		cir_red = cimg_r
 		index_red = (i+1)
-	#detect the yellow circles
+#detect the yellow circles
 	src_y = cv.imread(save_yellow)	
 	img_y = cv.medianBlur(cv.cvtColor(src_y, cv.COLOR_BGR2GRAY), 5)
 	cimg_y = src_y.copy() # numpy function
 	circles2 = cv.HoughCircles(img_y, cv.HOUGH_GRADIENT, 1, 10, np.array([]), 100, 10, 20, 30)
-	# Check if circles have been found and only then iterate over these and add them to the image
 	if circles2 is not None and len(circles2): 
 		print(circles2)
 		a, b, c = circles2.shape
 		for i in range(b):
-#Draw of circle
 		    cv.circle(cimg_y, (circles2[0][i][0], circles2[0][i][1]), circles2[0][i][2], (0, 255, 255), 3, cv.LINE_AA)
-#Draw center of the circle
 		    cv.circle(cimg_y, (circles2[0][i][0], circles2[0][i][1]), 2, (0, 255, 0), 3, cv.LINE_AA)  
 		cir_yellow = cimg_y
 		index_yellow = (i+1)
