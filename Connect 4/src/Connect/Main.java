@@ -10,8 +10,8 @@ import java.io.Writer;
 
 public class Main {
 
-	static int diffCpu1;
-	static int diffCpu2;
+	static int diffCpu1, diffCpu2;
+	public static int Ai1, Ai2;
 	public static String printString = "";
 	public static boolean print = false;
 	static String AiRed = "1(Red)", AiYellow = "2(Yellow)";
@@ -64,9 +64,29 @@ public class Main {
 			Game.seeProgress = true;
 		else
 			Game.seeProgress = false;
+		System.out.println("Which Ai vs which Ai?");
+		System.out.println("Ai 1: MiniMax or our own made ai?");
+		System.out.println("1/2?");
+		Ai1 = scanAi();
+		System.out.println("Ai 2: MiniMax or our own made ai?");
+		System.out.println("1/2?");
+		Ai2 = scanAi();
 		diffCpu1 = scanDiff(AiRed);
 		diffCpu2 = scanDiff(AiYellow);
-		startGame.cvc(diffCpu1, diffCpu2);
+		AI AI1,AI2;
+		if(Ai1 == 1) {
+			AI1 = new MiniMax(diffCpu1);
+		}
+		else{
+			AI1 = new OwnAI();
+		}
+		if(Ai2 == 1) {
+			AI2 = new MiniMax(diffCpu2);
+		}
+		else {
+			AI2 = new OwnAI();
+		}
+		startGame.cvc(AI1, AI2);
 	}
 
 	private static void cvcad()
@@ -77,7 +97,9 @@ public class Main {
 				long start = System.currentTimeMillis();
 				diffCpu2 = j;
 				Game startGame = new Game();
-				startGame.cvcad(diffCpu1, diffCpu2);
+				AI AI1 = new MiniMax(diffCpu1);
+				AI AI2 = new MiniMax(diffCpu2);
+				startGame.cvcad(diffCpu1, diffCpu2, AI1, AI2);
 				long end = System.currentTimeMillis();
 				System.out.println("Total time = " + ((end - start) / 1000) + "S.");
 				printString += " Time it took: " + ((end - start) / 1000) + "S.\n";
@@ -102,6 +124,14 @@ public class Main {
 		int i = -1;
 		while (0 > i || i > 8) {
 			printDiff(cpu);
+			i = scanInt();
+		}
+		return i;
+	}
+	static int scanAi() {
+		int i = 0;
+		while (1 > i || i > 2)
+		{
 			i = scanInt();
 		}
 		return i;

@@ -2,7 +2,7 @@ package Connect;
 
 import java.util.Random;
 
-public class MiniMax {
+public class MiniMax extends AI{
 	private int difficulty;
 	public long start, end;
 
@@ -12,7 +12,7 @@ public class MiniMax {
 	}
 
 	// returns the turn from the AI.
-	int doSet(Box[][] grid, Box whoBegan, Box Ai, Box eAi) {
+	public int doSet(Box[][] grid, Box whoBegan, Box Ai, Box eAi) {
 		start = System.currentTimeMillis();
 		int bestMove = miniMax(grid, whoBegan, Ai, eAi);
 		end = System.currentTimeMillis();
@@ -64,9 +64,9 @@ public class MiniMax {
 		int player;
 		String c;
 		if (Ai == Board.red)
-			c = "red";
+			c = "Red";
 		else
-			c = "yellow";
+			c = "Yellow";
 		// checks who's turn it is.
 		if (Ai == Board.red)
 			player = 2;
@@ -74,14 +74,13 @@ public class MiniMax {
 			player = 1;
 		// check if there is a win and assign that as the route
 		if (GoodMoves.checkWin(copy, false))
-			if (GoodMoves.checkWinningCondition(copy) == c)
+			if (GoodMoves.checkWinningCondition(copy).contains(c))
 				bestValue = 1000000 - diff;
 			else
 				bestValue = -1000000 + diff;
 		// else check if there has been a tie and assign that as the route
 		else if (!Board.checkFull(copy))
 			bestValue = 0;
-		// else check if this is the last turn that the AI 'thinks' forward
 		// else check if this is the last turn that the AI 'thinks' forward
 		else if (diff == difficulty) {
 			// check the value of the last turn and if it is not 0 than change
