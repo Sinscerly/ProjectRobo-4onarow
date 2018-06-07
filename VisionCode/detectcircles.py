@@ -25,10 +25,10 @@ def main():
 
     src = cv.imread(fn, 1)
     img = cv.cvtColor(src, cv.COLOR_BGR2GRAY)
-#   img = cv.medianBlur(img, 5)
+    #img = cv.medianBlur(img, 5)
     cimg = src.copy() # numpy function
-
-    circles = cv.HoughCircles(img, cv.HOUGH_GRADIENT, 1, 10, np.array([]), 100, 25, 22, 30)
+#bu 25, 55, 20, 31.
+    circles = cv.HoughCircles(img, cv.HOUGH_GRADIENT, 1, 10, np.array([]), 25, 55, 20, 31)
 
     # Check if circles have been found and only then iterate over these and add them to the image
     if circles is not None and len(circles): 
@@ -45,15 +45,15 @@ def main():
 #Output graphic
 	cv.imshow("detected circles", output)
 
-	#if index > 41:
-	#	order_array(array, index)
-	#print_circles(array, index)
-
-	#make_grid(array)
+	if index == 42:
+	    print("Index = " + str(index))
+            order_array(array, index)
+	    print_circles_2(array, index)
+        #make_grid(array)
 
     cv.imshow("source", src)
     cv.waitKey(0)
-
+#--------------------------- Functions ------------------------------
 def read_circles(a_circles, i):
 #Conferting the array from circles to what we need
 	data = [[0 for x in range(2)] for y in range(i)]
@@ -64,7 +64,7 @@ def read_circles(a_circles, i):
 		data[j][1] = point_y
 	return data
 
-def print_circles(array, top):
+def print_circles_2(array, top):
 #Function for printing the new created array. Splitted in COLLUMS.
 	print()
 	x = 0
@@ -81,10 +81,13 @@ def order_array(array, length):
 #Sorting the COLLUMS, the X positions from LOW to HIGH
 	start_pos = 0
 	for k in range(7):	
-		for j in range(start_pos, 6 + start_pos):
-			next_lowest = find_lowest_x(array, j, length)
-			array = swapp(array, next_lowest, length, j, 0, 0)
-		start_pos += 6
+	    for j in range(start_pos, 6 + start_pos):
+		next_lowest = find_lowest_x(array, j, length)
+		array = swapp(array, next_lowest, length, j, 0, 0)
+	    start_pos += 6
+        #This return is for debugging with error
+        #return array
+#error hier in het sorteren
 #Sorting the ROWS, the Y positions from HIGH to LOW
 	start_pos 	= 0
 	end_pos 	= 6
@@ -92,8 +95,8 @@ def order_array(array, length):
 	    for j in range(start_pos, end_pos):
                 next_highest = find_highest_y(array, j, end_pos)
                 array = swapp(array, next_highest, length, j, 1, end_pos)
-		start_pos 	+= 6
-		end_pos 	+= 6
+	    start_pos 	+= 6
+	    end_pos 	+= 6
 	return array
 
 def find_lowest_x(array, index, length):

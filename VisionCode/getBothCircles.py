@@ -26,7 +26,7 @@ def main():
 	print (source.shape)
 #Blur the image
 	blur = cv.medianBlur(source, 5)
-	blur = source
+	
 #make a HSV image from the blurred picture
 	hsv = cv.cvtColor(blur, cv.COLOR_BGR2HSV)
 #HSV. H: Hue, S: Saturation, V: Value
@@ -52,7 +52,7 @@ def main():
 #erode for better quality
         kernel = np.ones((5,5), np.uint8)
         red_erode       = cv.erode(red_mask, kernel, iterations = 4)
-        yellow_erode    = cv.erode(yellow_mask, kernel, iterations = 4)
+        yellow_erode    = cv.erode(yellow_mask, kernel, iterations = 3)
         cv.imshow("rip", yellow_erode)
         for i in range(4): 
                 red_erode = cv.dilate(red_erode, kernel, iterations = 1)
@@ -113,13 +113,13 @@ def main():
 #		print ("x:" + str(point_x) + " y:" + str(point_y))
 
 #make new arrays for both colors.
-		#array1 = read_circles(circles, 	index_red)
-		#array2 = read_circles(circles2, index_yellow)
+		array1 = read_circles(circles, 	index_red)
+		array2 = read_circles(circles2, index_yellow)
 #Show found circels and output on display
 	cv.imshow("detected circles red", 	cir_red)
 	cv.imshow("detected circles yellow", 	cir_yellow)
         cv.imshow("all", cv.add(cir_red, cir_yellow))
-	#print_arrays(array1, array2, index_red, index_yellow)
+	print_arrays(array1, array2, index_red, index_yellow)
 #End the program with ESC
 	while True:
 		k = cv.waitKey(5) & 0xFF
@@ -157,6 +157,7 @@ def print_circles(array, i):
 	for j in range(i):
 		print("\tx:" + str(array[j][0]) + "\t\ty:" + str(array[j][1]))
 	return 1
+
 
 if __name__ == '__main__':
 	main()
