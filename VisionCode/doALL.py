@@ -21,9 +21,9 @@ def main():
 	c_yellow = "yellow"
         #Look if there is an argument given:
 	try:
-		fn = sys.argv[1]
+	    fn = sys.argv[1]
 	except IndexError:
-		fn = "board.jpg"
+	    fn = "board.jpg"
 #Read/import the picture
 	source = cv.imread(fn)
 	print (source.shape)
@@ -56,18 +56,15 @@ def main():
             #stop program
         else:
 	    array_dc = read_circles(circles_dc, index_dc)
-            print("The board contains: " + str(index_dc) + " holes.")
+            if index_dc != 42:
+                print("The index from detect circles is not 42 so we cannot find the optimal locations at the board.")
+                #stop program
+
 
 #---------------------- SHOW OUTPUT -----------------------------------
 	    
-            cv.imshow("detected circles", output_dc)
+        cv.imshow("detected circles", output_dc)
 
-	if index_dc == 42:
-            order_array_for_grid(array_dc, index_dc)
-	    print_circles_2(array_dc, index_dc)
-        else:
-            print("The index from detect circles is not 42 so we cannot find the optimal locations at the board.")
-            #stop program
 
 #----- WORK TO BE DONE --------------- WORK TO BE DONE -----------------
 
@@ -109,10 +106,10 @@ def main():
         #cv.imshow("rip_red",    red_erode)
         #cv.imshow("rip_yellow", yellow_erode)
         for i in range(4): 
-                red_erode = cv.dilate(red_erode, kernel, iterations = 1)
-                red_erode = cv.bitwise_and(red_erode, red_erode, mask = mask_red)
-                yellow_erode = cv.dilate(yellow_erode, kernel, iterations = 1)
-                yellow_erode = cv.bitwise_and(yellow_erode, mask_yellow, mask = mask_yellow)
+            red_erode = cv.dilate(red_erode, kernel, iterations = 1)
+            red_erode = cv.bitwise_and(red_erode, red_erode, mask = mask_red)
+            yellow_erode = cv.dilate(yellow_erode, kernel, iterations = 1)
+            yellow_erode = cv.bitwise_and(yellow_erode, mask_yellow, mask = mask_yellow)
 #output mask for futher work
         out_red     = red_erode
         out_yellow  = yellow_erode
@@ -134,50 +131,55 @@ def main():
 	cv.imwrite(save_red, out_red)	
         cv.imwrite(save_yellow, out_yellow)
 
-#--------------------------------- Detecting CIRCLES ------------------------
+#--------------------------------- Detecting the COLOR circles from the masks ------------------------
 #detect the red circles 
 	src_r = cv.imread(save_red)	
 	img_r = cv.medianBlur(cv.cvtColor(src_r, cv.COLOR_BGR2GRAY), 5)
 	cimg_r = src_r.copy() # numpy function
-	circles1 = cv.HoughCircles(img_r, cv.HOUGH_GRADIENT, 1, 10, np.array([]), cf_hc[0], cf_hc[1], cf_hc[2], cf_hc[3])
+	circles_r = cv.HoughCircles(img_r, cv.HOUGH_GRADIENT, 1, 10, np.array([]), cf_hc[0], cf_hc[1], cf_hc[2], cf_hc[3])
 	# Check if circles have been found and only then iterate over these and add them to the image
         cir_red = src_r
-	if circles1 is not None and len(circles1): 
-		print(circles1)
-		a, b, c = circles1.shape
-		for i in range(b):
-		    cv.circle(cimg_r, (circles1[0][i][0], circles1[0][i][1]), circles1[0][i][2], (0, 0, 255), 3, cv.LINE_AA)
-		    cv.circle(cimg_r, (circles1[0][i][0], circles1[0][i][1]), 2, (0, 255, 0), 3, cv.LINE_AA)  
-		cir_red = cimg_r
-		index_red = (i+1)
+	if circles_r is not None and len(circles_r): 
+	    print(circles_r)
+	    a, b, c = circles_r.shape
+	    for i in range(b):
+	        cv.circle(cimg_r, (circles_r[0][i][0], circles_r[0][i][1]), circles_r[0][i][2], (0, 0, 255), 3, cv.LINE_AA)
+		cv.circle(cimg_r, (circles_r[0][i][0], circles_r[0][i][1]), 2, (0, 255, 0), 3, cv.LINE_AA)  
+	    cir_red = cimg_r
+	    index_red = (i+1)
 #detect the yellow circles
 	src_y = cv.imread(save_yellow)	
 	img_y = cv.medianBlur(cv.cvtColor(src_y, cv.COLOR_BGR2GRAY), 5)
 	cimg_y = src_y.copy() # numpy function
-	circles2 = cv.HoughCircles(img_y, cv.HOUGH_GRADIENT, 1, 10, np.array([]), cf_hc[0], cf_hc[1], cf_hc[2], cf_hc[3])
+	circles_y = cv.HoughCircles(img_y, cv.HOUGH_GRADIENT, 1, 10, np.array([]), cf_hc[0], cf_hc[1], cf_hc[2], cf_hc[3])
 	cir_yellow = src_y
-        if circles2 is not None and len(circles2): 
-		print(circles2)
-		a, b, c = circles2.shape
-		for i in range(b):
-		    cv.circle(cimg_y, (circles2[0][i][0], circles2[0][i][1]), circles2[0][i][2], (0, 255, 255), 3, cv.LINE_AA)
-		    cv.circle(cimg_y, (circles2[0][i][0], circles2[0][i][1]), 2, (0, 255, 0), 3, cv.LINE_AA)  
-		cir_yellow = cimg_y
-		index_yellow = (i+1)
+        if circles_y is not None and len(circles_y): 
+	    print(circles_y)
+	    a, b, c = circles_y.shape
+	    for i in range(b):
+		cv.circle(cimg_y, (circles_y[0][i][0], circles_y[0][i][1]), circles_y[0][i][2], (0, 255, 255), 3, cv.LINE_AA)
+		cv.circle(cimg_y, (circles_y[0][i][0], circles_y[0][i][1]), 2, (0, 255, 0), 3, cv.LINE_AA)  
+	    cir_yellow = cimg_y
+	    index_yellow = (i+1)
 #make new arrays for both colors.
-		array1 = read_circles(circles1,    index_red)
-		array2 = read_circles(circles2,    index_yellow)
-
+	array_red       = read_circles(circles_r,    index_red)
+	array_yellow    = read_circles(circles_y,    index_yellow)
 #Show found circels and output on display
 	#cv.imshow("detected circles red", 	cir_red)
 	#cv.imshow("detected circles yellow", 	cir_yellow)
         cv.imshow("all", cv.add(cir_red, cir_yellow))
-	print_arrays(array1, array2, index_red, index_yellow)
+
+	if index_dc == 42:
+            print("The board contains: " + str(index_dc) + " holes.")
+            order_array_for_grid(array_dc, index_dc)
+	    print_circles_2(array_dc, index_dc)
+
+	print_arrays(array_red, array_yellow, index_red, index_yellow)
 #End the program with ESC
 	while True:
-		k = cv.waitKey(5) & 0xFF
-		if k == 27:
-			break
+	    k = cv.waitKey(5) & 0xFF
+	    if k == 27:
+		break
 	cv.destroyAllWindows()
 
 # -------------------------- Functions ------------------------------
@@ -186,10 +188,10 @@ def read_circles(a_circles, i):
 #Conferting the array from circles to what we need
 	data = [[0 for x in range(2)] for y in range(i)]
 	for j in range(i):
-		point_x = a_circles[0][j][0]
-		point_y = a_circles[0][j][1]
-		data[j][0] = point_x
-		data[j][1] = point_y
+	    point_x = a_circles[0][j][0]
+	    point_y = a_circles[0][j][1]
+	    data[j][0] = point_x
+	    data[j][1] = point_y
 #	print (str(data[0][0]))
 	return data
 
