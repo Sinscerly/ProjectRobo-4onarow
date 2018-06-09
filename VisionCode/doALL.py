@@ -54,6 +54,7 @@ def main():
         if index_dc == 0:
             print("The index_DetectedCircles is 0, so there were no circles found.")
             print("The HoughCircle detection could not find any circles... pls, check the picture!")
+            #show output why there are no circles found.
             show_circles(output_dc)
             #stop program
             sys.exit("Error")
@@ -62,13 +63,10 @@ def main():
             if index_dc != 42:
                 print("The index is: " + str(index_dc))
                 print("The index from detect circles is not 42 so we cannot find the optimal locations at the board.")
+                #show output why there are to less or may circles found.
                 show_circles(output_dc)
                 #stop program
                 sys.exit("Error")
-
-#---------------------- SHOW OUTPUT -----------------------------------
-	    
-        cv.imshow("detected circles", output_dc)
 
 #-----------------------------------------------------------------------
 #------------------ Color Filters --------------------------------------
@@ -120,11 +118,12 @@ def main():
 #-------------------------------- SHOW OUTPUT / Backup -----------------------------
 #show image
 #	cv.imshow("source", source)
-#	cv.imshow("mask_red-black/white", 		mask_red)
+#	cv.imshow("mask_red-black/white", 	mask_red)
 #	cv.imshow("mask_yellow-black/white", 	mask_yellow)	
 #	cv.imshow("rest-red", 		res_red)
 #	cv.imshow("rest-yellow", 	res_yellow)
-	
+#       cv.imshow("detected circles", output_dc)
+
 #save the black/white image of the board, for RED and YELLOW.
 	save_red    = "REDblackwhiteboard.jpg"
 	save_yellow = "YELLOWblackwhiteboard.jpg"
@@ -164,9 +163,12 @@ def main():
 #make new arrays for both colors.
 	array_red       = read_circles(circles_r,    index_red)
 	array_yellow    = read_circles(circles_y,    index_yellow)
+#--------------------------- OUTPUT GRAPICS -----------------------------
 #Show found circels and output on display
 	#cv.imshow("detected circles red", 	cir_red)
 	#cv.imshow("detected circles yellow", 	cir_yellow)
+
+        #Combined image of circles RED and YELLOW
         cv.imshow("all", cv.add(cir_red, cir_yellow))
 
         if index_red == 0 and index_yellow == 0:
@@ -182,13 +184,16 @@ def main():
         #for i in range(index_red):
             #print(find_according_circle(array_dc, array_red[i][0], array_red[i][1]))
         
-        #grid = fill_and_print_grid(array_dc, array_red, index_red, array_yellow, index_yellow)
+        grid = fill_and_print_grid(array_dc, array_red, index_red, array_yellow, index_yellow)
 #End the program with ESC
 	while True:
 	    k = cv.waitKey(5) & 0xFF
 	    if k == 27:
 		break
 	cv.destroyAllWindows()
+#--------------------------------------------------------------------
+
+#------------------------- END OF MAIN ------------------------------
 
 # -------------------------- Functions ------------------------------
 def fill_and_print_grid(array_dc, array_red, index_red, array_yellow, index_yellow):
@@ -386,6 +391,7 @@ def show_circles(out):
 		break
 	cv.destroyAllWindows()
         return 0
+
 #-------------------------------------------------------------------
 #-------------------------------- Main -----------------------------
 
