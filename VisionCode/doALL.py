@@ -14,7 +14,7 @@ def main():
 	'''
 	print(__doc__)
         #Parameters for HoughCircles detection for board positions:
-        p_hc  = [25, 55, 20, 31]
+        p_hc  = [15, 65, 20, 35]
         #Parameters for HoughCircles detection for the color masks:
         cf_hc = [30, 10, 20, 30]
 	c_red = "red"
@@ -52,23 +52,23 @@ def main():
                 cv.circle(output_dc, (circles_dc[0][i][0], circles_dc[0][i][1]), 2, (0, 255, 0), 3, cv.LINE_AA)  # draw center of circle
             index_dc = (i+1) 
         if index_dc == 0:
+            print("The index_DetectedCircles is 0, so there were no circles found.")
             print("The HoughCircle detection could not find any circles... pls, check the picture!")
+            show_circles(output_dc)
             #stop program
+            sys.exit("Error")
         else:
 	    array_dc = read_circles(circles_dc, index_dc)
             if index_dc != 42:
+                print("The index is: " + str(index_dc))
                 print("The index from detect circles is not 42 so we cannot find the optimal locations at the board.")
+                show_circles(output_dc)
                 #stop program
-
+                sys.exit("Error")
 
 #---------------------- SHOW OUTPUT -----------------------------------
 	    
         cv.imshow("detected circles", output_dc)
-
-
-#----- WORK TO BE DONE --------------- WORK TO BE DONE -----------------
-
-        #make_grid(array)
 
 #-----------------------------------------------------------------------
 #------------------ Color Filters --------------------------------------
@@ -169,12 +169,20 @@ def main():
 	#cv.imshow("detected circles yellow", 	cir_yellow)
         cv.imshow("all", cv.add(cir_red, cir_yellow))
 
-	if index_dc == 42:
-            print("The board contains: " + str(index_dc) + " holes.")
-            order_array_for_grid(array_dc, index_dc)
-	    print_circles_2(array_dc, index_dc)
-
-	print_arrays(array_red, array_yellow, index_red, index_yellow)
+        if index_red == 0 and index_yellow == 0:
+            #stop program
+            sys.exit("No discs have been found at color masks. PLS check image, if there are any discs on it.")
+        elif (index_red + index_yellow) > 42:
+            #stop program
+            print("Number of red discs: " + str(index_red) + ". \tNumber of yellow discs: " + str(index_yellow) + ".")
+            print("NUmber of total discs: " + str(index_red + index_yellow))
+            sys.exit("There have been found more discs on the board then possible places on the board")
+        order_array_for_grid(array_dc, index_dc)
+	print_arrays(array_dc, array_red, index_red, array_yellow, index_yellow)
+        #for i in range(index_red):
+            #print(find_according_circle(array_dc, array_red[i][0], array_red[i][1]))
+        
+        #grid = fill_and_print_grid(array_dc, array_red, index_red, array_yellow, index_yellow)
 #End the program with ESC
 	while True:
 	    k = cv.waitKey(5) & 0xFF
@@ -183,7 +191,51 @@ def main():
 	cv.destroyAllWindows()
 
 # -------------------------- Functions ------------------------------
+def fill_and_print_grid(array_dc, array_red, index_red, array_yellow, index_yellow):
+        grid = make_grid()
+        #fill the grid with the RED     discs
+        grid = fill_grid(grid, array_dc, array_red, index_red, 1)
+        #fill the grid with the YELLOW  discs
+        grid = fill_grid(grid, array_dc, array_yellow, index_yellow, 2)
+        print_grid(grid)
+        return grid
+            
+def find_according_circle(array_dc, x, y):
+#find correct matching coordinates
+        r = 20
+        #print("Red discs co: " + str(x) + "," + str(y))
+        for i in range(42):
+            dc_x = array_dc[i][0]
+            dc_y = array_dc[i][1]
+            if (x-r) < dc_x and dc_x < (x+r) and (y-r) < dc_y and dc_y < (y+r):
+                #print("match_dc: " + str(dc_x) + "," + str(array_dc[i][1]))
+                return i
+        sys.exit("There could not be found any match for disc: " + str(x) + "," + str(y))
+        #If this error is been given, you may need to adjust the range of r
+def fill_grid(grid, array_dc, array_color, index_color, color_code):
+        #Color_code: 1; is for RED      discs
+        #Color_code: 2; is for YELLOW   discs
+        tmp = 0
+        for i in range(index_color):
+            tmp = find_according_circle(array_dc, array_color[i][0], array_color[i][1])
+            #print(tmp)
+            if tmp < 6:
+                grid[0][tmp] = color_code
+            elif tmp < 12:
+                grid[1][tmp - 6] = color_code
+            elif tmp < 18:
+                grid[2][tmp - 12] = color_code
+            elif tmp < 24:
+                grid[3][tmp - 18] = color_code
+            elif tmp < 30:
+                grid[4][tmp - 24] = color_code
+            elif tmp < 36:
+                grid[5][tmp - 30] = color_code
+            else:
+                grid[6][tmp - 36] = color_code
+        return grid
 
+# -------------------------- READ / PRINT ----------------------------
 def read_circles(a_circles, i):
 #Conferting the array from circles to what we need
 	data = [[0 for x in range(2)] for y in range(i)]
@@ -195,8 +247,11 @@ def read_circles(a_circles, i):
 #	print (str(data[0][0]))
 	return data
 
-def print_arrays(array_r, array_y, index_r, index_y):
+def print_arrays(array_dc, array_r, index_r, array_y, index_y):
 	print()
+        print("The board contains: 42 holes.")
+        print_circles_2(array_dc, 42)
+        print()
 	print("Colortype: RED. \tDiscs: " + str(index_r))
 	print_circles_1(array_r, index_r)
 	print()
@@ -230,6 +285,7 @@ def print_circles_2(array, top):
 	return 1
 
 #------------- WORK TO BE DONE ------ WORK TO BE DONE ------------
+#Do I need this? Probably not but leave it here.
 
 def order_array(array, length):
         start_pos = 0
@@ -284,7 +340,7 @@ def swapp(array, num, length, new_place, x_or_y, end_pos):
 	    length = end_pos
 	for j in range(length):
             if array[j][x_or_y] == num:
-		from_j = j
+                from_j = j
 	tmp_x = array[new_place][0]
 	tmp_y = array[new_place][1]
 	array[new_place][0] = array[from_j][0]
@@ -293,11 +349,43 @@ def swapp(array, num, length, new_place, x_or_y, end_pos):
 	array[from_j][1] = tmp_y
 	return array
 
-def make_grid(array):
-	grid = [[0 for x in range(6)] for y in range(7)]
-	grid[6][5] = 1
-	print(grid[6][5])
+def make_grid():
+    	return [[0 for x in range(6)] for y in range(7)]
 
+def print_grid(grid):
+        #Ugly
+        '''
+        print()
+        grid[5][5] = 1
+	grid[6][5] = 1
+        for i in range(6):
+            y = 5 - i
+            print(str(grid[0][y])+"|"+str(grid[1][y])+"|"+str(grid[2][y])+"|"+str(grid[3][y])+"|"+str(grid[4][y])+"|"+str(grid[5][y])+"|"+str(grid[6][y]))
+        '''
+        #This looks best
+        print()
+        for y in range(5,-1,-1):
+            this_print = "| "
+            for x in range(7):
+                if grid[x][y] == 1:
+                    this_print = this_print + "R | "
+                elif grid[x][y] == 2:
+                    this_print = this_print + "Y | "
+                else:
+                    this_print = this_print + "0 | "
+            print(this_print)
+        return 1
+
+#--------------------------------Show Circles ----------------------
+def show_circles(out):
+        cv.imshow("detected circles", out)
+#End the program with ESC
+	while True:
+	    k = cv.waitKey(5) & 0xFF
+	    if k == 27:
+		break
+	cv.destroyAllWindows()
+        return 0
 #-------------------------------------------------------------------
 #-------------------------------- Main -----------------------------
 
