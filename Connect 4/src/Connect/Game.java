@@ -32,10 +32,10 @@ public class Game {
 
 		while (GoodMoves.checkWin(Board.getBoard(), true) == false && Board.checkFull(Board.getBoard())) {
 			if (whosTurn == 0) {
-				AI(miniMaxAI, Board.red, Board.yellow);
+				player(Board.yellow);
 				whosTurn = 1;
 			} else {
-				player(Board.yellow);
+				AI(miniMaxAI, Board.red, Board.yellow);
 				whosTurn = 0;
 			}
 		}
@@ -98,7 +98,9 @@ public class Game {
 	public int ai_move(AI ai, Box Ai, Box eAi) {
 		// change set to move
 		int ai_set = 0;
+		ai.start = System.currentTimeMillis();
 		ai_set = ai.doSet(Board.getBoard(), whoBegan, Ai, eAi);
+		ai.end = System.currentTimeMillis();
 		System.out.println(ai.toString());
 		System.out.print("Computer placed in row: " + (ai_set + 1));
 		System.out.println("Took: " + ((ai.end - ai.start) / 1000) + "S.");

@@ -13,9 +13,7 @@ public class MiniMax extends AI{
 
 	// returns the turn from the AI.
 	public int doSet(Box[][] grid, Box whoBegan, Box Ai, Box eAi) {
-		start = System.currentTimeMillis();
 		int bestMove = miniMax(grid, whoBegan, Ai, eAi);
-		end = System.currentTimeMillis();
 		return bestMove;
 	}
 
