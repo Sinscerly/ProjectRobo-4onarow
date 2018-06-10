@@ -67,6 +67,7 @@ public class Game {
 	}
 
 	void cvcad(int difficulty1, int difficulty2, AI Ai1, AI Ai2) throws InterruptedException {
+		System.out.println(difficulty1 + " vs " + difficulty2);
 		this.cvc(Ai1, Ai2);
 		// puts who won in the print string.
 		if (whosTurn == 1)

@@ -37,10 +37,9 @@ public class Main {
 			} else if (input.equals("d")) {
 				print = true;
 				if(all())
-				{
 					cvcad(true);
-				}
-				cvcad(false);
+				else
+					cvcad(false);
 				print = false;
 			} else if (input.equals("x")) {
 				break;
