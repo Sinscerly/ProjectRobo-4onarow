@@ -19,15 +19,30 @@ def main():
         cf_hc = [30, 10, 20, 30]
 	c_red = "red"
 	c_yellow = "yellow"
-        #Look if there is an argument given:
-	try:
-	    fn = sys.argv[1]
-	except IndexError:
-	    fn = "board.jpg"
+        graphics = 0
+
+#FOR DEBUG ENABLE print_arr TO COMPARE THE ARRAYS
+        print_arr = 0
+
+#Look if there is an argument given:
+        if len(sys.argv) < 2:
+            sys.exit("Use like: " + "\n\tpython doALL.py image.jpg bool" + "\n\nImage needs to be a picture of a gameboard from Connect4" + "\nbool: null or 0 for no graphics, 1 for graphics")
+        elif len(sys.argv) == 2:
+            try:
+	        fn = sys.argv[1]
+	    except IndexError:
+	        sys.exit("There needs to be a picture given to me or I will eat you, oh yeah it needs to be a picture of a gameboard from Connect4")
+        elif len(sys.argv) == 3:
+            try:
+	        fn = sys.argv[1]
+	    except IndexError:
+	        sys.exit("There needs to be a picture given to me or I will eat you, oh yeah it needs to be a picture of a gameboard from Connect4")
+            graphics = sys.argv[2]
 #Read/import the picture
 	source = cv.imread(fn)
 	print (source.shape)
-        cv.imshow("IMPORT", source)
+        if graphics:
+            cv.imshow("IMPORT", source)
 #Blur the image
 	blur = cv.medianBlur(source, 5)
 #make a HSV image from the blurred picture
@@ -55,7 +70,8 @@ def main():
             print("The index_DetectedCircles is 0, so there were no circles found.")
             print("The HoughCircle detection could not find any circles... pls, check the picture!")
             #show output why there are no circles found.
-            show_circles(output_dc)
+            if graphics:
+                show_circles(output_dc)
             #stop program
             sys.exit("Error")
         else:
@@ -64,7 +80,8 @@ def main():
                 print("The index is: " + str(index_dc))
                 print("The index from detect circles is not 42 so we cannot find the optimal locations at the board.")
                 #show output why there are to less or may circles found.
-                show_circles(output_dc)
+                if graphics:
+                    show_circles(output_dc)
                 #stop program
                 sys.exit("Error")
 
@@ -117,12 +134,13 @@ def main():
 
 #-------------------------------- SHOW OUTPUT / Backup -----------------------------
 #show image
-#	cv.imshow("source", source)
-#	cv.imshow("mask_red-black/white", 	mask_red)
-#	cv.imshow("mask_yellow-black/white", 	mask_yellow)	
-#	cv.imshow("rest-red", 		res_red)
-#	cv.imshow("rest-yellow", 	res_yellow)
-#       cv.imshow("detected circles", output_dc)
+        #if graphics:
+#	    cv.imshow("source", source)
+#	    cv.imshow("mask_red-black/white", 	mask_red)
+#	    cv.imshow("mask_yellow-black/white", 	mask_yellow)	
+#	    cv.imshow("rest-red", 		res_red)
+#	    cv.imshow("rest-yellow", 	res_yellow)
+#           cv.imshow("detected circles", output_dc)
 
 #save the black/white image of the board, for RED and YELLOW.
 	save_red    = "REDblackwhiteboard.jpg"
@@ -165,11 +183,12 @@ def main():
 	array_yellow    = read_circles(circles_y,    index_yellow)
 #--------------------------- OUTPUT GRAPICS -----------------------------
 #Show found circels and output on display
-	#cv.imshow("detected circles red", 	cir_red)
-	#cv.imshow("detected circles yellow", 	cir_yellow)
+	if graphics:
+            #cv.imshow("detected circles red", 	cir_red)
+	    #cv.imshow("detected circles yellow", 	cir_yellow)
 
         #Combined image of circles RED and YELLOW
-        cv.imshow("all", cv.add(cir_red, cir_yellow))
+            cv.imshow("all", cv.add(cir_red, cir_yellow))
 
         if index_red == 0 and index_yellow == 0:
             #stop program
@@ -180,21 +199,25 @@ def main():
             print("NUmber of total discs: " + str(index_red + index_yellow))
             sys.exit("There have been found more discs on the board then possible places on the board")
         order_array_for_grid(array_dc, index_dc)
-	print_arrays(array_dc, array_red, index_red, array_yellow, index_yellow)
-        #for i in range(index_red):
-            #print(find_according_circle(array_dc, array_red[i][0], array_red[i][1]))
+        if print_arr:
+            print_arrays(array_dc, array_red, index_red, array_yellow, index_yellow)
         
         grid = fill_and_print_grid(array_dc, array_red, index_red, array_yellow, index_yellow)
+
+
 #End the program with ESC
-	while True:
-	    k = cv.waitKey(5) & 0xFF
-	    if k == 27:
-		break
+        if graphics:
+            while True:
+	        k = cv.waitKey(5) & 0xFF
+	        if k == 27:
+		    break
 	cv.destroyAllWindows()
+
 #--------------------------------------------------------------------
-
-#------------------------- END OF MAIN ------------------------------
-
+#--------------------------------------------------------------------
+#-------------------------- END OF MAIN -----------------------------
+#--------------------------------------------------------------------
+#--------------------------------------------------------------------
 # -------------------------- Functions ------------------------------
 def fill_and_print_grid(array_dc, array_red, index_red, array_yellow, index_yellow):
         grid = make_grid()
@@ -354,6 +377,7 @@ def swapp(array, num, length, new_place, x_or_y, end_pos):
 	array[from_j][1] = tmp_y
 	return array
 
+#---------------------- FINAL GRID FOR SHIPPING TO JAVA -----------------------
 def make_grid():
     	return [[0 for x in range(6)] for y in range(7)]
 
@@ -381,7 +405,7 @@ def print_grid(grid):
             print(this_print)
         return 1
 
-#--------------------------------Show Circles ----------------------
+#--------------------------------Show Circles Grapics ----------------------
 def show_circles(out):
         cv.imshow("detected circles", out)
 #End the program with ESC
