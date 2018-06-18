@@ -19,27 +19,35 @@ def main():
         cf_hc = [30, 10, 20, 30]
 	c_red = "red"
 	c_yellow = "yellow"
-        graphics = 0
+        graphics = False
 
 #FOR DEBUG ENABLE print_arr TO COMPARE THE ARRAYS
         print_arr = 0
 
 #Look if there is an argument given:
         if len(sys.argv) < 2:
-            sys.exit("Use like: " + "\n\tpython doALL.py image.jpg bool" + "\n\nImage needs to be a picture of a gameboard from Connect4" + "\nbool: null or 0 for no graphics, 1 for graphics")
+            error()
         elif len(sys.argv) == 2:
             try:
 	        fn = sys.argv[1]
 	    except IndexError:
-	        sys.exit("There needs to be a picture given to me or I will eat you, oh yeah it needs to be a picture of a gameboard from Connect4")
+                print("There needs to be a picture given to me or I will eat you, oh yeah it needs to be a picture of a gameboard from Connect4")
+                error()
         elif len(sys.argv) == 3:
             try:
-	        graphics = sys.argv[2]
+	        fn = sys.argv[1]
 	    except IndexError:
-	        sys.exit("Second parameter can only be 0 or 1. 1 means that graphic elements of the program are being shown")
-
+                print("There needs to be a picture given to me or I will eat you, oh yeah it needs to be a picture of a gameboard from Connect4")
+                error()
+            try:
+                graphics = sys.argv[2]
+            except IndexError:
+                print("Second parameter can only be 0 or 1. 1 means that graphic elements of the program are being shown")
+                
+                
 #Read/import the pictureDocumentbeheer: la
-	source = cv.imread(fn)
+	print (graphics)
+        source = cv.imread(fn)
 	print (source.shape)
         if graphics:
             cv.imshow("IMPORT", source)
@@ -416,6 +424,9 @@ def show_circles(out):
 	cv.destroyAllWindows()
         return 0
 
+#-------------------------------------------------------------------
+def error():
+    sys.exit("python " + sys.argv[0] + " <picture> <0 or 1> \n Parameter 1: picture of four on a row board. \n Parameter 2: enable graphics.")
 #-------------------------------------------------------------------
 #-------------------------------- Main -----------------------------
 
