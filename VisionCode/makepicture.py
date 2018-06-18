@@ -9,14 +9,23 @@ import os
 import time
 
 def main():
-    time_name = time.strftime("%Y%m%d_%H%M%S")
-    time_name = (time_name + ".jpg")
-    print(time_name)
+    x_time = time.strftime("%Y%m%d_%H%M%S")
+    pic_n = (x_time + ".jpg")
     
-    time_name = ("pic/" + time_name)
+    #Picture is saved in pic
+    pic_n_loc = ("pic/" + pic_n)
 
-    os.system("raspistill -o " + time_name)
-    
+    if (os.path.exists("pic") == False):
+        os.system("mkdir pic")
+    try:
+        os.system("raspistill -o " + pic_n_loc)
+    except:
+        sys.exit("Picture wasn't token")
+    if (os.path.isdir(pic_n_loc) == False):
+        sys.exit("Picture wasn't token")
+    print("Picture is token, named: " + pic_n)
+    os.system("convert -resize 20% " + pic_n)
+    print("Picture is resized to 20% of original")
 
 
 if __name__ == '__main__':
