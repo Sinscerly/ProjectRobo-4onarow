@@ -34,11 +34,11 @@ def main():
 	        sys.exit("There needs to be a picture given to me or I will eat you, oh yeah it needs to be a picture of a gameboard from Connect4")
         elif len(sys.argv) == 3:
             try:
-	        fn = sys.argv[1]
+	        graphics = sys.argv[2]
 	    except IndexError:
-	        sys.exit("There needs to be a picture given to me or I will eat you, oh yeah it needs to be a picture of a gameboard from Connect4")
-            graphics = sys.argv[2]
-#Read/import the picture
+	        sys.exit("Second parameter can only be 0 or 1. 1 means that graphic elements of the program are being shown")
+
+#Read/import the pictureDocumentbeheer: la
 	source = cv.imread(fn)
 	print (source.shape)
         if graphics:
@@ -134,13 +134,13 @@ def main():
 
 #-------------------------------- SHOW OUTPUT / Backup -----------------------------
 #show image
-        #if graphics:
+        if graphics:
 #	    cv.imshow("source", source)
 #	    cv.imshow("mask_red-black/white", 	mask_red)
 #	    cv.imshow("mask_yellow-black/white", 	mask_yellow)	
 #	    cv.imshow("rest-red", 		res_red)
 #	    cv.imshow("rest-yellow", 	res_yellow)
-#           cv.imshow("detected circles", output_dc)
+            cv.imshow("detected circles", circles_dc)
 
 #save the black/white image of the board, for RED and YELLOW.
 	save_red    = "REDblackwhiteboard.jpg"
@@ -211,7 +211,7 @@ def main():
 	        k = cv.waitKey(5) & 0xFF
 	        if k == 27:
 		    break
-	cv.destroyAllWindows()
+	    cv.destroyAllWindows()
 
 #--------------------------------------------------------------------
 #--------------------------------------------------------------------
