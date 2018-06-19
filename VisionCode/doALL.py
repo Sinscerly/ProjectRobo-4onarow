@@ -127,7 +127,7 @@ def main():
     upper_yellow = np.array([100,255,255])
 #Make masks from the filter ranges
 	mask_red_low	= cv.inRange(hsv_blur, lower_red, upper_red)
-        mask_red_high   = cv.inRange(hsv_blur, lower_red2, upper_red2)
+    mask_red_high   = cv.inRange(hsv_blur, lower_red2, upper_red2)
 	mask_yellow     = cv.inRange(hsv_blur, lower_yellow, upper_yellow)
     #Combine both red masks for one big red mask
 	mask_red        = cv.add(mask_red_low, mask_red_high)
