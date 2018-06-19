@@ -15,14 +15,14 @@ def main():
 print(__doc__)
     
     #Parameters for HoughCircles detection for board positions:
-    p_hc  = [15, 65, 20, 35]
+        p_hc  = [15, 65, 20, 35]
     #Parameters for HoughCircles detection for the color masks:
-    cf_hc = [30, 10, 20, 30]
-    c_red = "red"
-    c_yellow = "yellow"
-    graphics = False
-    print_arr = False
-    del_pic = True
+        cf_hc = [30, 10, 20, 30]
+        c_red = "red"
+        c_yellow = "yellow"
+        graphics = False
+        print_arr = False
+        del_pic = True
 #FOR DEBUG ENABLE print_arr TO COMPARE THE ARRAYS
     
 '''
@@ -46,13 +46,13 @@ print(__doc__)
             except IndexError:
                 print("Second parameter can only be 0 or 1. 1 means that graphic elements of the program are being shown")
 '''
-    if len(sys.argv) == 2:
-        if sys.argv[1] == 0:
-            del_pic = False
-            print("Picture will not be deleted")
-        else:
-            if sys.argv[1] != 1:
-                print("Syntax: \t python doALL.py <0-1> \n <0-1> remove picture")
+        if len(sys.argv) == 2:
+            if sys.argv[1] == 0:
+                del_pic = False
+                print("Picture will not be deleted")
+            else:
+                if sys.argv[1] != 1:
+                    print("Syntax: \t python doALL.py <0-1> \n <0-1> remove picture")
         
 #---------------------- Make the picture --------------------------------
 #get current time to make a unique timestamp
