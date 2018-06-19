@@ -87,7 +87,7 @@ def main():
         index_dc = (i+1)
     if index_dc != 42:
         print("Picture will be renamed")
-        os.system("mv " + pic_n_loc + " " + (pic_n_loc + "-false"))
+        os.system("mv " + pic_n_loc + " " + ("pic/" + x_time + "-false"))
     if index_dc == 0:
         print("The index_DetectedCircles is 0, so there were no circles found.")
         print("The HoughCircle detection could not find any circles... pls, check the picture!")
