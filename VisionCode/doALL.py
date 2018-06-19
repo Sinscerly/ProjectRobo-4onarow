@@ -227,8 +227,9 @@ def main():
 #Grid to file.txt
     grid_n = (x_time + ".txt")
     #Grid will be saved in directory: grid
-    if (os.path.isdir(grid_n) == False):
+    if (os.path.isdir("grid") == False):
         os.system("mkdir grid")
+        print("Directory grid is created to store grid.txt files")
     grid_n_loc = ("grid/" + grid_n)
     
     file = open(grid_n_loc, "w")
@@ -239,7 +240,7 @@ def main():
             #1 = Red
             #2 = Yellow
             this_print = this_print + str(grid[x][y])
-        file.write(this_print)
+        file.write(this_print + "\n")
     file.close()
    
     
