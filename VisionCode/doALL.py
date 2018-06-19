@@ -93,7 +93,7 @@ def main():
         #stop program
         sys.exit("Error")
     else:
-    array_dc = read_circles(circles_dc, index_dc)
+        array_dc = read_circles(circles_dc, index_dc)
         if index_dc != 42:
             print("The index is: " + str(index_dc))
             print("The index from detect circles is not 42 so we cannot find the optimal locations at the board.")
