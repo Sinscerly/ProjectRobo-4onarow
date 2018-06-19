@@ -8,9 +8,7 @@ import sys
 import os
 import time
 
-def main():
-    print(__doc__)
-    
+def main():    
 #Parameters for HoughCircles detection for board positions:
     p_hc  = [15, 65, 20, 35]
 #Parameters for HoughCircles detection for the color masks:
