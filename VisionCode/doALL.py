@@ -15,14 +15,14 @@ def main():
 	print(__doc__)
     
     #Parameters for HoughCircles detection for board positions:
-    p_hc  = [15, 65, 20, 35]
+        p_hc  = [15, 65, 20, 35]
     #Parameters for HoughCircles detection for the color masks:
-    cf_hc = [30, 10, 20, 30]
-	c_red = "red"
-	c_yellow = "yellow"
-    graphics = False
-    print_arr = False
-    del_pic = True
+        cf_hc = [30, 10, 20, 30]
+        c_red = "red"
+        c_yellow = "yellow"
+        graphics = False
+        print_arr = False
+        del_pic = True
 #FOR DEBUG ENABLE print_arr TO COMPARE THE ARRAYS
     
 '''
@@ -145,11 +145,11 @@ def main():
 	lower_red = np.array([0, 71,0])
 	upper_red = np.array([15, 255,255])
     #Red spectre high
-        lower_red2 = np.array([177, 0, 0])
-        upper_red2 = np.array([255, 255, 255])
+    lower_red2 = np.array([177, 0, 0])
+    upper_red2 = np.array([255, 255, 255])
     #Yellow spectre
-        lower_yellow = np.array([10,140,20])
-	upper_yellow = np.array([100,255,255])
+    lower_yellow = np.array([10,140,20])
+    upper_yellow = np.array([100,255,255])
 #Make masks from the filter ranges
 	mask_red_low	= cv.inRange(hsv_blur, lower_red, upper_red)
         mask_red_high   = cv.inRange(hsv_blur, lower_red2, upper_red2)
