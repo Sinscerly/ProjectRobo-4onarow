@@ -12,7 +12,7 @@ def main():
 	This code will filter out all colors except RED
 	Then it will search for circles and will find only the RED circles.
 	'''
-print(__doc__)
+        print(__doc__)
     
     #Parameters for HoughCircles detection for board positions:
         p_hc  = [15, 65, 20, 35]
