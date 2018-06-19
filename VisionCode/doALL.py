@@ -65,7 +65,7 @@ def main():
 	blur = cv.medianBlur(source, 5)
 #make a HSV image from the blurred picture
     hsv_source  = cv.cvtColor(source, cv.COLOR_BGR2HSV)
-	hsv_blur    = cv.cvtColor(blur,   cv.COLOR_BGR2HSV)
+    hsv_blur    = cv.cvtColor(blur,   cv.COLOR_BGR2HSV)
 
 #-----------------------------------------------------------------------
 #------------------ Detect Circles -------------------------------------
