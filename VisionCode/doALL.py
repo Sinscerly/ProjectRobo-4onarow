@@ -46,13 +46,13 @@ def main():
             except IndexError:
                 print("Second parameter can only be 0 or 1. 1 means that graphic elements of the program are being shown")
 '''
-        if len(sys.argv) == 2:
-            if sys.argv[1] == 0:
-                del_pic = False
-                print("Picture will not be deleted")
-            else:
-                if sys.argv[1] != 1:
-                    print("Syntax: \t python doALL.py <0-1> \n <0-1> remove picture")
+    if len(sys.argv) == 2:
+        if sys.argv[1] == 0:
+            del_pic = False
+            print("Picture will not be deleted")
+        else:
+            if sys.argv[1] != 1:
+                print("Syntax: \t python doALL.py <0-1> \n <0-1> remove picture")
         
 #---------------------- Make the picture --------------------------------
 #get current time to make a unique timestamp
