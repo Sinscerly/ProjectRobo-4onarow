@@ -18,7 +18,7 @@ def main():
     elif len(sys.argv) > 2:
         print("To much arguments")
 
-
+    print(del_pic)
     #get current time to make a unique timestamp
     x_time = time.strftime("%Y%m%d_%H%M%S")
     pic_n = (x_time + ".jpg")
