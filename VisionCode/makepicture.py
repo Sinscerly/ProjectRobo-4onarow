@@ -12,11 +12,11 @@ def main():
     
     del_pic = 1
     if len(sys.argv) < 2:
-            print("Syntax can be: 'Python makepicture.py <0-1>")
-        elif len(sys.argv) == 2:
-            del_pic = sys.argv[1]
-        elif len(sys.argv) > 2:
-            print("To much arguments")
+        print("Syntax can be: 'Python makepicture.py <0-1>")
+    elif len(sys.argv) == 2:
+        del_pic = sys.argv[1]
+    elif len(sys.argv) > 2:
+        print("To much arguments")
 
 
     #get current time to make a unique timestamp
