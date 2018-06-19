@@ -57,51 +57,51 @@ def main():
 
 #--------------------------- IMPORT -------------------------------------
 #Read/import the pictureDocumentbeheer: la
-        source = cv.imread(pic_n_loc)
-	#print (source.shape)
-        if graphics:
-            cv.imshow("IMPORT", source)
+    source = cv.imread(pic_n_loc)
+#print (source.shape)
+    if graphics:
+        cv.imshow("IMPORT", source)
 #Blur the image
 	blur = cv.medianBlur(source, 5)
 #make a HSV image from the blurred picture
-        hsv_source  = cv.cvtColor(source, cv.COLOR_BGR2HSV)
+    hsv_source  = cv.cvtColor(source, cv.COLOR_BGR2HSV)
 	hsv_blur    = cv.cvtColor(blur,   cv.COLOR_BGR2HSV)
 
 #-----------------------------------------------------------------------
 #------------------ Detect Circles -------------------------------------
 # Here we look for all the positions a disc of the game can be. 
 # So we can make a grid with this information and compare the place of the colored discs we have found
-        img_dc = cv.cvtColor(source, cv.COLOR_BGR2GRAY)
-        #img_dc = cv.medianBlur(img, 5)
-        output_dc = source.copy() # numpy function
-        circles_dc = cv.HoughCircles(img_dc, cv.HOUGH_GRADIENT, 1, 10, np.array([]), p_hc[0], p_hc[1], p_hc[2], p_hc[3])
-        # Check if circles have been found and only then iterate over these and add them to the image
-        index_dc = 0
-        if circles_dc is not None and len(circles_dc): 
-            print(circles_dc)
-            a, b, c = circles_dc.shape
-            for i in range(b):
-                cv.circle(output_dc, (circles_dc[0][i][0], circles_dc[0][i][1]), circles_dc[0][i][2], (0, 0, 255), 3, cv.LINE_AA)
-                cv.circle(output_dc, (circles_dc[0][i][0], circles_dc[0][i][1]), 2, (0, 255, 0), 3, cv.LINE_AA)  # draw center of circle
-            index_dc = (i+1) 
-        if index_dc == 0:
-            print("The index_DetectedCircles is 0, so there were no circles found.")
-            print("The HoughCircle detection could not find any circles... pls, check the picture!")
-            #show output why there are no circles found.
+    img_dc = cv.cvtColor(source, cv.COLOR_BGR2GRAY)
+    #img_dc = cv.medianBlur(img, 5)
+    output_dc = source.copy() # numpy function
+    circles_dc = cv.HoughCircles(img_dc, cv.HOUGH_GRADIENT, 1, 10, np.array([]), p_hc[0], p_hc[1], p_hc[2], p_hc[3])
+    #Check if circles have been found and only then iterate over these and add them to the image
+    index_dc = 0
+    if circles_dc is not None and len(circles_dc): 
+        print(circles_dc)
+        a, b, c = circles_dc.shape
+        for i in range(b):
+            cv.circle(output_dc, (circles_dc[0][i][0], circles_dc[0][i][1]), circles_dc[0][i][2], (0, 0, 255), 3, cv.LINE_AA)
+            cv.circle(output_dc, (circles_dc[0][i][0], circles_dc[0][i][1]), 2, (0, 255, 0), 3, cv.LINE_AA)  # draw center of circle
+        index_dc = (i+1) 
+    if index_dc == 0:
+        print("The index_DetectedCircles is 0, so there were no circles found.")
+        print("The HoughCircle detection could not find any circles... pls, check the picture!")
+        #show output why there are no circles found.
+        if graphics:
+            show_circles(output_dc)
+        #stop program
+        sys.exit("Error")
+    else:
+    array_dc = read_circles(circles_dc, index_dc)
+        if index_dc != 42:
+            print("The index is: " + str(index_dc))
+            print("The index from detect circles is not 42 so we cannot find the optimal locations at the board.")
+            #show output why there are to less or may circles found.
             if graphics:
                 show_circles(output_dc)
             #stop program
             sys.exit("Error")
-        else:
-	    array_dc = read_circles(circles_dc, index_dc)
-            if index_dc != 42:
-                print("The index is: " + str(index_dc))
-                print("The index from detect circles is not 42 so we cannot find the optimal locations at the board.")
-                #show output why there are to less or may circles found.
-                if graphics:
-                    show_circles(output_dc)
-                #stop program
-                sys.exit("Error")
 
 #-----------------------------------------------------------------------
 #------------------ Color Filters --------------------------------------
@@ -132,39 +132,39 @@ def main():
     #Combine both red masks for one big red mask
 	mask_red        = cv.add(mask_red_low, mask_red_high)
 #erode for better quality
-        kernel = np.ones((5,5), np.uint8)
-        red_erode       = cv.erode(mask_red,    kernel, iterations = 4)
-        yellow_erode    = cv.erode(mask_yellow, kernel, iterations = 4)
-        #Debug erode:
-        #cv.imshow("rip_red",    red_erode)
-        #cv.imshow("rip_yellow", yellow_erode)
-        for i in range(4): 
-            red_erode = cv.dilate(red_erode, kernel, iterations = 1)
-            red_erode = cv.bitwise_and(red_erode, red_erode, mask = mask_red)
-            yellow_erode = cv.dilate(yellow_erode, kernel, iterations = 1)
-            yellow_erode = cv.bitwise_and(yellow_erode, mask_yellow, mask = mask_yellow)
+    kernel = np.ones((5,5), np.uint8)
+    red_erode       = cv.erode(mask_red,    kernel, iterations = 4)
+    yellow_erode    = cv.erode(mask_yellow, kernel, iterations = 4)
+    #Debug erode:
+    #cv.imshow("rip_red",    red_erode)
+    #cv.imshow("rip_yellow", yellow_erode)
+    for i in range(4): 
+        red_erode = cv.dilate(red_erode, kernel, iterations = 1)
+        red_erode = cv.bitwise_and(red_erode, red_erode, mask = mask_red)
+        yellow_erode = cv.dilate(yellow_erode, kernel, iterations = 1)
+        yellow_erode = cv.bitwise_and(yellow_erode, mask_yellow, mask = mask_yellow)
 #output mask for futher work
-        out_red     = red_erode
-        out_yellow  = yellow_erode
+    out_red     = red_erode
+    out_yellow  = yellow_erode
 #show the color image with mask.
 	res_red 	= cv.bitwise_and(blur, blur, mask = out_red)
 	res_yellow 	= cv.bitwise_and(blur, blur, mask = out_yellow)
 
 #-------------------------------- SHOW OUTPUT / Backup -----------------------------
 #show image
-        if graphics:
+    if graphics:
 #	    cv.imshow("source", source)
 #	    cv.imshow("mask_red-black/white", 	mask_red)
 	    cv.imshow("mask_yellow-black/white", 	mask_yellow)	
 #	    cv.imshow("rest-red", 		res_red)
 	    cv.imshow("rest-yellow", 	res_yellow)
-            cv.imshow("detected circles", circles_dc)
+        cv.imshow("detected circles", circles_dc)
 
 #save the black/white image of the board, for RED and YELLOW.
 	save_red    = "REDblackwhiteboard.jpg"
 	save_yellow = "YELLOWblackwhiteboard.jpg"
 	cv.imwrite(save_red, out_red)	
-        cv.imwrite(save_yellow, out_yellow)
+    cv.imwrite(save_yellow, out_yellow)
 
 #--------------------------------- Detecting the COLOR circles from the masks ------------------------
 #detect the red circles 
@@ -206,21 +206,21 @@ def main():
 	    #cv.imshow("detected circles yellow", 	cir_yellow)
 
         #Combined image of circles RED and YELLOW
-            cv.imshow("all", cv.add(cir_red, cir_yellow))
+        cv.imshow("all", cv.add(cir_red, cir_yellow))
 
-        if index_red == 0 and index_yellow == 0:
-            #stop program
-            sys.exit("No discs have been found at color masks. PLS check image, if there are any discs on it.")
-        elif (index_red + index_yellow) > 42:
-            #stop program
-            print("Number of red discs: " + str(index_red) + ". \tNumber of yellow discs: " + str(index_yellow) + ".")
-            print("NUmber of total discs: " + str(index_red + index_yellow))
-            sys.exit("There have been found more discs on the board then possible places on the board")
-        order_array_for_grid(array_dc, index_dc)
-        if print_arr:
-            print_arrays(array_dc, array_red, index_red, array_yellow, index_yellow)
-        
-        grid = fill_and_print_grid(array_dc, array_red, index_red, array_yellow, index_yellow)
+    if index_red == 0 and index_yellow == 0:
+        #stop program
+        sys.exit("No discs have been found at color masks. PLS check image, if there are any discs on it.")
+    elif (index_red + index_yellow) > 42:
+        #stop program
+        print("Number of red discs: " + str(index_red) + ". \tNumber of yellow discs: " + str(index_yellow) + ".")
+        print("NUmber of total discs: " + str(index_red + index_yellow))
+        sys.exit("There have been found more discs on the board then possible places on the board")
+    order_array_for_grid(array_dc, index_dc)
+    if print_arr:
+        print_arrays(array_dc, array_red, index_red, array_yellow, index_yellow)
+    
+    grid = fill_and_print_grid(array_dc, array_red, index_red, array_yellow, index_yellow)
 
 #--------------------------- OUPUT GRID ------------------------------
 #Grid to file.txt
