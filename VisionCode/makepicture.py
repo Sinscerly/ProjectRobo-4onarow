@@ -32,6 +32,8 @@ def main():
         sys.exit("Picture couldn't be resized, check if ImageMagick is installed")
     else:
         print("Picture is resized to 20% of original")
+        
+    os.system("python doAll.py " + pic_n_loc)
 
 if __name__ == '__main__':
 	main()
