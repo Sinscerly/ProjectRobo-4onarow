@@ -9,7 +9,6 @@ import os
 import time
 
 def main():
-    
     del_pic = 1
     if len(sys.argv) < 2:
         print("Syntax can be: 'Python makepicture.py <0-1>")
@@ -18,7 +17,6 @@ def main():
     elif len(sys.argv) > 2:
         print("To much arguments")
 
-    print(del_pic)
     #get current time to make a unique timestamp
     x_time = time.strftime("%Y%m%d_%H%M%S")
     pic_n = (x_time + ".jpg")
@@ -26,6 +24,7 @@ def main():
     if (os.path.isdir("pic") == False):
         os.system("mkdir pic")
     pic_n_loc = ("pic/" + pic_n)
+    
     #make picture of the board
     try:
         os.system("raspistill -o " + pic_n_loc)
@@ -34,6 +33,7 @@ def main():
     if (os.path.exists(pic_n_loc) == False):
         sys.exit("Picture wasn't token")
     print("Picture is token, named: " + pic_n)
+    
     #Get size of image
     size_pic = os.path.getsize(pic_n_loc)
     #For the convert command it is needed to have imagemagick to be installed.
@@ -45,7 +45,9 @@ def main():
         
     os.system("python doALL.py " + pic_n_loc)
     
+    if del_pic:
+        os.system("rm " + pic_n_loc)
+        print("Removed token picture, to keep picture add argument: 0")
     
-
 if __name__ == '__main__':
 	main()
