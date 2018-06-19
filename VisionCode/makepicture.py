@@ -47,7 +47,7 @@ def main():
     
     if del_pic:
         os.system("rm " + pic_n_loc)
-        print("Removed token picture, to keep picture add argument: 0")
+        print("\nRemoved token picture, to keep picture add argument: 0")
     
 if __name__ == '__main__':
 	main()
