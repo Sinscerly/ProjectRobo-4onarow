@@ -15,16 +15,17 @@ def main():
     #Picture is saved in pic
     pic_n_loc = ("pic/" + pic_n)
 
-    if (os.path.exists("pic") == False):
+    if (os.path.isdir("pic") == False):
         os.system("mkdir pic")
     try:
         os.system("raspistill -o " + pic_n_loc)
     except:
-        sys.exit("Picture wasn't token")
-    if (os.path.isdir(pic_n_loc) == False):
+        print("check picture")
+        #sys.exit("Picture wasn't token")
+    if (os.path.exists(pic_n_loc) == False):
         sys.exit("Picture wasn't token")
     print("Picture is token, named: " + pic_n)
-    os.system("convert -resize 20% " + pic_n)
+    os.system("convert -resize 20% " + pic_n_loc + " " + pic_n_loc)
     print("Picture is resized to 20% of original")
 
 
