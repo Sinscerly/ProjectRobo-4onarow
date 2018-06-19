@@ -18,9 +18,9 @@ def main():
 	pic_n_loc = ("pic/" + pic_n)
     #make picture of the board
 	try:
-        os.system("raspistill -o " + pic_n_loc)
+		os.system("raspistill -o " + pic_n_loc)
     if (os.path.exists(pic_n_loc) == False):
-        sys.exit("Picture wasn't token")
+		sys.exit("Picture wasn't token")
     print("Picture is token, named: " + pic_n)
 	#Get size of image
 	size_pic = os.path.getsize(pic_n_loc)
