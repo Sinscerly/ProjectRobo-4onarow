@@ -84,7 +84,10 @@ def main():
         for i in range(b):
             cv.circle(output_dc, (circles_dc[0][i][0], circles_dc[0][i][1]), circles_dc[0][i][2], (0, 0, 255), 3, cv.LINE_AA)
             cv.circle(output_dc, (circles_dc[0][i][0], circles_dc[0][i][1]), 2, (0, 255, 0), 3, cv.LINE_AA)  # draw center of circle
-        index_dc = (i+1) 
+        index_dc = (i+1)
+    if index_dc != 42:
+        print("Picture will be renamed")
+        os.system("mv " + pic_n_loc + " " + (pic_n_loc + "-false"))
     if index_dc == 0:
         print("The index_DetectedCircles is 0, so there were no circles found.")
         print("The HoughCircle detection could not find any circles... pls, check the picture!")
