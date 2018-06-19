@@ -113,8 +113,8 @@ def main():
         lower_red2 = np.array([177, 0, 0])
         upper_red2 = np.array([255, 255, 255])
     #Yellow spectre
-        lower_yellow = np.array([20,190,20])
-	upper_yellow = np.array([30,255,255])
+        lower_yellow = np.array([10,140,20])
+	upper_yellow = np.array([100,255,255])
 #Make masks from the filter ranges
 	mask_red_low	= cv.inRange(hsv_blur, lower_red, upper_red)
         mask_red_high   = cv.inRange(hsv_blur, lower_red2, upper_red2)
@@ -145,9 +145,9 @@ def main():
         if graphics:
 #	    cv.imshow("source", source)
 #	    cv.imshow("mask_red-black/white", 	mask_red)
-#	    cv.imshow("mask_yellow-black/white", 	mask_yellow)	
+	    cv.imshow("mask_yellow-black/white", 	mask_yellow)	
 #	    cv.imshow("rest-red", 		res_red)
-#	    cv.imshow("rest-yellow", 	res_yellow)
+	    cv.imshow("rest-yellow", 	res_yellow)
             cv.imshow("detected circles", circles_dc)
 
 #save the black/white image of the board, for RED and YELLOW.
