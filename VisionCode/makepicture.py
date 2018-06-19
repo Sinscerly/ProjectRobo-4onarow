@@ -9,6 +9,16 @@ import os
 import time
 
 def main():
+    
+    del_pic = 1
+    if len(sys.argv) < 2:
+            print("Syntax can be: 'Python makepicture.py <0-1>")
+        elif len(sys.argv) == 2:
+            del_pic = sys.argv[1]
+        elif len(sys.argv) > 2:
+            print("To much arguments")
+
+
     #get current time to make a unique timestamp
     x_time = time.strftime("%Y%m%d_%H%M%S")
     pic_n = (x_time + ".jpg")
@@ -34,6 +44,8 @@ def main():
         print("Picture is resized to 20% of original")
         
     os.system("python doALL.py " + pic_n_loc)
+    
+    
 
 if __name__ == '__main__':
 	main()
