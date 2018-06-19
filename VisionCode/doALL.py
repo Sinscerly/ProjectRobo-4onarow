@@ -24,28 +24,7 @@ def main():
         print_arr = False
         del_pic = True
 #FOR DEBUG ENABLE print_arr TO COMPARE THE ARRAYS
-    
-    '''
-    #Look if there is an argument given:
-            if len(sys.argv) < 2:
-                error()
-            elif len(sys.argv) == 2:
-                try:
-                fn = sys.argv[1]
-            except IndexError:
-                    print("There needs to be a picture given to me or I will eat you, oh yeah it needs to be a picture of a gameboard from Connect4")
-                    error()
-            elif len(sys.argv) == 3:
-                try:
-                fn = sys.argv[1]
-            except IndexError:
-                    print("There needs to be a picture given to me or I will eat you, oh yeah it needs to be a picture of a gameboard from Connect4")
-                    error()
-                try:
-                    graphics = sys.argv[2]
-                except IndexError:
-                    print("Second parameter can only be 0 or 1. 1 means that graphic elements of the program are being shown")
-    '''
+
     if len(sys.argv) == 2:
         if sys.argv[1] == 0:
             del_pic = False
