@@ -19,6 +19,8 @@ def main():
     #make picture of the board
     try:
         os.system("raspistill -o " + pic_n_loc)
+    except:
+        print("Take a look at the 'raspistill' command")
     if (os.path.exists(pic_n_loc) == False):
         sys.exit("Picture wasn't token")
     print("Picture is token, named: " + pic_n)
