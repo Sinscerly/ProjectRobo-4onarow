@@ -172,8 +172,8 @@ def main():
     img_r = cv.medianBlur(cv.cvtColor(src_r, cv.COLOR_BGR2GRAY), 5)
     cimg_r = src_r.copy() # numpy function
     circles_r = cv.HoughCircles(img_r, cv.HOUGH_GRADIENT, 1, 10, np.array([]), cf_hc[0], cf_hc[1], cf_hc[2], cf_hc[3])
-	# Check if circles have been found and only then iterate over these and add them to the image
-        cir_red = src_r
+    # Check if circles have been found and only then iterate over these and add them to the image
+    cir_red = src_r
     if circles_r is not None and len(circles_r): 
         print(circles_r)
         a, b, c = circles_r.shape
