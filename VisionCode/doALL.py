@@ -6,6 +6,7 @@ import cv2 as cv
 import numpy as np
 import sys
 import os
+import time
 
 def main():
     print(__doc__)
