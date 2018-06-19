@@ -19,12 +19,11 @@ def main():
         os.system("mkdir pic")
     try:
         os.system("raspistill -o " + pic_n_loc)
-    except:
-        print("check picture")
-        #sys.exit("Picture wasn't token")
     if (os.path.exists(pic_n_loc) == False):
         sys.exit("Picture wasn't token")
     print("Picture is token, named: " + pic_n)
+	
+	#For the convert command it is needed to have imagemagick to be installed.
     os.system("convert -resize 20% " + pic_n_loc + " " + pic_n_loc)
     print("Picture is resized to 20% of original")
 
