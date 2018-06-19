@@ -43,7 +43,7 @@ def main():
     else:
         print("Picture is resized to 20% of original")
         
-    os.system("python doALL.py " + pic_n_loc)
+    #os.system("python <picture_to_grid>.py " + pic_n_loc)
     
     if del_pic:
         os.system("rm " + pic_n_loc)

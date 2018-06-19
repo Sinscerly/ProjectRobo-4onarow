@@ -13,19 +13,17 @@ def main():
 	Then it will search for circles and will find only the RED circles.
 	'''
 	print(__doc__)
-    
-    #Parameters for HoughCircles detection for board positions:
-    p_hc  = [15, 65, 20, 35]
-    #Parameters for HoughCircles detection for the color masks:
-    cf_hc = [30, 10, 20, 30]
+        #Parameters for HoughCircles detection for board positions:
+        p_hc  = [15, 65, 20, 35]
+        #Parameters for HoughCircles detection for the color masks:
+        cf_hc = [30, 10, 20, 30]
 	c_red = "red"
 	c_yellow = "yellow"
-    graphics = False
-    print_arr = False
-    del_pic = True
+        graphics = False
+
 #FOR DEBUG ENABLE print_arr TO COMPARE THE ARRAYS
-    
-'''
+        print_arr = 0
+
 #Look if there is an argument given:
         if len(sys.argv) < 2:
             error()
@@ -45,45 +43,12 @@ def main():
                 graphics = sys.argv[2]
             except IndexError:
                 print("Second parameter can only be 0 or 1. 1 means that graphic elements of the program are being shown")
-'''
-    if len(sys.argv) == 2:
-        if sys.argv[1] == 0:
-            del_pic = False
-            print("Picture will not be deleted")
-        else:
-            if sys.argv[1] != 1:
-                print("Syntax: \t python doALL.py <0-1> \n <0-1> remove picture")
-        
-#---------------------- Make the picture --------------------------------
-#get current time to make a unique timestamp
-    x_time = time.strftime("%Y%m%d_%H%M%S")
-    pic_n = (x_time + ".jpg")
-#Picture will be saved in directory: pic
-    if (os.path.isdir("pic") == False):
-        os.system("mkdir pic")
-    pic_n_loc = ("pic/" + pic_n)
-    
-#make picture of the board
-    try:
-        os.system("raspistill -o " + pic_n_loc)
-    except:
-        print("Take a look at the 'raspistill' command")
-    if (os.path.exists(pic_n_loc) == False):
-        sys.exit("Picture wasn't token")
-    print("Picture is token, named: " + pic_n)
-    
-#Get size of image
-    size_pic = os.path.getsize(pic_n_loc)
-#For the convert command it is needed to have imagemagick to be installed.
-    os.system("convert -resize 20% " + pic_n_loc + " " + pic_n_loc)
-    if (size_pic == os.path.getsize(pic_n_loc) or size_pic < os.path.getsize(pic_n_loc)):
-        sys.exit("Picture couldn't be resized, check if ImageMagick is installed")
-    print("Picture is resized to 20% of original")
-
-#--------------------------- IMPORT -------------------------------------
+                
+                
 #Read/import the pictureDocumentbeheer: la
-        source = cv.imread(pic_n_loc)
-	#print (source.shape)
+	print (graphics)
+        source = cv.imread(fn)
+	print (source.shape)
         if graphics:
             cv.imshow("IMPORT", source)
 #Blur the image
@@ -247,30 +212,6 @@ def main():
         
         grid = fill_and_print_grid(array_dc, array_red, index_red, array_yellow, index_yellow)
 
-#--------------------------- OUPUT GRID ------------------------------
-#Grid to file.txt
-    grid_n = (x_time + ".txt")
-    #Grid will be saved in directory: grid
-    if (os.path.isdir(grid_n) == False):
-        os.system("mkdir grid")
-    grid_n_loc = ("grid/" + grid_n)
-    
-    file = open(grid_n_loc, "w")
-    for y in range(5,-1,-1):
-        this_print = ""
-        for x in range(7):
-            #0 = empty
-            #1 = Red
-            #2 = Yellow
-            this_print = this_print + grid[x][y]
-        file.write(this_print)
-    file.close()
-   
-    
-#Delete picture, not needed any more
-    if del_pic:
-        os.system("rm " + pic_n_loc)
-        print("\nRemoved token picture, to keep picture add argument: 0")
 
 #End the program with ESC
         if graphics:
