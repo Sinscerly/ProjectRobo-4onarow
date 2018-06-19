@@ -33,7 +33,7 @@ def main():
     else:
         print("Picture is resized to 20% of original")
         
-    os.system("python doAll.py " + pic_n_loc)
+    os.system("python doALL.py " + pic_n_loc)
 
 if __name__ == '__main__':
 	main()
