@@ -162,14 +162,17 @@ def main():
         cv.imshow("detected circles", circles_dc)
 
 #save the black/white image of the board, for RED and YELLOW.
-    save_red    = "REDblackwhiteboard.jpg"
-    save_yellow = "YELLOWblackwhiteboard.jpg"
+    save_red    = "pic/" + "REDblackwhiteboard.jpg"
+    save_yellow = "pic/" + "YELLOWblackwhiteboard.jpg"
     cv.imwrite(save_red, out_red)	
     cv.imwrite(save_yellow, out_yellow)
 
 #--------------------------------- Detecting the COLOR circles from the masks ------------------------
 #detect the red circles 
-    src_r = cv.imread(save_red)	
+    src_r = cv.imread(save_red)
+    if del_pic:
+        #remove the save_red image
+        os.system("rm " + save_red)
     img_r = cv.medianBlur(cv.cvtColor(src_r, cv.COLOR_BGR2GRAY), 5)
     cimg_r = src_r.copy() # numpy function
     circles_r = cv.HoughCircles(img_r, cv.HOUGH_GRADIENT, 1, 10, np.array([]), cf_hc[0], cf_hc[1], cf_hc[2], cf_hc[3])
@@ -184,7 +187,10 @@ def main():
             cir_red = cimg_r
         index_red = (i+1)
 #detect the yellow circles
-    src_y = cv.imread(save_yellow)	
+    src_y = cv.imread(save_yellow)
+    if del_pic:
+        #remove the save_yellow image
+        os.system("rm " + save_yellow)	
     img_y = cv.medianBlur(cv.cvtColor(src_y, cv.COLOR_BGR2GRAY), 5)
     cimg_y = src_y.copy() # numpy function
     circles_y = cv.HoughCircles(img_y, cv.HOUGH_GRADIENT, 1, 10, np.array([]), cf_hc[0], cf_hc[1], cf_hc[2], cf_hc[3])
