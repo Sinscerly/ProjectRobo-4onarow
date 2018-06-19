@@ -9,7 +9,7 @@ import os
 import time
 
 def main():
-	#get current time to make a unique timestamp
+    #get current time to make a unique timestamp
     x_time = time.strftime("%Y%m%d_%H%M%S")
     pic_n = (x_time + ".jpg")
     #Picture will be saved in directory: pic
