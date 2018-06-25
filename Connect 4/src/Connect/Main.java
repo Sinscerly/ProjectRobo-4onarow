@@ -18,6 +18,11 @@ public class Main {
 
 	public static void main(String[] args)
 			throws InterruptedException, UnsupportedEncodingException, FileNotFoundException, IOException {
+		executeVision eV = new executeVision();
+		eV.execute();
+		System.exit(1);
+		
+		
 		String input;
 		while (true) {
 			System.out.println("What type of game do you want?");
