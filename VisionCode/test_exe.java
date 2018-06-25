@@ -4,16 +4,26 @@ class execute_doALL
 {
 	private static final int ROWS = 7, COLUMS = 6; // dimensions of the board
 	private static int[][] board = new int[ROWS][COLUMS]; // board that consist
+	private int faulty = 0;
 	
 	public static void main(String args[])
 	{	
-		//execute_vision();
-		try {
-			read_output();
-		} catch (Exception e) {
-			System.out.println(e.toString());
-			e.printStackTrace();
+		int output = 0;
+		while(output == 0) 
+		{
+			//execute_vision();
+			try {
+				output = read_output();
+			} catch (Exception e) {
+				System.out.println(e.toString());
+				e.printStackTrace();
+			}
+			if(output)
+			{
+				break;
+			}
 		}
+		system.out.println("Grid transfered and returned to board.")
 		//return something..
 	}
 	private static void execute_vision()
@@ -54,7 +64,8 @@ class execute_doALL
   		    	String line;
 			System.out.println("Hi..");
   		    	//Check if grid is not faulty.
-  		    	if ((line = br.readLine()) == "5") {
+  		    	if ((line = br.readLine()).equals("TRUE")) {
+  		    		faulty = 0;
   		    		int l = 0; j
   		    		System.out.println("Hi");
 	    			for (int y = 6; y >= 0; y--) {
@@ -64,8 +75,10 @@ class execute_doALL
 	    					board[y][x] = Integer.parseInt(numbers.substring(x));
 	    				}
 	    			}
-  		    	} else if ((line = br.readLine()) == "Fault") {
-  		    		System.out.println("Grid is not okay.");
+  		    	} else if ((line = br.readLine()).equals("FALSE")) {
+  		    		System.out.println("The output wasn't good and need to be retried.");
+  		    		faulty++;
+  		    		return 0;
   		    	} else { System.out.println("Not good"); }
   		} catch (Exception e) {
   				System.out.println(e.toString());
