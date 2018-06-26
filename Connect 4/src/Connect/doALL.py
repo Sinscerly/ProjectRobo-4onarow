@@ -231,7 +231,7 @@ def main():
     grid = fill_and_print_grid(array_dc, array_red, index_red, array_yellow, index_yellow)   
     
     grid_to_file(x_time,        grid)
-    grid_to_file("output.txt",  grid)
+    grid_to_file("output",  grid)
     
 #Delete picture, not needed any more
     if del_pic:
