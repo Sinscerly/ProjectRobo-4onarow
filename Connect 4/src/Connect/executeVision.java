@@ -39,6 +39,7 @@ public class executeVision {
 	}
 	private int check_board() 
 	{
+		System.out.println("Check board now");
 		int flag = 0;
 		int Red = 0, Yellow = 0;
 		for(int x = 0; x < ROWS; x++) {
