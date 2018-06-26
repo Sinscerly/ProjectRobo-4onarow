@@ -43,7 +43,7 @@ def main():
     except:
         print("Take a look at the 'raspistill' command")
     if (os.path.exists(pic_n_loc) == False):
-        sys.exit("Picture wasn't token")
+        exit("Picture wasn't token")
     print("Picture is token, named: " + pic_n)
     
 #Get size of image
@@ -51,7 +51,7 @@ def main():
 #For the convert command it is needed to have imagemagick to be installed.
     os.system("convert -resize 20% " + pic_n_loc + " " + pic_n_loc)
     if (size_pic == os.path.getsize(pic_n_loc) or size_pic < os.path.getsize(pic_n_loc)):
-        sys.exit("Picture couldn't be resized, check if ImageMagick is installed")
+        exit("Picture couldn't be resized, check if ImageMagick is installed")
     print("Picture is resized to 20% of original")
 
 #--------------------------- IMPORT -------------------------------------
@@ -93,7 +93,7 @@ def main():
         if graphics:
             show_circles(output_dc)
         #stop program
-        sys.exit("Error")
+        exit("Error")
     else:
         array_dc = read_circles(circles_dc, index_dc)
         if index_dc != 42:
@@ -103,7 +103,7 @@ def main():
             if graphics:
                 show_circles(output_dc)
             #stop program
-            sys.exit("Error")
+            exit("Error")
 
 #-----------------------------------------------------------------------
 #------------------ Color Filters --------------------------------------
@@ -218,20 +218,20 @@ def main():
 
     if index_red == 0 and index_yellow == 0:
         #stop program
-        sys.exit("No discs have been found at color masks. PLS check image, if there are any discs on it.")
+        exit("No discs have been found at color masks. PLS check image, if there are any discs on it.")
     elif (index_red + index_yellow) > 42:
         #stop program
         print("Number of red discs: " + str(index_red) + ". \tNumber of yellow discs: " + str(index_yellow) + ".")
         print("NUmber of total discs: " + str(index_red + index_yellow))
-        sys.exit("There have been found more discs on the board then possible places on the board")
+        exit("There have been found more discs on the board then possible places on the board")
     order_array_for_grid(array_dc, index_dc)
     if print_arr:
         print_arrays(array_dc, array_red, index_red, array_yellow, index_yellow)
     
     grid = fill_and_print_grid(array_dc, array_red, index_red, array_yellow, index_yellow)   
     
-    grid_to_file(x_time, grid)
-    grid_to_file("output.txt", grid)
+    grid_to_file(x_time,        grid, True)
+    grid_to_file("output.txt",  grid, True)
     
 #Delete picture, not needed any more
     if del_pic:
@@ -255,8 +255,11 @@ def main():
 #--------------------------------------------------------------------
 
 # -------------------------- Functions ------------------------------
+#--------------------------- OUPUT GRID -----------------------------
+def exit(description):
+    file_false()
+    sys.exit(description)
 def grid_to_file(name, grid):
-#--------------------------- OUPUT GRID ------------------------------
 #Grid to file.txt
     grid_n = (name + ".txt")
     #Grid will be saved in directory: grid
@@ -266,6 +269,7 @@ def grid_to_file(name, grid):
     grid_n_loc = ("grid/" + grid_n)
     
     file = open(grid_n_loc, "w")
+    file.write("TRUE\n")
     for y in range(5,-1,-1):
         this_print = ""
         for x in range(7):
@@ -274,6 +278,15 @@ def grid_to_file(name, grid):
             #2 = Yellow
             this_print = this_print + str(grid[x][y])
         file.write(this_print + "\n")
+    file.close()
+    return 1;
+def file_false():
+    if (os.path.isdir("grid") == False):
+        os.system("mkdir grid")
+        print("Directory grid is created to store grid.txt files")
+    grid_n_loc = ("grid/output.txt")
+    file = open(grid_n_loc, "w")
+    file.write("FALSE\n")
     file.close()
     return 1;
 def fill_and_print_grid(array_dc, array_red, index_red, array_yellow, index_yellow):
@@ -295,7 +308,7 @@ def find_according_circle(array_dc, x, y):
             if (x-r) < dc_x and dc_x < (x+r) and (y-r) < dc_y and dc_y < (y+r):
                 #print("match_dc: " + str(dc_x) + "," + str(array_dc[i][1]))
                 return i
-        sys.exit("There could not be found any match for disc: " + str(x) + "," + str(y))
+        exit("There could not be found any match for disc: " + str(x) + "," + str(y))
         #If this error is been given, you may need to adjust the range of r
 def fill_grid(grid, array_dc, array_color, index_color, color_code):
         #Color_code: 1; is for RED      discs
@@ -475,7 +488,7 @@ def show_circles(out):
 
 #-------------------------------------------------------------------
 def error():
-    sys.exit("python " + sys.argv[0] + " <picture> <0 or 1> \n Parameter 1: picture of four on a row board. \n Parameter 2: enable graphics.")
+    exit("python " + sys.argv[0] + " <picture> <0 or 1> \n Parameter 1: picture of four on a row board. \n Parameter 2: enable graphics.")
 #-------------------------------------------------------------------
 #-------------------------------- Main -----------------------------
 
