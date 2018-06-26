@@ -228,28 +228,10 @@ def main():
     if print_arr:
         print_arrays(array_dc, array_red, index_red, array_yellow, index_yellow)
     
-    grid = fill_and_print_grid(array_dc, array_red, index_red, array_yellow, index_yellow)
-
-#--------------------------- OUPUT GRID ------------------------------
-#Grid to file.txt
-    grid_n = (x_time + ".txt")
-    #Grid will be saved in directory: grid
-    if (os.path.isdir("grid") == False):
-        os.system("mkdir grid")
-        print("Directory grid is created to store grid.txt files")
-    grid_n_loc = ("grid/" + grid_n)
+    grid = fill_and_print_grid(array_dc, array_red, index_red, array_yellow, index_yellow)   
     
-    file = open(grid_n_loc, "w")
-    for y in range(5,-1,-1):
-        this_print = ""
-        for x in range(7):
-            #0 = empty
-            #1 = Red
-            #2 = Yellow
-            this_print = this_print + str(grid[x][y])
-        file.write(this_print + "\n")
-    file.close()
-   
+    grid_to_file(x_time, grid)
+    grid_to_file("output.txt", grid)
     
 #Delete picture, not needed any more
     if del_pic:
@@ -273,6 +255,27 @@ def main():
 #--------------------------------------------------------------------
 
 # -------------------------- Functions ------------------------------
+def grid_to_file(name, grid):
+#--------------------------- OUPUT GRID ------------------------------
+#Grid to file.txt
+    grid_n = (name + ".txt")
+    #Grid will be saved in directory: grid
+    if (os.path.isdir("grid") == False):
+        os.system("mkdir grid")
+        print("Directory grid is created to store grid.txt files")
+    grid_n_loc = ("grid/" + grid_n)
+    
+    file = open(grid_n_loc, "w")
+    for y in range(5,-1,-1):
+        this_print = ""
+        for x in range(7):
+            #0 = empty
+            #1 = Red
+            #2 = Yellow
+            this_print = this_print + str(grid[x][y])
+        file.write(this_print + "\n")
+    file.close()
+    return 1;
 def fill_and_print_grid(array_dc, array_red, index_red, array_yellow, index_yellow):
         grid = make_grid()
         #fill the grid with the RED     discs
