@@ -125,7 +125,7 @@ def main():
     lower_red2 = np.array([177, 0, 0])
     upper_red2 = np.array([255, 255, 255])
     #Yellow spectre
-    lower_yellow = np.array([10,140,20])
+    lower_yellow = np.array([15,140,20])
     upper_yellow = np.array([100,255,255])
 #Make masks from the filter ranges
     mask_red_low	= cv.inRange(hsv_blur, lower_red, upper_red)
