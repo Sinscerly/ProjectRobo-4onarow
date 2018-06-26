@@ -15,7 +15,6 @@ public class executeVision {
 	
 	public int[][] execute()
 	{	
-		System.out.println("Execute Vision");
 		int output = 0;
 		while(output == 0) 
 		{
@@ -76,6 +75,7 @@ public class executeVision {
 		if(pwd.contains("Sinsc"))
 			return 1;
 		//This part of code is made to find out how executing a python script works from a Java program!
+		System.out.println("Execute Vision");
 		System.out.println("Execute doALL.py\n");
 		try {
 			Runtime rt = Runtime.getRuntime();
