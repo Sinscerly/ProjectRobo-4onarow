@@ -20,13 +20,14 @@ public class executeVision {
 		{
 			execute_vision();
 			try {
+				System.out.println("Read output");
 				output = read_output();
 			} catch (Exception e) {
 				System.out.println(e.toString());
 				e.printStackTrace();
 			}
 			if(output == 1) {
-				System.out.println("Got Grid");
+				System.out.println("Got Grid, \t now check grid");
 				output = check_board();
 			}
 			if(output == 0)
@@ -76,7 +77,7 @@ public class executeVision {
 		if(pwd.contains("Sinsc"))
 			return 1;
 		//This part of code is made to find out how executing a python script works from a Java program!
-		System.out.println("Execute Vision");
+		//System.out.println("Execute Vision");
 		System.out.println("Execute doALL.py\n");
 		try {
 			Runtime rt = Runtime.getRuntime();
@@ -99,7 +100,7 @@ public class executeVision {
 		}	
 
 		//System.out.println("\nI waited to finish my writing");
-		System.out.println("Java project can go further now");
+		//System.out.println("Java project can go further now");
 		return 1;
 	}
 	public int read_output() throws FileNotFoundException
@@ -112,7 +113,7 @@ public class executeVision {
 		File currentDirFile = new File(".");
 		String pwd = currentDirFile.getAbsolutePath();
 		pwd = pwd.substring(0, pwd.length() - 1);
-		System.out.println(pwd);
+		//System.out.println(pwd);
 		File file = null;
 		if(pwd.contains("Sinsc")) {
 			//file = new File(pwd + "src/Connect/grid/output.txt");
@@ -139,7 +140,7 @@ public class executeVision {
   		  			}
 	    		}
 	    	} else {
-	    		System.out.println("The output wasn't good and need to be retried.");
+	    		System.out.println("output.txt = FALSE. The output wasn't good and need to be retried.");
 	    		faulty++;
 	    		return 0;
     		}
