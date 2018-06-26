@@ -68,8 +68,13 @@ public class executeVision {
 		}
 		return 1;
 	}
-	private void execute_vision()
+	private int execute_vision()
 	{
+		File currentDirFile = new File(".");
+		String pwd = currentDirFile.getAbsolutePath();
+		pwd = pwd.substring(0, pwd.length() - 1);
+		if(pwd.contains("Sinsc"))
+			return 1;
 		//This part of code is made to find out how executing a python script works from a Java program!
 		System.out.println("Execute doALL.py\n");
 		try {
@@ -94,6 +99,7 @@ public class executeVision {
 
 		//System.out.println("\nI waited to finish my writing");
 		System.out.println("Java project can go further now");
+		return 1;
 	}
 	public int read_output() throws FileNotFoundException
   	{
