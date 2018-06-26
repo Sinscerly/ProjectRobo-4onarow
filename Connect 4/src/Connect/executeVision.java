@@ -112,8 +112,11 @@ public class executeVision {
 		String pwd = currentDirFile.getAbsolutePath();
 		pwd = pwd.substring(0, pwd.length() - 1);
 		System.out.println(pwd);
-		File file = new File(pwd + "src/Connect/grid/output.txt");
-
+		File file;
+		if(pwd.contains("Sinsc"))
+			file = new File(pwd + "src/Connect/grid/output.txt");
+		else
+	  		file = new File("grid/output.txt");
   		try (BufferedReader br = new BufferedReader(new FileReader(file))) {
 			String new_line = null;
 	    	//Check if grid is not faulty.
