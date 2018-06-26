@@ -1,7 +1,13 @@
 package Connect;
 import java.io.*;
 
-
+/*
+ * 
+ 		executeVision eV = new executeVision();
+		eV.execute();
+		System.exit(1);
+ * 
+ */
 public class executeVision {
 	private static final int ROWS = 7, COLUMS = 6; // dimensions of the new_board
 	private static int[][] new_board = new int[ROWS][COLUMS]; // new_board that consist
@@ -35,16 +41,31 @@ public class executeVision {
 	private int check_board() 
 	{
 		int flag = 0;
+		int Red = 0, Yellow = 0;
 		for(int x = 0; x < ROWS; x++) {
-			for(int y = 1; y < COLUMS; y++) {
-				if(new_board[x][y] != 0 && new_board[x][y-1] == 0) {
+			for(int y = 0; y < COLUMS; y++) {
+				if(new_board[x][y] == 1) {
+					Red++;
+				} else if(new_board[x][y] == 2) {
+					Yellow++;
+				}
+				if(y != 0 && new_board[x][y] != 0 && new_board[x][y-1] == 0) {
 					flag = 1;
 					System.out.println("Flag is: " + Integer.toString(flag));
 					return 0;
 				}
 			}
-		}
+		}		
 		System.out.println("Flag is: " + Integer.toString(flag));
+		System.out.println("Red: \t" + Red + "\nYellow: " + Yellow + "\nDifferences: " + (Math.abs(Red - Yellow)));
+		if(Math.abs(Red - Yellow) > 1) {
+			System.out.println("Difference is to big, so someone is cheating.");
+			if(Red > Yellow) {
+				System.out.println("Red is cheating");
+			} else {
+				System.out.println("Yellow is cheating");
+			}
+		}
 		return 1;
 	}
 	private void execute_vision()
@@ -79,9 +100,14 @@ public class executeVision {
   		// We need to provide file path as the parameter:
   		// double backquote is to avoid compiler interpret words
   		// like \test as \t (ie. as a escape sequence)
-		File file = new File("C:/Users/Sinsc/Documents/GitHub/ProjectRobo/Connect 4/src/Connect/grid/output.txt");
-  		//File file = new File("/grid/output.txt");
- 
+		//File file = new File("C:/Users/Sinsc/Documents/GitHub/ProjectRobo/Connect 4/src/Connect/grid/output.txt");
+  		//File file = new File("grid/output.txt");
+		File currentDirFile = new File(".");
+		String pwd = currentDirFile.getAbsolutePath();
+		pwd = pwd.substring(0, pwd.length() - 1);
+		System.out.println(pwd);
+		File file = new File(pwd + "src/Connect/grid/output.txt");
+
   		try (BufferedReader br = new BufferedReader(new FileReader(file))) {
 			String new_line = null;
 	    	//Check if grid is not faulty.
