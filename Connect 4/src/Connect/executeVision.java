@@ -27,10 +27,13 @@ public class executeVision {
 				e.printStackTrace();
 			}
 			if(output == 1) {
-				System.out.println("Got Grid, \t now check grid");
+				System.out.println("Output good, \t now check grid");
 				output = check_board();
+				if(output == 0)
+					System.out.println("Grid is not good");
 			}
 			if(output == 0)
+	    		faulty++;
 				System.out.println("Will try a new picture. This is the: " + Integer.toString(faulty) + " time");
 		}
 		System.out.println("Grid transfered and returned to new_board.");
@@ -66,6 +69,7 @@ public class executeVision {
 			} else {
 				System.out.println("Yellow is cheating");
 			}
+			//return 0;
 		}
 		return 1;
 	}
@@ -141,7 +145,6 @@ public class executeVision {
 	    		}
 	    	} else {
 	    		System.out.println("output.txt = FALSE. The output wasn't good and need to be retried.");
-	    		faulty++;
 	    		return 0;
     		}
   		} catch (Exception e) {
