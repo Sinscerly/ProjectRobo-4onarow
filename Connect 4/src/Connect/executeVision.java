@@ -112,10 +112,19 @@ public class executeVision {
 		String pwd = currentDirFile.getAbsolutePath();
 		pwd = pwd.substring(0, pwd.length() - 1);
 		System.out.println(pwd);
-		File file;
-		if(pwd.contains("Sinsc"))
-			file = new File(pwd + "src/Connect/grid/output.txt");
-		else
+		File file = null;
+		if(pwd.contains("Sinsc")) {
+			//file = new File(pwd + "src/Connect/grid/output.txt");
+			boolean suc = false;
+			try {
+				file = new File(pwd + "src/Connect/grid/output.txt");
+			} catch (Exception e) {
+				suc = true;
+			} 
+			if (suc) {
+		  		file = new File("grid/output.txt");
+			}
+		} else
 	  		file = new File("grid/output.txt");
   		try (BufferedReader br = new BufferedReader(new FileReader(file))) {
 			String new_line = null;
