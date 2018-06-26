@@ -19,7 +19,7 @@ public class executeVision {
 		int output = 0;
 		while(output == 0) 
 		{
-			//execute_vision();
+			execute_vision();
 			try {
 				output = read_output();
 			} catch (Exception e) {
