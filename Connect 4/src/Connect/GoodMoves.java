@@ -87,12 +87,13 @@ public class GoodMoves {
 	private static boolean winMSG(String aString, boolean MSG) {
 		if (aString.contains("Empty"))
 			return false;
-		else if (MSG == true)
+		else if (MSG == true) {
 			Board.printBoard();
 			if (aString.contains("Red"))
 				System.out.println("Red has won.");
 			else
 				System.out.println("Yellow has won.");
+		}
 		return true;
 	}
 }

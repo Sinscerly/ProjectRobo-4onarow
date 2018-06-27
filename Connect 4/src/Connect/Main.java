@@ -10,8 +10,8 @@ import java.io.Writer;
 
 public class Main {
 
-	static int diffCpu1;
-	static int diffCpu2;
+	static int diffCpu1, diffCpu2;
+	public static int Ai1, Ai2;
 	public static String printString = "";
 	public static boolean print = false;
 	static String AiRed = "1(Red)", AiYellow = "2(Yellow)";
@@ -41,7 +41,10 @@ public class Main {
 				cvc();
 			} else if (input.equals("d")) {
 				print = true;
-				cvcad();
+				if(all())
+					cvcad(true);
+				else
+					cvcad(false);
 				print = false;
 			} else if (input.equals("x")) {
 				break;
@@ -69,30 +72,97 @@ public class Main {
 			Game.seeProgress = true;
 		else
 			Game.seeProgress = false;
-		diffCpu1 = scanDiff(AiRed);
-		diffCpu2 = scanDiff(AiYellow);
-		startGame.cvc(diffCpu1, diffCpu2);
+		whichAI();
+		if (Ai1 == 1)
+			diffCpu1 = scanDiff(AiRed);
+		if (Ai2 == 1)
+			diffCpu2 = scanDiff(AiYellow);
+		AI AI1, AI2;
+		if (Ai1 == 1) {
+			AI1 = new MiniMax(diffCpu1);
+		} else {
+			AI1 = new OwnAI();
+		}
+		if (Ai2 == 1) {
+			AI2 = new MiniMax(diffCpu2);
+		} else {
+			AI2 = new OwnAI();
+		}
+		startGame.cvc(AI1, AI2);
 	}
 
-	private static void cvcad()
+	private static void cvcad(boolean all)
 			throws InterruptedException, UnsupportedEncodingException, FileNotFoundException, IOException {
-		for (int i = 1; i < 9; i++) {
-			diffCpu1 = i;
-			for (int j = 1; j < 9; j++) {
-				long start = System.currentTimeMillis();
-				diffCpu2 = j;
-				Game startGame = new Game();
-				startGame.cvcad(diffCpu1, diffCpu2);
-				long end = System.currentTimeMillis();
-				System.out.println("Total time = " + ((end - start) / 1000) + "S.");
-				printString += " Time it took: " + ((end - start) / 1000) + "S.\n";
-			}
+		if(!all) {
+			whichAI();
+			startcvcad();
 		}
+		else {
+			Ai1 = 1; Ai2 = 1;
+			startcvcad();
+			Ai1 = 1; Ai2 = 2;
+			startcvcad();
+			Ai1 = 2; Ai2 = 1;
+			startcvcad();
+			Ai1 = 2; Ai2 = 2;
+			startcvcad();
+		}
+		
 		try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("wins.txt"), "utf-8"))) {
 			writer.write(printString);
 		}
 	}
 
+	static void startcvcad() throws InterruptedException {
+		AI AI1, AI2;
+		if (Ai1 == 1 && Ai2 == 1) {
+			printString += "Game MiniMax vs MiniMax. \n \n";
+			for (int i = 1; i < 9; i++) {
+				diffCpu1 = i;
+				for (int j = 1; j < 9; j++) {
+					long start = System.currentTimeMillis();
+					diffCpu2 = j;
+					Game startGame = new Game();
+					AI1 = new MiniMax(diffCpu1);
+					AI2 = new MiniMax(diffCpu2);
+					startGame.cvcad(diffCpu1, diffCpu2, AI1, AI2);
+					long end = System.currentTimeMillis();
+					System.out.println("Total time = " + ((end - start) / 1000) + "S.");
+					printString += " Time it took: " + ((end - start) / 1000) + "S.\n";
+				}
+			}
+		} else if (Ai1 == 1 && Ai2 == 2 || Ai1 == 2 && Ai2 == 1) {
+			for (int i = 1; i < 9; i++) {
+				diffCpu1 = i;
+				long start = System.currentTimeMillis();
+				Game startGame = new Game();
+				if(Ai1 == 1) {
+					printString += "Game MiniMax vs OwnAI. \n \n";
+					AI1 = new MiniMax(diffCpu1);
+					AI2 = new OwnAI();
+				} else {
+					printString += "Game OwnAI vs MiniMax. \n \n";
+					AI1 = new OwnAI();
+					AI2 = new MiniMax(diffCpu1);
+				}
+				startGame.cvcad(diffCpu1, diffCpu2, AI1, AI2);
+				long end = System.currentTimeMillis();
+				System.out.println("Total time = " + ((end - start) / 1000) + "S.");
+				printString += " Time it took: " + ((end - start) / 1000) + "S.\n";
+			}
+		} else if (Ai1 == 2 && Ai2 == 2) {
+			printString += "Game OwnAI vs OwnAI. \n \n";
+				long start = System.currentTimeMillis();
+				Game startGame = new Game();
+				AI1 = new OwnAI();
+				AI2 = new OwnAI();
+				startGame.cvcad(diffCpu1, diffCpu2, AI1, AI2);
+				long end = System.currentTimeMillis();
+				System.out.println("Total time = " + ((end - start) / 1000) + "S.");
+				printString += " Time it took: " + ((end - start) / 1000) + "S.\n";
+		}
+	}
+	
 	static void printDiff(String player) {
 		System.out.println("At what difficulty does cpu " + player + " play? \n" + "0: Monkey \n" + "1: Very Easy \n"
 				+ "2: Easy \n" + "3: Medium \n" + "4: Hard \n" + "5: Very Hard \n" + "6: Extreem \n" + "7: Legend \n"
@@ -102,7 +172,7 @@ public class Main {
 	static int scanInt() {
 		return Game.scanner.nextInt();
 	}
-	
+
 	static int scanDiff(String cpu) {
 		int i = -1;
 		while (0 > i || i > 8) {
@@ -110,6 +180,33 @@ public class Main {
 			i = scanInt();
 		}
 		return i;
+	}
+
+	static int scanAi() {
+		int i = 0;
+		while (1 > i || i > 2) {
+			i = scanInt();
+		}
+		return i;
+	}
+
+	static void whichAI() {
+		System.out.println("Which Ai vs which Ai?");
+		System.out.println("Ai 1: MiniMax or our own made ai?");
+		System.out.println("1/2?");
+		Ai1 = scanAi();
+		System.out.println("Ai 2: MiniMax or our own made ai?");
+		System.out.println("1/2?");
+		Ai2 = scanAi();
+	}
+	
+	static boolean all() {
+		System.out.println("Do you want to play out all the possibilities or just one?");
+		System.out.println("y/n");
+		if(Game.scanner.next().equals("y"))
+			return true;
+		else
+			return false;
 	}
 
 }

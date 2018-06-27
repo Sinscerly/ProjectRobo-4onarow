@@ -8,7 +8,8 @@ public class Game {
 	Box whoBegan = Board.red;
 	public static boolean seeProgress = false;
 
-	Game() {}
+	Game() {
+	}
 
 	void pvp() {
 		Board.setupBoard();
@@ -25,13 +26,15 @@ public class Game {
 	}
 
 	void pvc(int difficulty) {
-		AI miniMaxAI = new AI(difficulty);
+		AI AI = new AI();
 		Board.setupBoard();
 		Board.printBoard();
-		
+		whosTurn = playerFirst();
+		AI = whichAI(difficulty);
+
 		while (GoodMoves.checkWin(Board.getBoard(), true) == false && Board.checkFull(Board.getBoard())) {
 			if (whosTurn == 0) {
-				AI(miniMaxAI, Board.red);
+				AI(AI, Board.red, Board.yellow);
 				whosTurn = 1;
 			} else {
 				player(Board.yellow);
@@ -41,22 +44,20 @@ public class Game {
 		Board.printBoard();
 	}
 
-	void cvc(int difficulty1, int difficulty2) throws InterruptedException {
-		AI miniMaxAI = new AI(difficulty1);
-		AI m2 = new AI(difficulty2);
+	void cvc(AI Ai1, AI Ai2) throws InterruptedException {
 		Board.setupBoard();
 		Board.printBoard();
 
 		while (GoodMoves.checkWin(Board.getBoard(), true) == false && Board.checkFull(Board.getBoard())) {
 			if (whosTurn == 0) {
-				AI(miniMaxAI, Board.red);
+				AI(Ai1, Board.red, Board.yellow);
 				if (seeProgress) {
 					Board.printBoard();
 					Thread.sleep(1000);
 				}
 				whosTurn = 1;
 			} else {
-				AI(m2, Board.yellow);
+				AI(Ai2, Board.yellow, Board.red);
 				if (seeProgress) {
 					Board.printBoard();
 					Thread.sleep(1000);
@@ -67,8 +68,9 @@ public class Game {
 		Board.printBoard();
 	}
 
-	void cvcad(int difficulty1, int difficulty2) throws InterruptedException {
-		this.cvc(difficulty1, difficulty2);
+	void cvcad(int difficulty1, int difficulty2, AI Ai1, AI Ai2) throws InterruptedException {
+		System.out.println(difficulty1 + " vs " + difficulty2);
+		this.cvc(Ai1, Ai2);
 		// puts who won in the print string.
 		if (whosTurn == 1)
 			Main.printString += difficulty1 + " VS " + difficulty2 + ": cpu 1 wins.";
@@ -91,17 +93,37 @@ public class Game {
 		Board.placeMove(player - 1, color);
 	}
 
-	void AI(AI ai, Box color) {
-		int set = ai_move(ai);
-		Board.placeMove(set, color);
+	void AI(AI ai, Box Ai, Box eAi) {
+		int set = ai_move(ai, Ai, eAi);
+		Board.placeMove(set, Ai);
 	}
 
-	public int ai_move(AI smart) {
+	public int ai_move(AI ai, Box Ai, Box eAi) {
 		// change set to move
 		int ai_set = 0;
-		ai_set = smart.doSet(Board.getBoard(), whoBegan);
+		ai.start = System.currentTimeMillis();
+		ai_set = ai.doSet(Board.getBoard(), whoBegan, Ai, eAi);
+		ai.end = System.currentTimeMillis();
+		System.out.println(ai.toString());
 		System.out.print("Computer placed in row: " + (ai_set + 1));
-		System.out.println("Took: " + ((smart.end - smart.start) / 1000) + "S.");
+		System.out.println("Took: " + ((ai.end - ai.start) / 1000) + "S.");
 		return ai_set;
+	}
+	
+	private int playerFirst(){
+		System.out.println("Do you want to begin?");
+		System.out.println("y/n");
+		if(scanner.next().equals("y"))
+			return 1;
+		else
+			return 0;
+	}
+	private AI whichAI(int diff) {
+		System.out.println("Do you want to play against a miniMax Ai or our own Ai?");
+		System.out.println("1/2");
+		if(scanner.nextInt() == 1)
+			return new MiniMax(diff);
+		else
+			return new OwnAI();
 	}
 }
