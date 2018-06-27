@@ -205,8 +205,14 @@ def main():
         cir_yellow = cimg_y
         index_yellow = (i+1)
 #make new arrays for both colors.
-    array_red       = read_circles(circles_r,    index_red)
-    array_yellow    = read_circles(circles_y,    index_yellow)
+    if(index_red != 0):
+        array_red       = read_circles(circles_r,    index_red)
+    else:
+        array_red = 0
+    if(index_yellow != 0):
+        array_yellow    = read_circles(circles_y,    index_yellow)
+    else:
+        array_yellow = 0
 #--------------------------- OUTPUT GRAPICS -----------------------------
 #Show found circels and output on display
     if graphics:
