@@ -88,9 +88,11 @@ public class executeVision {
 		}
 		//xy was 0
 		//xy moet nu 1 of 2 zijn
-		if(current_board[co_x][co_y] == 0 && (current_board[co_x][co_y] == 1 || current_board[co_x][co_y] == 2)) {
+		if(current_board[co_x][co_y] == 0 && (new_board[co_x][co_y] == 1 || new_board[co_x][co_y] == 2)) {
 			
 		} else {
+			System.out.println("board x: " + co_x + " y: " + co_y);
+			System.out.println("Currentboard: " + current_board[co_x][co_y] + "\nNew_board: " + new_board[co_x][co_y]);
 			System.out.println("The difference between boards is not correct");
 			return 0;
 		}
