@@ -36,6 +36,7 @@ public class Game {
 		Board.printBoard();
 		whosTurn = playerFirst();
 		AI = whichAI();
+		setup();
 
 		while (GoodMoves.checkWin(Board.getBoard(), true) == false && Board.checkFull(Board.getBoard())) {
 			if (whosTurn == 0) {
