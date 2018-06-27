@@ -7,7 +7,7 @@ public class Game {
 	private int whosTurn = 0;
 	Box whoBegan = Board.red;
 	public static boolean seeProgress = false;
-	int[][] board = new int[7][6];
+	private int[][] fotoBoard = new int[7][6];
 
 	Game() {
 	}
@@ -17,16 +17,16 @@ public class Game {
 		setup();
 		while (GoodMoves.checkWin(Board.getBoard(), true) == false && Board.checkFull(Board.getBoard())) {
 			if (whosTurn == 0) {
-				makeBoard(Board.getBoard());
-				executeVision eV = new executeVision(board);
-				makeGrid();
-				board = eV.execute();
+				readyBoard(Board.getBoard());
+				executeVision eV = new executeVision(fotoBoard);
+				fotoBoard = eV.execute();
+				updateGrid();
 				whosTurn = 1;
 			} else {
-				makeBoard(Board.getBoard());
-				executeVision eV = new executeVision(board);
-				makeGrid();
-				board = eV.execute();
+				readyBoard(Board.getBoard());
+				executeVision eV = new executeVision(fotoBoard);
+				fotoBoard = eV.execute();
+				updateGrid();
 				whosTurn = 0;
 			}
 		}
@@ -46,10 +46,10 @@ public class Game {
 				whosTurn = 1;
 				Thread.sleep(2000);
 			} else {
-				makeBoard(Board.getBoard());
-				executeVision eV = new executeVision(board);
-				makeGrid();
-				board = eV.execute();
+				readyBoard(Board.getBoard());
+				executeVision eV = new executeVision(fotoBoard);
+				fotoBoard = eV.execute();
+				updateGrid();
 				whosTurn = 0;
 			}
 		}
@@ -140,33 +140,33 @@ public class Game {
 		else
 			return new OwnAI();
 	}
-	private void makeGrid() {
+	private void updateGrid() {
 		Box[][] grid = new Box[7][6];
 		for (int y = 0; y != 6; y++)
 			for (int x = 0; x != 7; x++) {
-				if(board[x][y] == 0)
+				if(fotoBoard[x][y] == 0)
 					grid[x][y] = Board.empty;
-				else if(board[x][y] == 2)
+				else if(fotoBoard[x][y] == 2)
 					grid[x][y] = Board.red;
 				else
 					grid[x][y] = Board.yellow;
 			}
 		Board.copyFotoBoard(grid);
 	}
-	private void makeBoard(Box[][] grid) {
+	private void readyBoard(Box[][] grid) {
 		for (int y = 0; y != 6; y++)
 			for (int x = 0; x != 7; x++) {
 				if(grid[x][y] == Board.empty)
-					board[x][y] = 0;
+					fotoBoard[x][y] = 0;
 				else if(grid[x][y] == Board.red)
-					board[x][y] = 2;
+					fotoBoard[x][y] = 2;
 				else
-					board[x][y] = 1;
+					fotoBoard[x][y] = 1;
 			}
 	}
 	private void setup(){
 		for (int y = 0; y != 6; y++)
 			for (int x = 0; x != 7; x++)
-				board[x][y] = 0;
+				fotoBoard[x][y] = 0;
 	}
 }
