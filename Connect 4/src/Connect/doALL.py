@@ -179,6 +179,7 @@ def main():
     circles_r = cv.HoughCircles(img_r, cv.HOUGH_GRADIENT, 1, 10, np.array([]), cf_hc[0], cf_hc[1], cf_hc[2], cf_hc[3])
     # Check if circles have been found and only then iterate over these and add them to the image
     cir_red = src_r
+    index_red = 0
     if circles_r is not None and len(circles_r): 
         print(circles_r)
         a, b, c = circles_r.shape
@@ -196,6 +197,7 @@ def main():
     cimg_y = src_y.copy() # numpy function
     circles_y = cv.HoughCircles(img_y, cv.HOUGH_GRADIENT, 1, 10, np.array([]), cf_hc[0], cf_hc[1], cf_hc[2], cf_hc[3])
     cir_yellow = src_y
+    index_yellow = 0
     if circles_y is not None and len(circles_y): 
         print(circles_y)
         a, b, c = circles_y.shape
