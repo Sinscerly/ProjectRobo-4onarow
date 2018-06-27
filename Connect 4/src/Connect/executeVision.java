@@ -61,6 +61,7 @@ public class executeVision {
 				} else if(new_board[x][y] == 2) {
 					Yellow++;
 				}
+				//check discs are 'flying'.
 				if(y != 0 && new_board[x][y] != 0 && new_board[x][y-1] == 0) {
 					flag = 1;
 					System.out.println("Flag is: " + Integer.toString(flag));
@@ -68,11 +69,11 @@ public class executeVision {
 				}
 			}	
 		}	
-		int check_dif = 0, co_x = 0, co_y = 0, difs = 0;
+		int is_same = 0, co_x = 0, co_y = 0, difs = 0;
 		for(int x = 0; x < ROWS; x++) {
 			for(int y = 0; y < COLUMS; y++) {
 				if(new_board[x][y] == current_board[x][y]) {
-					check_dif++;
+					is_same++;
 				} else {
 					co_x = x;
 					co_y = y;
@@ -84,19 +85,17 @@ public class executeVision {
 				}
 			}
 		}
-		
-		//xy was 0
-		//xy moet nu 1 of 2 zijn
-		if(current_board[co_x][co_y] == 0 && (new_board[co_x][co_y] == 1 || new_board[co_x][co_y] == 2)) {
-			
-		} else {
-			System.out.println("board x: " + co_x + " y: " + co_y);
-			System.out.println("Currentboard: " + current_board[co_x][co_y] + "\nNew_board: " + new_board[co_x][co_y]);
-			System.out.println("The difference between boards is not correct");
+		if(is_same != (ROWS * COLUMS - 1)) {
+			System.out.println("there is no difference");
 			return 0;
 		}
-		if(check_dif != (ROWS * COLUMS - 1)) {
-			System.out.println("difference between the 2 boards is to big, diff = " + check_dif);
+		//xy was 0
+		//xy moet nu 1 of 2 zijn
+		if(!(current_board[co_x][co_y] == 0 && (new_board[co_x][co_y] == 1 || new_board[co_x][co_y] == 2))) {
+			//System.out.println("board x: " + co_x + " y: " + co_y);
+			//System.out.println("Currentboard: " + current_board[co_x][co_y] + "\nNew_board: " + new_board[co_x][co_y]);
+			System.out.println("The difference between boards is not correct, current is red or yellow and new is differend");
+			System.out.println("please put in the ai chip.");
 			return 0;
 		}
 		System.out.println("Flag is: " + Integer.toString(flag));
