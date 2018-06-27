@@ -23,6 +23,8 @@ public class executeVision {
 		int output = 0;
 		while(output == 0) 
 		{
+			System.out.println("print current board");
+			printCurrentBoard();
 			execute_vision();
 			try {
 				System.out.println("Read output");
@@ -82,10 +84,7 @@ public class executeVision {
 				}
 			}
 		}
-		if(check_dif != (ROWS * COLUMS - 1)) {
-			System.out.println("difference between the 2 boards is to big, diff = " + check_dif);
-			return 0;
-		}
+		
 		//xy was 0
 		//xy moet nu 1 of 2 zijn
 		if(current_board[co_x][co_y] == 0 && (new_board[co_x][co_y] == 1 || new_board[co_x][co_y] == 2)) {
@@ -94,6 +93,10 @@ public class executeVision {
 			System.out.println("board x: " + co_x + " y: " + co_y);
 			System.out.println("Currentboard: " + current_board[co_x][co_y] + "\nNew_board: " + new_board[co_x][co_y]);
 			System.out.println("The difference between boards is not correct");
+			return 0;
+		}
+		if(check_dif != (ROWS * COLUMS - 1)) {
+			System.out.println("difference between the 2 boards is to big, diff = " + check_dif);
 			return 0;
 		}
 		System.out.println("Flag is: " + Integer.toString(flag));
@@ -198,6 +201,22 @@ public class executeVision {
 				if (new_board[x][y] == 0)
 					System.out.print("0" + " | ");
 				else if (new_board[x][y] == 1)
+					System.out.print("R" + " | ");
+				else
+					System.out.print("Y" + " | ");
+			}
+			System.out.println();
+		}
+	}
+	public static void printCurrentBoard() {
+		System.out.println("");
+		System.out.println("| 1   2   3   4   5   6   7 |");
+		for (int y = COLUMS - 1; y >= 0; y--) {
+			System.out.print("| ");
+			for (int x = 0; x < ROWS; x++) {
+				if (current_board[x][y] == 0)
+					System.out.print("0" + " | ");
+				else if (current_board[x][y] == 1)
 					System.out.print("R" + " | ");
 				else
 					System.out.print("Y" + " | ");
