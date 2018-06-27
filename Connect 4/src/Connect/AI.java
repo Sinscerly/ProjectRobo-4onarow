@@ -16,4 +16,9 @@ public class AI {
 	public void setEnd() {
 		this.end = System.currentTimeMillis();
 	}
+
+	public int generateMove(int player, Board board) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

@@ -26,16 +26,18 @@ public class Game {
 	}
 
 	void pvc(int difficulty) {
-		OwnAI miniMaxAI = new OwnAI();
+		AI AI = new AI();
 		Board.setupBoard();
 		Board.printBoard();
+		whosTurn = playerFirst();
+		AI = whichAI(difficulty);
 
 		while (GoodMoves.checkWin(Board.getBoard(), true) == false && Board.checkFull(Board.getBoard())) {
 			if (whosTurn == 0) {
-				player(Board.yellow);
+				AI(AI, Board.red, Board.yellow);
 				whosTurn = 1;
 			} else {
-				AI(miniMaxAI, Board.red, Board.yellow);
+				player(Board.yellow);
 				whosTurn = 0;
 			}
 		}
@@ -106,5 +108,22 @@ public class Game {
 		System.out.print("Computer placed in row: " + (ai_set + 1));
 		System.out.println("Took: " + ((ai.end - ai.start) / 1000) + "S.");
 		return ai_set;
+	}
+	
+	private int playerFirst(){
+		System.out.println("Do you want to begin?");
+		System.out.println("y/n");
+		if(scanner.next().equals("y"))
+			return 1;
+		else
+			return 0;
+	}
+	private AI whichAI(int diff) {
+		System.out.println("Do you want to play against a miniMax Ai or our own Ai?");
+		System.out.println("1/2");
+		if(scanner.nextInt() == 1)
+			return new MiniMax(diff);
+		else
+			return new OwnAI();
 	}
 }

@@ -48,12 +48,12 @@ public class MiniMax extends AI{
 			}
 		}
 		// if the AI took a turn.
-		return miniMax_move(grid, 0, Ai, eAi);
+		return miniMax_move(grid, 0, Ai, eAi, Ai, -1000000, 10000000);
 	}
 
 	// decides which move is the best move. (The Board, total amount of turns
 	// the AI 'thinks' forward, who's turn it is checking)
-	int miniMax_move(Box[][] grid, int diff, Box Ai, Box eAi) {
+	int miniMax_move(Box[][] grid, int diff, Box Ai, Box eAi, Box firstAi, int alpha, int beta) {
 		// copies the grid to a temporary grid
 		Box[][] copy = copyGrid(grid);
 		Random rand = new Random();
@@ -100,27 +100,33 @@ public class MiniMax extends AI{
 			// for every place that is free place a stone and repeat until diff
 			// == dificulty, c stands for column
 			for (int col = 0; col < 7; col++) {
-				// if the column has space left, r stands for row
-				int r = Board.checkColumnEmpty(col, copy);
-				if (r != -1) {
-					Box[][] newGrid = new Box[7][6];
-					// if this is not the last turn
-					if (diff < difficulty) {
-						// copy the grid to newGrid
-						newGrid = copyGrid(grid);
-						// place a piece on (c,r)
-						newGrid[col][r] = Ai;
-						// do this over again but than the returning number
-						// times -1 since it is the other player, v stands for
-						// value
-						int v = -miniMax_move(newGrid, diff + 1,  eAi, Ai);
-						// if the next move has a higher value
-						if (v >= bestValue) {
-							bestMove = col;
-							bestValue = v;
+					// if the column has space left, r stands for row
+					int r = Board.checkColumnEmpty(col, copy);
+					if (r != -1) {
+						Box[][] newGrid = new Box[7][6];
+						// if this is not the last turn
+						if (diff < difficulty) {
+							// copy the grid to newGrid
+							newGrid = copyGrid(grid);
+							// place a piece on (c,r)
+							newGrid[col][r] = Ai;
+							// do this over again but than the returning number
+							// times -1 since it is the other player, v stands for
+							// value
+							int v = -miniMax_move(newGrid, diff + 1,  eAi, Ai, firstAi, alpha, beta);
+							if(Ai == firstAi)
+								beta = v;
+							else
+								alpha = v;
+							// if the next move has a higher value
+							if (v >= bestValue) {
+								bestMove = col;
+								bestValue = v;
+							}
+							if(beta <= alpha && difficulty - diff == difficulty / 2)
+								break;
 						}
 					}
-				}
 			}
 		}
 		// if this is the first instance of miniMax_move than return the best
