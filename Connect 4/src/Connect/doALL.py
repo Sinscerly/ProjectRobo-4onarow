@@ -216,10 +216,11 @@ def main():
         #Combined image of circles RED and YELLOW
         cv.imshow("all", cv.add(cir_red, cir_yellow))
 
-    if index_red == 0 and index_yellow == 0:
-        #stop program
-        exit("No discs have been found at color masks. PLS check image, if there are any discs on it.")
-    elif (index_red + index_yellow) > 42:
+    #if index_red == 0 and index_yellow == 0:
+    #   #stop program
+    #   exit("No discs have been found at color masks. PLS check image, if there are any discs on it.")
+    #elif (index_red + index_yellow) > 42:
+    if (index_red + index_yellow) > 42:
         #stop program
         print("Number of red discs: " + str(index_red) + ". \tNumber of yellow discs: " + str(index_yellow) + ".")
         print("NUmber of total discs: " + str(index_red + index_yellow))
@@ -230,7 +231,7 @@ def main():
     
     grid = fill_and_print_grid(array_dc, array_red, index_red, array_yellow, index_yellow)   
     
-    grid_to_file(x_time,        grid)
+    grid_to_file(x_time,    grid)
     grid_to_file("output",  grid)
     
 #Delete picture, not needed any more
