@@ -258,6 +258,7 @@ def main():
 #--------------------------- OUPUT GRID -----------------------------
 def exit(description):
     file_false()
+    print(description)
     sys.exit(description)
 def grid_to_file(name, grid):
 #Grid to file.txt
