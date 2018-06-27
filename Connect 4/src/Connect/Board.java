@@ -71,4 +71,8 @@ public class Board {
 		System.out.println("It's a tie!");
 		return false;
 	}
+	
+	public static void copyFotoBoard(Box[][] grid){
+		board = grid;
+	}
 }

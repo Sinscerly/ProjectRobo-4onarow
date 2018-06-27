@@ -7,6 +7,7 @@ public class Game {
 	private int whosTurn = 0;
 	Box whoBegan = Board.red;
 	public static boolean seeProgress = false;
+	int[][] board = new int[7][6];
 
 	Game() {
 	}
@@ -16,13 +17,15 @@ public class Game {
 
 		while (GoodMoves.checkWin(Board.getBoard(), true) == false && Board.checkFull(Board.getBoard())) {
 			if (whosTurn == 0) {
-				executeVision eV = new executeVision();
-				eV.execute();
+				makeBoard();
+				executeVision eV = new executeVision(board);
+				board = eV.execute();
 				player(Board.red);
 				whosTurn = 1;
 			} else {
-				executeVision eV = new executeVision();
-				eV.execute();
+				makeBoard();
+				executeVision eV = new executeVision(board);
+				board = eV.execute();
 				player(Board.yellow);
 				whosTurn = 0;
 			}
@@ -131,5 +134,18 @@ public class Game {
 		}
 		else
 			return new OwnAI();
+	}
+	private void makeBoard() {
+		Box[][] grid = new Box[7][6];
+		for (int y = 0; y != 6; y++)
+			for (int x = 0; x != 7; x++) {
+				if(board[x][y] == 0)
+					grid[x][y] = Board.empty;
+				else if(board[x][y] == 1)
+					grid[x][y] = Board.red;
+				else
+					grid[x][y] = Board.yellow;
+			}
+		Board.copyFotoBoard(grid);
 	}
 }
