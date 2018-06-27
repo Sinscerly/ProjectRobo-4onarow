@@ -20,13 +20,11 @@ public class Game {
 				makeBoard();
 				executeVision eV = new executeVision(board);
 				board = eV.execute();
-				player(Board.red);
 				whosTurn = 1;
 			} else {
 				makeBoard();
 				executeVision eV = new executeVision(board);
 				board = eV.execute();
-				player(Board.yellow);
 				whosTurn = 0;
 			}
 		}
@@ -44,7 +42,9 @@ public class Game {
 				AI(AI, Board.red, Board.yellow);
 				whosTurn = 1;
 			} else {
-				player(Board.yellow);
+				makeBoard();
+				executeVision eV = new executeVision(board);
+				board = eV.execute();
 				whosTurn = 0;
 			}
 		}
