@@ -17,20 +17,22 @@ public class Game {
 		setup();
 		while (GoodMoves.checkWin(Board.getBoard(), true) == false && Board.checkFull(Board.getBoard())) {
 			if (whosTurn == 0) {
-				makeBoard();
+				makeBoard(Board.getBoard());
 				executeVision eV = new executeVision(board);
+				makeGrid();
 				board = eV.execute();
 				whosTurn = 1;
 			} else {
-				makeBoard();
+				makeBoard(Board.getBoard());
 				executeVision eV = new executeVision(board);
+				makeGrid();
 				board = eV.execute();
 				whosTurn = 0;
 			}
 		}
 	}
 
-	void pvc(int difficulty) {
+	void pvc(int difficulty) throws InterruptedException {
 		AI AI = new AI();
 		Board.setupBoard();
 		Board.printBoard();
@@ -42,9 +44,11 @@ public class Game {
 			if (whosTurn == 0) {
 				AI(AI, Board.red, Board.yellow);
 				whosTurn = 1;
+				Thread.sleep(2000);
 			} else {
-				makeBoard();
+				makeBoard(Board.getBoard());
 				executeVision eV = new executeVision(board);
+				makeGrid();
 				board = eV.execute();
 				whosTurn = 0;
 			}
@@ -136,7 +140,7 @@ public class Game {
 		else
 			return new OwnAI();
 	}
-	private void makeBoard() {
+	private void makeGrid() {
 		Box[][] grid = new Box[7][6];
 		for (int y = 0; y != 6; y++)
 			for (int x = 0; x != 7; x++) {
@@ -148,6 +152,17 @@ public class Game {
 					grid[x][y] = Board.yellow;
 			}
 		Board.copyFotoBoard(grid);
+	}
+	private void makeBoard(Box[][] grid) {
+		for (int y = 0; y != 6; y++)
+			for (int x = 0; x != 7; x++) {
+				if(grid[x][y] == Board.empty)
+					board[x][y] = 0;
+				else if(grid[x][y] == Board.red)
+					board[x][y] = 1;
+				else
+					board[x][y] = 2;
+			}
 	}
 	private void setup(){
 		for (int y = 0; y != 6; y++)
