@@ -85,9 +85,11 @@ public class executeVision {
 				}
 			}
 		}
-		if(is_same != (ROWS * COLUMS - 1)) {
+		if(is_same == 42) {
 			System.out.println("there is no difference");
 			return 0;
+		} else if(is_same != 41) {
+			System.out.println("to big of a difference, you have: " + (42 - is_same));
 		}
 		//xy was 0
 		//xy moet nu 1 of 2 zijn
