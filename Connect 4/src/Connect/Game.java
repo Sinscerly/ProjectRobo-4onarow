@@ -14,7 +14,7 @@ public class Game {
 
 	void pvp() {
 		Board.setupBoard();
-
+		setup();
 		while (GoodMoves.checkWin(Board.getBoard(), true) == false && Board.checkFull(Board.getBoard())) {
 			if (whosTurn == 0) {
 				makeBoard();
@@ -147,5 +147,10 @@ public class Game {
 					grid[x][y] = Board.yellow;
 			}
 		Board.copyFotoBoard(grid);
+	}
+	private void setup(){
+		for (int y = 0; y != 6; y++)
+			for (int x = 0; x != 7; x++)
+				board[x][y] = 0;
 	}
 }
