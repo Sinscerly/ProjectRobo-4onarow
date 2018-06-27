@@ -32,9 +32,10 @@ public class executeVision {
 				if(output == 0)
 					System.out.println("Grid is not good");
 			}
-			if(output == 0)
+			if(output == 0) {
 	    		faulty++;
 				System.out.println("Will try a new picture. This is the: " + Integer.toString(faulty) + " time");
+			}
 		}
 		System.out.println("Grid transfered and returned to new_board.");
 		//return something..
@@ -152,13 +153,6 @@ public class executeVision {
   				e.printStackTrace();
   		}
   		return 1;
-  		//
-		
-		//String whole = "something";
-		//String first = whole.substring(0, 1);
-		//System.out.println(first);
-
-
   	}	
 	public static void printBoard() {
 		System.out.println("");
