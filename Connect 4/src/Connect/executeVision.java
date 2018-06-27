@@ -12,6 +12,11 @@ public class executeVision {
 	private static final int ROWS = 7, COLUMS = 6; // dimensions of the new_board
 	private static int[][] new_board = new int[ROWS][COLUMS]; // new_board that consist
 	private int faulty = 0;
+	private static int[][] current_board = null;
+	
+	public executeVision(int[][] cur_board) {
+		current_board = cur_board;
+	}
 	
 	public int[][] execute()
 	{	
@@ -39,7 +44,7 @@ public class executeVision {
 		}
 		System.out.println("Grid transfered and returned to new_board.");
 		//return something..
-		printBoard();
+		//printBoard();
 		return new_board;
 	}
 	private int check_board() 
@@ -59,8 +64,22 @@ public class executeVision {
 					System.out.println("Flag is: " + Integer.toString(flag));
 					return 0;
 				}
+			}	
+		}	
+		int check_dif = 0, co_x = 0, co_y = 0;
+		for(int x = 0; x < ROWS; x++) {
+			for(int y = 0; y < COLUMS; y++) {
+				if(new_board[x][y] == current_board[x][y]) {
+					check_dif++;
+				} else {
+					co_x = x;
+					co_y = y;
+				}
 			}
-		}		
+		}
+		if(check_dif != (ROWS * COLUMS - 1)) {
+			return 0;
+		}
 		System.out.println("Flag is: " + Integer.toString(flag));
 		System.out.println("Red: \t" + Red + "\nYellow: " + Yellow + "\nDifferences: " + (Math.abs(Red - Yellow)));
 		if(Math.abs(Red - Yellow) > 1) {
