@@ -18,9 +18,6 @@ public class Main {
 
 	public static void main(String[] args)
 			throws InterruptedException, UnsupportedEncodingException, FileNotFoundException, IOException {
-		executeVision eV = new executeVision();
-		eV.execute();
-		System.exit(1);
 		
 		
 		String input;
@@ -60,7 +57,6 @@ public class Main {
 	private static void pvc() throws InterruptedException {
 		Game startGame = new Game();
 		System.out.println("Do you want to play a game?");
-		diffCpu1 = scanDiff(AiRed);
 		startGame.pvc(diffCpu1);
 	}
 

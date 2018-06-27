@@ -16,9 +16,13 @@ public class Game {
 
 		while (GoodMoves.checkWin(Board.getBoard(), true) == false && Board.checkFull(Board.getBoard())) {
 			if (whosTurn == 0) {
+				executeVision eV = new executeVision();
+				eV.execute();
 				player(Board.red);
 				whosTurn = 1;
 			} else {
+				executeVision eV = new executeVision();
+				eV.execute();
 				player(Board.yellow);
 				whosTurn = 0;
 			}
@@ -30,7 +34,7 @@ public class Game {
 		Board.setupBoard();
 		Board.printBoard();
 		whosTurn = playerFirst();
-		AI = whichAI(difficulty);
+		AI = whichAI();
 
 		while (GoodMoves.checkWin(Board.getBoard(), true) == false && Board.checkFull(Board.getBoard())) {
 			if (whosTurn == 0) {
@@ -118,11 +122,13 @@ public class Game {
 		else
 			return 0;
 	}
-	private AI whichAI(int diff) {
+	private AI whichAI() {
 		System.out.println("Do you want to play against a miniMax Ai or our own Ai?");
 		System.out.println("1/2");
-		if(scanner.nextInt() == 1)
+		if(scanner.nextInt() == 1) {
+			int diff = Main.scanDiff(Main.AiRed);
 			return new MiniMax(diff);
+		}
 		else
 			return new OwnAI();
 	}
