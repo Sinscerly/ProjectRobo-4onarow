@@ -18,9 +18,6 @@ public class Main {
 
 	public static void main(String[] args)
 			throws InterruptedException, UnsupportedEncodingException, FileNotFoundException, IOException {
-		//executeVision eV = new executeVision();
-		//eV.execute();
-		//System.exit(1);
 		
 		
 		String input;
