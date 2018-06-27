@@ -146,7 +146,7 @@ public class Game {
 			for (int x = 0; x != 7; x++) {
 				if(board[x][y] == 0)
 					grid[x][y] = Board.empty;
-				else if(board[x][y] == 1)
+				else if(board[x][y] == 2)
 					grid[x][y] = Board.red;
 				else
 					grid[x][y] = Board.yellow;
@@ -159,9 +159,9 @@ public class Game {
 				if(grid[x][y] == Board.empty)
 					board[x][y] = 0;
 				else if(grid[x][y] == Board.red)
-					board[x][y] = 1;
-				else
 					board[x][y] = 2;
+				else
+					board[x][y] = 1;
 			}
 	}
 	private void setup(){
