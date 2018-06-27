@@ -83,7 +83,7 @@ public class executeVision {
 			}
 		}
 		if(check_dif != (ROWS * COLUMS - 1)) {
-			System.out.println("difference between the 2 boards is to big");
+			System.out.println("difference between the 2 boards is to big, diff = " + check_dif);
 			return 0;
 		}
 		//xy was 0
