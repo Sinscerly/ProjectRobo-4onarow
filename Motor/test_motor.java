@@ -28,7 +28,7 @@ class Motor {
 		}
 		return 1;
 	}
-	static void execute_stack()
+	private static void execute_stack()
 	{
 		/*
 		 * Stack push
@@ -49,7 +49,7 @@ class Motor {
 			e.printStackTrace();
 		}
 	}
-	static void execute_motor(int motor)
+	private static void execute_motor(int motor)
 	{
 		/*
 		 * Motor range is from 0-5
