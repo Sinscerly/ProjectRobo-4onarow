@@ -135,15 +135,14 @@ public class executeVision {
 			while((line = input.readLine()) != null) {
 				System.out.println(line);
 			}
-			
 			int exitVal = pr.waitFor();
-			System.out.println("Exited with error code " + exitVal);
-
+			if(exitVal != 0) {
+				System.out.println("Exited with error code " + exitVal);
+			}
 		} catch(Exception e) {
 			System.out.println(e.toString());
 			e.printStackTrace();
 		}	
-
 		//System.out.println("\nI waited to finish my writing");
 		//System.out.println("Java project can go further now");
 		return 1;
