@@ -8,6 +8,7 @@ if len(sys.argv) == 2:
     if (0 <= sys.argv[1] and sys.argv[1] < 6):
         motor = sys.argv[1]
     else:
+        print(sys.argv[1])
         print("choose motor: (0-5)")
         sys.exit()
 else:
