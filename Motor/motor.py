@@ -5,8 +5,8 @@ import sys
 pin = [11, 13, 15, 16, 18, 37]
 
 if len(sys.argv) == 2:
-    if (0 <= sys.argv[1] and sys.argv[1] < 6):
-        motor = sys.argv[1]
+    if (0 <= int(sys.argv[1]) and int(sys.argv[1]) < 6):
+        motor = int(sys.argv[1])
     else:
         print(sys.argv[1])
         print("choose motor: (0-5)")
