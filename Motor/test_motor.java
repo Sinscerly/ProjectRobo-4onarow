@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
 
-class Motor {
+class Main {
 	public static void main(String[] args)
 	{
 		input_row(0);
