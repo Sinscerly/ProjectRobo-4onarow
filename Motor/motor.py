@@ -26,7 +26,7 @@ m = GPIO.PWM(pin[motor], 50)
 m.start(2.5)
 time.sleep(0.5)
 #turn to 90 degrees
-m.ChangeDutyCycle(7.5)
+m.ChangeDutyCycle(7)
 
 os.system("python stack.py")
 #turn to 0 degrees

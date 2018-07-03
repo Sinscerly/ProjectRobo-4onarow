@@ -1,13 +1,9 @@
-package Connect;
+import java.io.*;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.InputStreamReader;
-
-class Main {
+class Motor {
 	public static void main(String[] args)
 	{
-		input_row(0);
+		input_row(6);
 	}
 	public static int input_row(int row)
 	{
@@ -43,7 +39,9 @@ class Main {
 				System.out.println(line);
 			}
 			int exitVal = pr.waitFor();
-			System.out.println("Exited with error code " + exitVal);
+			if(exitVal != 0) {
+				System.out.println("Exited with error code " + exitVal);
+			}
 		} catch(Exception e) {
 			System.out.println(e.toString());
 			e.printStackTrace();
