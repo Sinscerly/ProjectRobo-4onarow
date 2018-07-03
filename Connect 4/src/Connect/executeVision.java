@@ -38,6 +38,7 @@ public class executeVision {
 				output = check_board();
 				if(output == 0)
 					System.out.println("Grid is not good");
+	    		faulty = 0;
 			}
 			if(output == 0) {
 	    		faulty++;
@@ -176,7 +177,6 @@ public class executeVision {
 			String new_line = null;
 	    	//Check if grid is not faulty.
 	    	if ((new_line = br.readLine()).equals("TRUE")) {
-	    		faulty = 0;
 	    		for (int y = COLUMS - 1; y >= 0; y--) {
 	    			new_line = br.readLine();
   		  			for (int x = 0; x < ROWS; x++) {
