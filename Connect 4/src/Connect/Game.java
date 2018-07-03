@@ -43,9 +43,12 @@ public class Game {
 		while (GoodMoves.checkWin(Board.getBoard(), true) == false && Board.checkFull(Board.getBoard())) {
 			if (whosTurn == 0) {
 				AI(AI, Board.red, Board.yellow);
+				System.out.println("place the the ai!");
 				whosTurn = 1;
 				Thread.sleep(2000);
 			} else {
+				System.out.println("place your move!");
+				Thread.sleep(2000);
 				readyBoard(Board.getBoard());
 				executeVision eV = new executeVision(fotoBoard);
 				fotoBoard = eV.execute();
