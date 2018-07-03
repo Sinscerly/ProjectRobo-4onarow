@@ -20,7 +20,7 @@ GPIO.setmode(GPIO.BOARD)
 
 GPIO.setup(pin[motor], GPIO.OUT)
 
-m = GPIO.PWM(pin[motor, 50)
+m = GPIO.PWM(pin[motor], 50)
 #start position
 m.start(2.5)
 time.sleep(0.5)
