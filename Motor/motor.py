@@ -1,6 +1,7 @@
 import RPi.GPIO as GPIO
 import time
 import sys
+import os
 
 pin = [11, 13, 15, 16, 18, 37]
 
@@ -26,7 +27,8 @@ m.start(2.5)
 time.sleep(0.5)
 #turn to 90 degrees
 m.ChangeDutyCycle(7.5)
-time.sleep(0.5)
+
+os.system("python stack.py")
 #turn to 0 degrees
 m.ChangeDutyCycle(2.5)
 time.sleep(0.5)
