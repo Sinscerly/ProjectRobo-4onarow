@@ -38,6 +38,7 @@ public class executeVision {
 				output = check_board();
 				if(output == 0)
 					System.out.println("Grid is not good");
+	    		faulty = 0;
 			}
 			if(output == 0) {
 	    		faulty++;
@@ -134,15 +135,14 @@ public class executeVision {
 			while((line = input.readLine()) != null) {
 				System.out.println(line);
 			}
-			
 			int exitVal = pr.waitFor();
-			System.out.println("Exited with error code " + exitVal);
-
+			if(exitVal != 0) {
+				System.out.println("Exited with error code " + exitVal);
+			}
 		} catch(Exception e) {
 			System.out.println(e.toString());
 			e.printStackTrace();
 		}	
-
 		//System.out.println("\nI waited to finish my writing");
 		//System.out.println("Java project can go further now");
 		return 1;
@@ -176,7 +176,6 @@ public class executeVision {
 			String new_line = null;
 	    	//Check if grid is not faulty.
 	    	if ((new_line = br.readLine()).equals("TRUE")) {
-	    		faulty = 0;
 	    		for (int y = COLUMS - 1; y >= 0; y--) {
 	    			new_line = br.readLine();
   		  			for (int x = 0; x < ROWS; x++) {
