@@ -3,7 +3,7 @@ import time
 import sys
 import os
 
-pin = [11, 13, 15, 16, 18, 37]
+pin = [11, 12, 13, 15, 16, 18]
 
 if len(sys.argv) == 2:
     if (0 <= int(sys.argv[1]) and int(sys.argv[1]) < 6):
