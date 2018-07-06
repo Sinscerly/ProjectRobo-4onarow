@@ -36,10 +36,10 @@ public class Game {
 
 		while (GoodMoves.checkWin(Board.getBoard(), true) == false && Board.checkFull(Board.getBoard())) {
 			if (whosTurn == 0) {
+				eV.getCurrent_board(Board.getBoard());
 				AI(AI, Board.red, Board.yellow);
 				System.out.println("place the the ai!");
 				Thread.sleep(5000);
-				eV.getCurrent_board(Board.getBoard());
 				updateGrid(eV.execute(whosTurn));
 				whosTurn = 1;
 			} else {
