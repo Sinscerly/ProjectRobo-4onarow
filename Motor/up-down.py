@@ -15,7 +15,8 @@ def main():
         
 def move(pos):
     for i in range(6):
-        os.system("half-motor.py " + str(pin[i]) + " " + pos
+        os.system("half-motor.py " + str(pin[i]) + " " + str(pos))
+    return 1
 
 
 
