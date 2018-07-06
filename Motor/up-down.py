@@ -19,9 +19,22 @@ def main():
     m4 = GPIO.PWM(pin[4], 50)
     m5 = GPIO.PWM(pin[5], 50)
 
-    change_all_motors(3.5)
+    position = 7
+    m0.ChangeDutyCycle(position)
+    m1.ChangeDutyCycle(position)
+    m2.ChangeDutyCycle(position)
+    m3.ChangeDutyCycle(position)
+    m4.ChangeDutyCycle(position)
+    m5.ChangeDutyCycle(position)
     time.sleep(10)
-    change_all_motors(7)
+    
+    position = 3.5
+    m0.ChangeDutyCycle(position)
+    m1.ChangeDutyCycle(position)
+    m2.ChangeDutyCycle(position)
+    m3.ChangeDutyCycle(position)
+    m4.ChangeDutyCycle(position)
+    m5.ChangeDutyCycle(position)
     time.sleep(0.5)
 #exit
     m0.stop()
@@ -32,15 +45,6 @@ def main():
     m5.stop()
 
     GPIO.cleanup()
-
-def change_all_motors(position):
-    m0.ChangeDutyCycle(position)
-    m1.ChangeDutyCycle(position)
-    m2.ChangeDutyCycle(position)
-    m3.ChangeDutyCycle(position)
-    m4.ChangeDutyCycle(position)
-    m5.ChangeDutyCycle(position)
-    return 1
 
 if __name__ == '__main__':
     main()
