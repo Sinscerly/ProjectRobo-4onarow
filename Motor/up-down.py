@@ -21,20 +21,35 @@ def main():
 
 
 
-    position = 7
+    position = 3.5
     m0.start(position)
     m1.start(position)
+    time.sleep(0.5)
     m2.start(position)
     m3.start(position)
+    time.sleep(0.5)
     m4.start(position)
     m5.start(position)
+    time.sleep(0.5)
+
+    position = 3.5
+    m0.ChangeDutyCycle(position)
+    m1.ChangeDutyCycle(position)
+    time.sleep(0.5)
+    m2.ChangeDutyCycle(position)
+    m3.ChangeDutyCycle(position)
+    time.sleep(0.5)
+    m4.ChangeDutyCycle(position)
+    m5.ChangeDutyCycle(position)
     time.sleep(10)
     
     position = 3.5
     m0.ChangeDutyCycle(position)
     m1.ChangeDutyCycle(position)
+    time.sleep(0.5)
     m2.ChangeDutyCycle(position)
     m3.ChangeDutyCycle(position)
+    time.sleep(0.5)
     m4.ChangeDutyCycle(position)
     m5.ChangeDutyCycle(position)
     time.sleep(0.5)
