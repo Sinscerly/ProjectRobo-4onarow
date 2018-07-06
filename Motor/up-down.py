@@ -3,19 +3,22 @@ import time
 import sys
 import os
 
-pin = [11, 12, 13, 15, 16, 18]
-pos = [7, 3.5]
+pos = [7, 3.7]
 
 def main():
-    move(0)
+    move(pos[1])
 
-    time.sleep(10)
+    time.sleep(2)
 
-    move(1)
+    move(pos[0])
         
 def move(pos):
     for i in range(6):
-        os.system("half-motor.py " + str(pin[i]) + " " + str(pos))
+        xpos = pos
+        if(i == 2):
+            if(pos != 7):
+                xpos = 3.3
+        os.system("python half-motor.py " + str(i) + " " + str(xpos))
     return 1
 
 

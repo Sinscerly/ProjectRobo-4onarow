@@ -3,7 +3,7 @@ import java.io.*;
 class Motor {
 	public static void main(String[] args)
 	{
-		input_row(6);
+		input_row(1);
 	}
 	public static int input_row(int row)
 	{

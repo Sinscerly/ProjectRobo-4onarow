@@ -24,9 +24,12 @@ GPIO.setup(pin[motor], GPIO.OUT)
 
 m = GPIO.PWM(pin[motor], 50)
 #start position
-m.start(position)
-time.sleep(0.5)
-
+m.start(7)
+time.sleep(0.35)
+   
+print("changed pos to " + str(position))
+m.ChangeDutyCycle(position)
+time.sleep(0.35)
 #exit
 m.stop()
 GPIO.cleanup()
