@@ -33,7 +33,7 @@ def main():
 
     GPIO.cleanup()
 
-def change_all_motors(position)
+def change_all_motors(position):
     m0.ChangeDutyCycle(position)
     m1.ChangeDutyCycle(position)
     m2.ChangeDutyCycle(position)
