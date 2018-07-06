@@ -7,26 +7,20 @@ public class Game {
 	private int whosTurn = 0;
 	Box whoBegan = Board.red;
 	public static boolean seeProgress = false;
-	private int[][] fotoBoard = new int[7][6];
 
 	Game() {
 	}
 
 	void pvp() {
 		Board.setupBoard();
-		setup();
 		while (GoodMoves.checkWin(Board.getBoard(), true) == false && Board.checkFull(Board.getBoard())) {
 			if (whosTurn == 0) {
-				readyBoard(Board.getBoard());
-				executeVision eV = new executeVision(fotoBoard);
-				fotoBoard = eV.execute();
-				updateGrid();
+				executeVision eV = new executeVision(Board.getBoard());
+				updateGrid(eV.execute());
 				whosTurn = 1;
 			} else {
-				readyBoard(Board.getBoard());
-				executeVision eV = new executeVision(fotoBoard);
-				fotoBoard = eV.execute();
-				updateGrid();
+				executeVision eV = new executeVision(Board.getBoard());
+				updateGrid(eV.execute());
 				whosTurn = 0;
 			}
 		}
@@ -38,21 +32,18 @@ public class Game {
 		Board.printBoard();
 		whosTurn = playerFirst();
 		AI = whichAI();
-		setup();
 
 		while (GoodMoves.checkWin(Board.getBoard(), true) == false && Board.checkFull(Board.getBoard())) {
 			if (whosTurn == 0) {
 				AI(AI, Board.red, Board.yellow);
 				System.out.println("place the the ai!");
 				whosTurn = 1;
-				Thread.sleep(2000);
+				Thread.sleep(5000);
 			} else {
 				System.out.println("place your move!");
-				Thread.sleep(2000);
-				readyBoard(Board.getBoard());
-				executeVision eV = new executeVision(fotoBoard);
-				fotoBoard = eV.execute();
-				updateGrid();
+				Thread.sleep(6000);
+				executeVision eV = new executeVision(Board.getBoard());
+				updateGrid(eV.execute());
 				whosTurn = 0;
 			}
 		}
@@ -143,33 +134,7 @@ public class Game {
 		else
 			return new OwnAI();
 	}
-	private void updateGrid() {
-		Box[][] grid = new Box[7][6];
-		for (int y = 0; y != 6; y++)
-			for (int x = 0; x != 7; x++) {
-				if(fotoBoard[x][y] == 0)
-					grid[x][y] = Board.empty;
-				else if(fotoBoard[x][y] == 1)
-					grid[x][y] = Board.red;
-				else
-					grid[x][y] = Board.yellow;
-			}
-		Board.copyFotoBoard(grid);
-	}
-	private void readyBoard(Box[][] grid) {
-		for (int y = 0; y != 6; y++)
-			for (int x = 0; x != 7; x++) {
-				if(grid[x][y] == Board.empty)
-					fotoBoard[x][y] = 0;
-				else if(grid[x][y] == Board.red)
-					fotoBoard[x][y] = 1;
-				else
-					fotoBoard[x][y] = 2;
-			}
-	}
-	private void setup(){
-		for (int y = 0; y != 6; y++)
-			for (int x = 0; x != 7; x++)
-				fotoBoard[x][y] = 0;
+	private void updateGrid(Box[][] fotoBoard) {
+		Board.copyFotoBoard(fotoBoard);
 	}
 }

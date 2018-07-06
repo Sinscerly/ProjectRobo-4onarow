@@ -10,21 +10,21 @@ import java.io.*;
  */
 public class executeVision {
 	private static final int ROWS = 7, COLUMS = 6; // dimensions of the new_board
-	private static int[][] new_board = new int[ROWS][COLUMS]; // new_board that consist
+	private static Box[][] new_board = new Box[ROWS][COLUMS]; // new_board that consist
 	private int faulty = 0;
-	private static int[][] current_board = null;
+	private static Box[][] current_board = null;
 	
-	public executeVision(int[][] cur_board) {
+	public executeVision(Box[][] cur_board) {
 		current_board = cur_board;
 	}
 	
-	public int[][] execute()
+	public Box[][] execute()
 	{	
 		int output = 0;
 		while(output == 0) 
 		{
 			System.out.println("print current board");
-			printCurrentBoard();
+			printBoard(current_board);
 			execute_vision();
 			try {
 				System.out.println("Read output");
@@ -57,13 +57,13 @@ public class executeVision {
 		int Red = 0, Yellow = 0;
 		for(int x = 0; x < ROWS; x++) {
 			for(int y = 0; y < COLUMS; y++) {
-				if(new_board[x][y] == 1) {
+				if(new_board[x][y] == Board.red) {
 					Red++;
-				} else if(new_board[x][y] == 2) {
+				} else if(new_board[x][y] == Board.yellow) {
 					Yellow++;
 				}
 				//check discs are 'flying'.
-				if(y != 0 && new_board[x][y] != 0 && new_board[x][y-1] == 0) {
+				if(y != 0 && new_board[x][y] != Board.empty && new_board[x][y-1] == Board.empty) {
 					flag = 1;
 					System.out.println("Flag is: " + Integer.toString(flag));
 					return 0;
@@ -94,7 +94,7 @@ public class executeVision {
 		}
 		//xy was 0
 		//xy moet nu 1 of 2 zijn
-		if(!(current_board[co_x][co_y] == 0 && (new_board[co_x][co_y] == 1 || new_board[co_x][co_y] == 2))) {
+		if(!(current_board[co_x][co_y] == Board.empty && (new_board[co_x][co_y] == Board.red || new_board[co_x][co_y] == Board.yellow))) {
 			//System.out.println("board x: " + co_x + " y: " + co_y);
 			//System.out.println("Currentboard: " + current_board[co_x][co_y] + "\nNew_board: " + new_board[co_x][co_y]);
 			System.out.println("The difference between boards is not correct, current is red or yellow and new is differend");
@@ -179,7 +179,10 @@ public class executeVision {
 	    		for (int y = COLUMS - 1; y >= 0; y--) {
 	    			new_line = br.readLine();
   		  			for (int x = 0; x < ROWS; x++) {
-  		  				new_board[x][y] = Integer.parseInt(new_line.substring(x,x+1));
+  		  				if(Integer.parseInt(new_line.substring(x,x+1)) == 1)
+  		  					new_board[x][y] = Board.red;
+  		  				else
+  		  					new_board[x][y] = Board.yellow;
   		  			}
 	    		}
 	    	} else {
@@ -192,31 +195,15 @@ public class executeVision {
   		}
   		return 1;
   	}	
-	public static void printBoard() {
+	public static void printBoard(Box[][] grid) {
 		System.out.println("");
 		System.out.println("| 1   2   3   4   5   6   7 |");
 		for (int y = COLUMS - 1; y >= 0; y--) {
 			System.out.print("| ");
 			for (int x = 0; x < ROWS; x++) {
-				if (new_board[x][y] == 0)
+				if (grid[x][y] == Board.empty)
 					System.out.print("0" + " | ");
-				else if (new_board[x][y] == 1)
-					System.out.print("R" + " | ");
-				else
-					System.out.print("Y" + " | ");
-			}
-			System.out.println();
-		}
-	}
-	public static void printCurrentBoard() {
-		System.out.println("");
-		System.out.println("| 1   2   3   4   5   6   7 |");
-		for (int y = COLUMS - 1; y >= 0; y--) {
-			System.out.print("| ");
-			for (int x = 0; x < ROWS; x++) {
-				if (current_board[x][y] == 0)
-					System.out.print("0" + " | ");
-				else if (current_board[x][y] == 1)
+				else if (grid[x][y] == Board.red)
 					System.out.print("R" + " | ");
 				else
 					System.out.print("Y" + " | ");
