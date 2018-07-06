@@ -18,10 +18,10 @@ public class executeVision {
 		current_board = cur_board;
 	}
 	
-	public Box[][] execute()
+	public Box[][] execute(int whosTurn)
 	{	
 		int output = 0;
-		while(output == 0) 
+		while(output != 2) 
 		{
 			System.out.println("print current board");
 			printBoard(current_board);
@@ -55,6 +55,7 @@ public class executeVision {
 		System.out.println("Check board now");
 		int flag = 0;
 		int Red = 0, Yellow = 0;
+		int is_same = 0, co_x = 0, co_y = 0, difs = 0;
 		for(int x = 0; x < ROWS; x++) {
 			for(int y = 0; y < COLUMS; y++) {
 				if(new_board[x][y] == Board.red) {
@@ -68,11 +69,6 @@ public class executeVision {
 					System.out.println("Flag is: " + Integer.toString(flag));
 					return 0;
 				}
-			}	
-		}	
-		int is_same = 0, co_x = 0, co_y = 0, difs = 0;
-		for(int x = 0; x < ROWS; x++) {
-			for(int y = 0; y < COLUMS; y++) {
 				if(new_board[x][y] == current_board[x][y]) {
 					is_same++;
 				} else {
@@ -89,8 +85,6 @@ public class executeVision {
 		if(is_same == 42) {
 			System.out.println("there is no difference");
 			return 0;
-		} else if(is_same != 41) {
-			System.out.println("to big of a difference, you have: " + (42 - is_same));
 		}
 		//xy was 0
 		//xy moet nu 1 of 2 zijn
@@ -98,7 +92,6 @@ public class executeVision {
 			//System.out.println("board x: " + co_x + " y: " + co_y);
 			//System.out.println("Currentboard: " + current_board[co_x][co_y] + "\nNew_board: " + new_board[co_x][co_y]);
 			System.out.println("The difference between boards is not correct, current is red or yellow and new is differend");
-			System.out.println("please put in the ai chip.");
 			return 0;
 		}
 		System.out.println("Flag is: " + Integer.toString(flag));
@@ -112,7 +105,7 @@ public class executeVision {
 			}
 			//return 0;
 		}
-		return 1;
+		return 2;
 	}
 	private int execute_vision()
 	{
@@ -179,7 +172,9 @@ public class executeVision {
 	    		for (int y = COLUMS - 1; y >= 0; y--) {
 	    			new_line = br.readLine();
   		  			for (int x = 0; x < ROWS; x++) {
-  		  				if(Integer.parseInt(new_line.substring(x,x+1)) == 1)
+  		  				if(Integer.parseInt(new_line.substring(x,x+1)) == 0)
+  		  					new_board[x][y] = Board.empty;
+  		  				else if(Integer.parseInt(new_line.substring(x,x+1)) == 1)
   		  					new_board[x][y] = Board.red;
   		  				else
   		  					new_board[x][y] = Board.yellow;
@@ -210,5 +205,11 @@ public class executeVision {
 			}
 			System.out.println();
 		}
+	}
+	public void getCurrent_board(Box[][] grid)
+	{
+		for(int x=0;x!=7;x++)
+			for(int y=0;y!=6;y++)
+				current_board[x][y] = grid[x][y];
 	}
 }

@@ -16,11 +16,11 @@ public class Game {
 		while (GoodMoves.checkWin(Board.getBoard(), true) == false && Board.checkFull(Board.getBoard())) {
 			if (whosTurn == 0) {
 				executeVision eV = new executeVision(Board.getBoard());
-				updateGrid(eV.execute());
+				updateGrid(eV.execute(whosTurn));
 				whosTurn = 1;
 			} else {
 				executeVision eV = new executeVision(Board.getBoard());
-				updateGrid(eV.execute());
+				updateGrid(eV.execute(whosTurn));
 				whosTurn = 0;
 			}
 		}
@@ -32,18 +32,21 @@ public class Game {
 		Board.printBoard();
 		whosTurn = playerFirst();
 		AI = whichAI();
+		executeVision eV = new executeVision(Board.getBoard());
 
 		while (GoodMoves.checkWin(Board.getBoard(), true) == false && Board.checkFull(Board.getBoard())) {
 			if (whosTurn == 0) {
 				AI(AI, Board.red, Board.yellow);
 				System.out.println("place the the ai!");
-				whosTurn = 1;
 				Thread.sleep(5000);
+				eV.getCurrent_board(Board.getBoard());
+				updateGrid(eV.execute(whosTurn));
+				whosTurn = 1;
 			} else {
 				System.out.println("place your move!");
 				Thread.sleep(6000);
-				executeVision eV = new executeVision(Board.getBoard());
-				updateGrid(eV.execute());
+				eV.getCurrent_board(Board.getBoard());
+				updateGrid(eV.execute(whosTurn));
 				whosTurn = 0;
 			}
 		}
