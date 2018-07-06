@@ -19,13 +19,15 @@ def main():
     m4 = GPIO.PWM(pin[4], 50)
     m5 = GPIO.PWM(pin[5], 50)
 
+
+
     position = 7
-    m0.ChangeDutyCycle(position)
-    m1.ChangeDutyCycle(position)
-    m2.ChangeDutyCycle(position)
-    m3.ChangeDutyCycle(position)
-    m4.ChangeDutyCycle(position)
-    m5.ChangeDutyCycle(position)
+    m0.start(position)
+    m1.start(position)
+    m2.start(position)
+    m3.start(position)
+    m4.start(position)
+    m5.start(position)
     time.sleep(10)
     
     position = 3.5
