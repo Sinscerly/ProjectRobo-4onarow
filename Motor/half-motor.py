@@ -8,8 +8,7 @@ pin = [11, 12, 13, 15, 16, 18]
 if len(sys.argv) == 3:
     if (0 <= int(sys.argv[1]) and int(sys.argv[1]) < 6):
         motor = int(sys.argv[1])
-        position = int(sys.argv[2]
-
+        position = float(sys.argv[2])
     else:
         print(sys.argv[1] + "\n" + sys.argv[2])
         print("choose motor: (0-5)\n choose position: (2.5-7.5)")
