@@ -10,7 +10,7 @@ import java.io.*;
  */
 public class executeVision {
 	private static final int ROWS = 7, COLUMS = 6; // dimensions of the new_board
-	private static Box[][] new_board = new Box[ROWS][COLUMS]; // new_board that consist
+	private static Box[][] new_board = new Box[ROWS][COLUMS]; // new_board that consist of boxes
 	private int faulty = 0;
 	private static Box[][] current_board = null;
 	
@@ -18,7 +18,7 @@ public class executeVision {
 		current_board = cur_board;
 	}
 	
-	public Box[][] execute(int whosTurn)
+	public Box[][] execute(int whoBegan)
 	{	
 		int output = 0;
 		while(output != 2) 
@@ -35,7 +35,7 @@ public class executeVision {
 			}
 			if(output == 1) {
 				System.out.println("Output good, \t now check grid");
-				output = check_board();
+				output = check_board(whoBegan);
 				if(output == 0)
 					System.out.println("Grid is not good");
 	    		faulty = 0;
@@ -44,13 +44,17 @@ public class executeVision {
 	    		faulty++;
 				System.out.println("Will try a new picture. This is the: " + Integer.toString(faulty) + " time");
 			}
+			if(output == 3) {
+				System.out.println("Someone cheated. Reseting the game!");
+				return emptyBoard();
+			}
 		}
 		System.out.println("Grid transfered and returned to new_board.");
 		//return something..
 		//printBoard();
 		return new_board;
 	}
-	private int check_board() 
+	private int check_board(int whoBegan) 
 	{
 		System.out.println("Check board now");
 		int flag = 0;
@@ -96,14 +100,15 @@ public class executeVision {
 		}
 		System.out.println("Flag is: " + Integer.toString(flag));
 		System.out.println("Red: \t" + Red + "\nYellow: " + Yellow + "\nDifferences: " + (Math.abs(Red - Yellow)));
-		if(Math.abs(Red - Yellow) > 1) {
+		//0 = red began 1 = yellow began
+		if(Yellow - Red == 1 && whoBegan == 0 || Red - Yellow == 1 && whoBegan == 1) {
 			System.out.println("Difference is to big, so someone is cheating.");
-			if(Red > Yellow) {
+			if(whoBegan == 1) {
 				System.out.println("Red is cheating");
 			} else {
 				System.out.println("Yellow is cheating");
 			}
-			//return 0;
+			return 3;
 		}
 		return 2;
 	}
@@ -211,5 +216,11 @@ public class executeVision {
 		for(int x=0;x!=7;x++)
 			for(int y=0;y!=6;y++)
 				current_board[x][y] = grid[x][y];
+	}
+	public Box[][] emptyBoard() {
+		for(int x = 0; x != 7; x++)
+			for(int y = 0; y != 6; y++)
+				new_board[x][y] = Board.empty;
+		return new_board;
 	}
 }

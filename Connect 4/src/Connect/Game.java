@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Game {
 	static Scanner scanner = new Scanner(System.in);
-	private int whosTurn = 0;
+	private int whosTurn = 0, beginingMove = 0;
 	Box whoBegan = Board.red;
 	public static boolean seeProgress = false;
 
@@ -30,7 +30,13 @@ public class Game {
 		AI AI = new AI();
 		Board.setupBoard();
 		Board.printBoard();
-		whosTurn = playerFirst();
+		beginingMove = playerFirst();
+		whosTurn = beginingMove;
+		if(beginingMove == 0) {
+			whoBegan = Board.red;
+		} else {
+			whoBegan = Board.yellow;
+		}
 		AI = whichAI();
 		executeVision eV = new executeVision(Board.getBoard());
 
@@ -40,13 +46,13 @@ public class Game {
 				AI(AI, Board.red, Board.yellow);
 				System.out.println("place the the ai!");
 				Thread.sleep(5000);
-				updateGrid(eV.execute(whosTurn));
+				updateGrid(eV.execute(beginingMove));
 				whosTurn = 1;
 			} else {
 				System.out.println("place your move!");
 				Thread.sleep(6000);
 				eV.getCurrent_board(Board.getBoard());
-				updateGrid(eV.execute(whosTurn));
+				updateGrid(eV.execute(beginingMove));
 				whosTurn = 0;
 			}
 		}
