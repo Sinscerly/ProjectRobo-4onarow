@@ -7,7 +7,7 @@ public class Game {
 	private int whosTurn = 0, beginingMove = 0;
 	Box whoBegan = Board.red;
 	public static boolean seeProgress = false;
-
+	private int last_AI_move = 0;
 	Game() {
 	}
 
@@ -39,14 +39,18 @@ public class Game {
 		}
 		AI = whichAI();
 		executeVision eV = new executeVision(Board.getBoard());
-
+		executeMotor  eM = new executeMotor();
 		while (GoodMoves.checkWin(Board.getBoard(), true) == false && Board.checkFull(Board.getBoard())) {
 			if (whosTurn == 0) {
 				eV.getCurrent_board(Board.getBoard());
 				AI(AI, Board.red, Board.yellow);
+				//stack now false if stack exists it needs to be true
+				eM.AI_Input_Row(last_AI_move, true, false);
 				System.out.println("place the the ai!");
 				Thread.sleep(5000);
 				updateGrid(eV.execute(beginingMove));
+				//stack needs to be always false here! Otherwise it will cheat the game.
+				eM.AI_Input_Row(last_AI_move, false, false);
 				whosTurn = 1;
 			} else {
 				System.out.println("place your move!");
@@ -121,6 +125,7 @@ public class Game {
 		ai.end = System.currentTimeMillis();
 		System.out.println(ai.toString());
 		System.out.print("Computer placed in row: " + (ai_set + 1));
+		last_AI_move = ai_set;
 		System.out.println("Took: " + ((ai.end - ai.start) / 1000) + "S.");
 		return ai_set;
 	}
