@@ -4,13 +4,29 @@ import java.io.*;
 public class executeMotor {
 
 	private double[] position = {7, 3.7, 3.3};
+	public int Player_on_set(boolean state_motor) {
+		double pos = position[0];
+		if(state_motor) {
+			pos = position[1];
+		}
+		for(int i = 0; i < 6; i++) {
+			if(i == 2 && state_motor) {
+				execute_motor(i, position[2]);
+			} else {
+				execute_motor(i, pos);
+			}
+		}
+		return 1;
+	}
 	public int AI_Input_Row(int row, boolean state_motor, boolean push_stack)
 	{
+		/*
 		File currentDirFile = new File(".");
 		String pwd = currentDirFile.getAbsolutePath();
 		pwd = pwd.substring(0, pwd.length() - 1);
 		if(pwd.contains("Sinsc"))
-			return 1;
+			return 0;
+		*/
 		/*
 		 * Input can only be row 0-6
 		 * Row's 0-5 are driven by execute motor

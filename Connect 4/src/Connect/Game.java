@@ -53,10 +53,12 @@ public class Game {
 				eM.AI_Input_Row(last_AI_move, false, false);
 				whosTurn = 1;
 			} else {
+				eM.Player_on_set(true);
 				System.out.println("place your move!");
 				Thread.sleep(6000);
 				eV.getCurrent_board(Board.getBoard());
 				updateGrid(eV.execute(beginingMove));
+				eM.Player_on_set(false);
 				whosTurn = 0;
 			}
 		}
