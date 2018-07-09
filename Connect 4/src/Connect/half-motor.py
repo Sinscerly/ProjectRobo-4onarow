@@ -27,7 +27,7 @@ m = GPIO.PWM(pin[motor], 50)
 m.start(7)
 time.sleep(0.35)
 
-print("changed pos to " + str(position))
+//print("changed pos to " + str(position))
 if position != 7:
     m.ChangeDutyCycle(position)
     time.sleep(0.35)
