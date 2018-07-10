@@ -94,16 +94,6 @@ def main():
             show_circles(output_dc)
         #stop program
         exit("Error")
-    else:
-        array_dc = read_circles(circles_dc, index_dc)
-        if index_dc != 42:
-            print("The index is: " + str(index_dc))
-            print("The index from detect circles is not 42 so we cannot find the optimal locations at the board.")
-            #show output why there are to less or may circles found.
-            if graphics:
-                show_circles(output_dc)
-            #stop program
-            exit("Error")
 
 #-----------------------------------------------------------------------
 #------------------ Color Filters --------------------------------------
@@ -141,7 +131,7 @@ def main():
     #cv.imshow("rip_red",    red_erode)
     #cv.imshow("rip_yellow", yellow_erode)
     for i in range(4): 
-        red_erode = cv.dilate(red_erode, kernel, iterations = 1)
+        red_erode = cv.dilate(red_erode, kernimageimageimageel, iterations = 1)
         red_erode = cv.bitwise_and(red_erode, red_erode, mask = mask_red)
         yellow_erode = cv.dilate(yellow_erode, kernel, iterations = 1)
         yellow_erode = cv.bitwise_and(yellow_erode, mask_yellow, mask = mask_yellow)
@@ -161,6 +151,31 @@ def main():
 #	    cv.imshow("rest-red", 		res_red)
         cv.imshow("rest-yellow", 	res_yellow)
         cv.imshow("detected circles", circles_dc)
+   
+#-----------------------TEST-----------
+#"pic/" + x_time + "-false.jpg"
+    else:
+    array_dc = read_circles(circles_dc, index_dc)
+    if index_dc != 42:
+        print("The index is: " + str(index_dc))
+        print("The index from detect circles is not 42 so we cannot find the optimal locations at the board.")
+        #show output why there are to less or may circles found.
+        if graphics:
+            show_circles(output_dc)
+            cv.imshow("all", cv.add(res_red, res_yellow))
+
+        image = cv2.imread("pic/" + x_time + "-false.jpg")
+        #grey_3_channel = cv2.cvtColor(grey, cv2.COLOR_GRAY2BGR)
+
+        numpy_horizontal = np.hstack((image, cv.add(res_red, res_yellow))
+
+        #numpy_horizontal_concat = np.concatenate((image, grey_3_channel), axis=1)
+
+        #cv2.imshow('Numpy Horizontal Concat', numpy_horizontal_concat)
+        cv.imwrite("pic/" + x_time + "-false.jpg", numpy_horizontal)	
+
+        #stop program
+        exit("Error")
 
 #save the black/white image of the board, for RED and YELLOW.
     save_red    = "pic/" + "REDblackwhiteboard.jpg"
@@ -231,7 +246,7 @@ def main():
     grid = fill_and_print_grid(array_dc, array_red, index_red, array_yellow, index_yellow)   
     
     grid_to_file(x_time,        grid)
-    grid_to_file("output",  grid)
+    grid_to_file("output",      grid)
     
 #Delete picture, not needed any more
     if del_pic:
