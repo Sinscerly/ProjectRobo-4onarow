@@ -15,7 +15,7 @@ def main():
     cf_hc = [30, 10, 20, 30]
     c_red = "red"
     c_yellow = "yellow"
-    graphics = False
+    graphics = True
     print_arr = False
     del_pic = True
 #FOR DEBUG ENABLE print_arr TO COMPARE THE ARRAYS
