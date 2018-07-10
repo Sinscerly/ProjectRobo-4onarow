@@ -45,7 +45,7 @@ public class Game {
 				eV.getCurrent_board(Board.getBoard());
 				AI(AI, Board.red, Board.yellow);
 				//stack now false if stack exists it needs to be true
-				eM.AI_Input_Row(last_AI_move, true, false);
+				eM.AI_Input_Row(last_AI_move, true, true);
 				System.out.println("place the the ai!");
 				Thread.sleep(5000);
 				updateGrid(eV.execute(beginingMove));

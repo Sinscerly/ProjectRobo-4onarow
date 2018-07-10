@@ -16,6 +16,7 @@ public class executeMotor {
 				execute_motor(i, pos);
 			}
 		}
+		System.out.println("");
 		return 1;
 	}
 	public int AI_Input_Row(int row, boolean state_motor, boolean push_stack)
@@ -44,6 +45,7 @@ public class executeMotor {
 		if(push_stack) {
 			execute_stack();
 		}
+		System.out.println("");
 		return 1;
 	}
 	private void execute_stack()
@@ -74,7 +76,7 @@ public class executeMotor {
 		/*
 		 * Motor range is from 0-5.
 		 */
-		System.out.println("Execute motor.py " + motor + "\n");
+		System.out.println("Execute motor.py " + motor + "with pos: " + pos);
 		try {
 			Runtime rt = Runtime.getRuntime();
 			Process pr = rt.exec("python half-motor.py " + motor + " " + pos);
