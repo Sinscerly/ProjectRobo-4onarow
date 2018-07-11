@@ -2,74 +2,74 @@ Game MiniMax vs MiniMax.
  
 1 VS 1: cpu 2 wins. Time it took: 0S.
 1 VS 2: cpu 1 wins. Time it took: 0S.
-1 VS 3: cpu 1 wins. Time it took: 0S.
+1 VS 3: cpu 2 wins. Time it took: 0S.
 1 VS 4: cpu 2 wins. Time it took: 0S.
-1 VS 5: cpu 2 wins. Time it took: 1S.
-1 VS 6: cpu 2 wins. Time it took: 9S.
-1 VS 7: cpu 2 wins. Time it took: 55S.
-1 VS 8: cpu 2 wins. Time it took: 339S.
-2 VS 1: cpu 1 wins. Time it took: 0S.
+1 VS 5: cpu 1 wins. Time it took: 0S.
+1 VS 6: cpu 2 wins. Time it took: 6S.
+1 VS 7: cpu 2 wins. Time it took: 6S.
+1 VS 8: cpu 2 wins. Time it took: 215S.
+2 VS 1: cpu 2 wins. Time it took: 0S.
 2 VS 2: cpu 1 wins. Time it took: 0S.
-2 VS 3: cpu 1 wins. Time it took: 0S.
-2 VS 4: cpu 2 wins. Time it took: 0S.
+2 VS 3: cpu 2 wins. Time it took: 0S.
+2 VS 4: cpu 1 wins. Time it took: 0S.
 2 VS 5: cpu 1 wins. Time it took: 0S.
-2 VS 6: cpu 2 wins. Time it took: 7S.
-2 VS 7: cpu 2 wins. Time it took: 45S.
-2 VS 8: cpu 2 wins. Time it took: 311S.
+2 VS 6: cpu 1 wins. Time it took: 0S.
+2 VS 7: cpu 2 wins. Time it took: 7S.
+2 VS 8: cpu 2 wins. Time it took: 129S.
 3 VS 1: cpu 2 wins. Time it took: 0S.
 3 VS 2: cpu 1 wins. Time it took: 0S.
-3 VS 3: cpu 1 wins. Time it took: 0S.
-3 VS 4: cpu 2 wins. Time it took: 0S.
-3 VS 5: cpu 1 wins. Time it took: 1S.
-3 VS 6: cpu 2 wins. Time it took: 10S.
-3 VS 7: cpu 2 wins. Time it took: 58S.
-3 VS 8: cpu 2 wins. Time it took: 656S.
+3 VS 3: cpu 2 wins. Time it took: 0S.
+3 VS 4: cpu 1 wins. Time it took: 0S.
+3 VS 5: cpu 1 wins. Time it took: 0S.
+3 VS 6: cpu 1 wins. Time it took: 4S.
+3 VS 7: cpu 1 wins. Time it took: 11S.
+3 VS 8: cpu 1 wins. Time it took: 228S.
 4 VS 1: cpu 1 wins. Time it took: 0S.
 4 VS 2: cpu 1 wins. Time it took: 0S.
-4 VS 3: cpu 1 wins. Time it took: 0S.
-4 VS 4: cpu 2 wins. Time it took: 0S.
-4 VS 5: cpu 1 wins. Time it took: 1S.
-4 VS 6: cpu 2 wins. Time it took: 7S.
-4 VS 7: cpu 2 wins. Time it took: 55S.
-4 VS 8: cpu 2 wins. Time it took: 317S.
-5 VS 1: cpu 1 wins. Time it took: 2S.
+4 VS 3: cpu 2 wins. Time it took: 0S.
+4 VS 4: cpu 1 wins. Time it took: 0S.
+4 VS 5: cpu 1 wins. Time it took: 0S.
+4 VS 6: cpu 1 wins. Time it took: 0S.
+4 VS 7: cpu 2 wins. Time it took: 7S.
+4 VS 8: cpu 1 wins. Time it took: 140S.
+5 VS 1: cpu 1 wins. Time it took: 0S.
 5 VS 2: cpu 1 wins. Time it took: 0S.
-5 VS 3: cpu 2 wins. Time it took: 1S.
-5 VS 4: cpu 2 wins. Time it took: 1S.
-5 VS 5: cpu 2 wins. Time it took: 3S.
-5 VS 6: cpu 2 wins. Time it took: 12S.
-5 VS 7: cpu 2 wins. Time it took: 66S.
-5 VS 8: cpu 2 wins. Time it took: 366S.
-6 VS 1: cpu 1 wins. Time it took: 9S.
-6 VS 2: cpu 1 wins. Time it took: 3S.
-6 VS 3: cpu 1 wins. Time it took: 9S.
-6 VS 4: cpu 2 wins. Time it took: 9S.
-6 VS 5: cpu 1 wins. Time it took: 12S.
-6 VS 6: cpu 2 wins. Time it took: 20S.
-6 VS 7: cpu 1 wins. Time it took: 53S.
-6 VS 8: cpu 2 wins. Time it took: 320S.
-7 VS 1: cpu 1 wins. Time it took: 74S.
-7 VS 2: cpu 1 wins. Time it took: 21S.
-7 VS 3: cpu 1 wins. Time it took: 87S.
-7 VS 4: cpu 2 wins. Time it took: 68S.
-7 VS 5: cpu 2 wins. Time it took: 54S.
-7 VS 6: cpu 2 wins. Time it took: 72S.
-7 VS 7: cpu 1 wins. Time it took: 126S.
-7 VS 8: cpu 2 wins. Time it took: 405S.
-8 VS 1: cpu 1 wins. Time it took: 379S.
-8 VS 2: cpu 1 wins. Time it took: 339S.
-8 VS 3: cpu 2 wins. Time it took: 439S.
-8 VS 4: cpu 1 wins. Time it took: 337S.
-8 VS 5: cpu 1 wins. Time it took: 418S.
-8 VS 6: cpu 2 wins. Time it took: 345S.
-8 VS 7: cpu 1 wins. Time it took: 414S.
-8 VS 8: cpu 2 wins. Time it took: 645S.
+5 VS 3: cpu 1 wins. Time it took: 0S.
+5 VS 4: cpu 1 wins. Time it took: 0S.
+5 VS 5: cpu 1 wins. Time it took: 0S.
+5 VS 6: cpu 1 wins. Time it took: 0S.
+5 VS 7: cpu 2 wins. Time it took: 14S.
+5 VS 8: cpu 2 wins. Time it took: 190S.
+6 VS 1: cpu 1 wins. Time it took: 5S.
+6 VS 2: cpu 1 wins. Time it took: 2S.
+6 VS 3: cpu 1 wins. Time it took: 6S.
+6 VS 4: cpu 2 wins. Time it took: 4S.
+6 VS 5: cpu 1 wins. Time it took: 2S.
+6 VS 6: cpu 2 wins. Time it took: 8S.
+6 VS 7: cpu 1 wins. Time it took: 19S.
+6 VS 8: cpu 2 wins. Time it took: 149S.
+7 VS 1: cpu 2 wins. Time it took: 15S.
+7 VS 2: cpu 1 wins. Time it took: 7S.
+7 VS 3: cpu 1 wins. Time it took: 17S.
+7 VS 4: cpu 2 wins. Time it took: 13S.
+7 VS 5: cpu 1 wins. Time it took: 6S.
+7 VS 6: cpu 1 wins. Time it took: 20S.
+7 VS 7: cpu 2 wins. Time it took: 24S.
+7 VS 8: cpu 2 wins. Time it took: 216S.
+8 VS 1: cpu 1 wins. Time it took: 279S.
+8 VS 2: cpu 1 wins. Time it took: 171S.
+8 VS 3: cpu 1 wins. Time it took: 245S.
+8 VS 4: cpu 1 wins. Time it took: 193S.
+8 VS 5: cpu 1 wins. Time it took: 144S.
+8 VS 6: cpu 1 wins. Time it took: 241S.
+8 VS 7: cpu 1 wins. Time it took: 259S.
+8 VS 8: cpu 1 wins. Time it took: 415S.
 Game MiniMax vs OwnAI. 
  
 1 VS 8: cpu 2 wins. Time it took: 0S.
 Game MiniMax vs OwnAI. 
  
-2 VS 8: cpu 1 wins. Time it took: 0S.
+2 VS 8: cpu 2 wins. Time it took: 0S.
 Game MiniMax vs OwnAI. 
  
 3 VS 8: cpu 2 wins. Time it took: 0S.
@@ -78,16 +78,16 @@ Game MiniMax vs OwnAI.
 4 VS 8: cpu 1 wins. Time it took: 0S.
 Game MiniMax vs OwnAI. 
  
-5 VS 8: cpu 2 wins. Time it took: 1S.
+5 VS 8: cpu 2 wins. Time it took: 0S.
 Game MiniMax vs OwnAI. 
  
-6 VS 8: cpu 1 wins. Time it took: 9S.
+6 VS 8: cpu 1 wins. Time it took: 6S.
 Game MiniMax vs OwnAI. 
  
-7 VS 8: cpu 1 wins. Time it took: 61S.
+7 VS 8: cpu 1 wins. Time it took: 13S.
 Game MiniMax vs OwnAI. 
  
-8 VS 8: cpu 1 wins. Time it took: 336S.
+8 VS 8: cpu 1 wins. Time it took: 242S.
 Game OwnAI vs MiniMax. 
  
 1 VS 8: cpu 1 wins. Time it took: 0S.
@@ -102,16 +102,16 @@ Game OwnAI vs MiniMax.
 4 VS 8: cpu 1 wins. Time it took: 0S.
 Game OwnAI vs MiniMax. 
  
-5 VS 8: cpu 2 wins. Time it took: 1S.
+5 VS 8: cpu 1 wins. Time it took: 0S.
 Game OwnAI vs MiniMax. 
  
-6 VS 8: cpu 2 wins. Time it took: 7S.
+6 VS 8: cpu 2 wins. Time it took: 4S.
 Game OwnAI vs MiniMax. 
  
-7 VS 8: cpu 2 wins. Time it took: 57S.
+7 VS 8: cpu 2 wins. Time it took: 9S.
 Game OwnAI vs MiniMax. 
  
-8 VS 8: cpu 2 wins. Time it took: 287S.
+8 VS 8: cpu 2 wins. Time it took: 134S.
 Game OwnAI vs OwnAI. 
  
 8 VS 8: cpu 1 wins. Time it took: 0S.
