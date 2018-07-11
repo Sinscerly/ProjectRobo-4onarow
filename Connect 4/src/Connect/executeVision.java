@@ -14,8 +14,7 @@ public class executeVision {
 	private int faulty = 0;
 	private static Box[][] current_board = null;
 	
-	public executeVision(Box[][] cur_board) {
-		current_board = cur_board;
+	public executeVision() {
 	}
 	
 	public Box[][] execute(int whoBegan)

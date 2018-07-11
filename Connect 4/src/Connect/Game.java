@@ -15,11 +15,11 @@ public class Game {
 		Board.setupBoard();
 		while (GoodMoves.checkWin(Board.getBoard(), true) == false && Board.checkFull(Board.getBoard())) {
 			if (whosTurn == 0) {
-				executeVision eV = new executeVision(Board.getBoard());
+				executeVision eV = new executeVision();
 				updateGrid(eV.execute(whosTurn));
 				whosTurn = 1;
 			} else {
-				executeVision eV = new executeVision(Board.getBoard());
+				executeVision eV = new executeVision();
 				updateGrid(eV.execute(whosTurn));
 				whosTurn = 0;
 			}
@@ -38,7 +38,7 @@ public class Game {
 			whoBegan = Board.yellow;
 		}
 		AI = whichAI();
-		executeVision eV = new executeVision(Board.getBoard());
+		executeVision eV = new executeVision();
 		executeMotor  eM = new executeMotor();
 		while (GoodMoves.checkWin(Board.getBoard(), true) == false && Board.checkFull(Board.getBoard())) {
 			if (whosTurn == 0) {
