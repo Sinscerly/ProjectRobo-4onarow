@@ -17,7 +17,7 @@ public class executeVision {
 	private static final int ROWS = 7, COLUMS = 6; // dimensions of the new_board
 	private static Box[][] new_board = new Box[ROWS][COLUMS]; // new_board that consist of boxes
 	private int faulty = 0;
-	private static Box[][] current_board = null;
+	private static Box[][] current_board = new Box[ROWS][COLUMS];
 	
 	public executeVision() {
 	}
