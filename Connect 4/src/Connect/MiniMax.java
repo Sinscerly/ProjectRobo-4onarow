@@ -48,12 +48,12 @@ public class MiniMax extends AI{
 			}
 		}
 		// if the AI took a turn.
-		return miniMax_move(grid, 0, Ai, eAi, Ai, -1000000, 10000000);
+		return miniMax_move(grid, 0, Ai, eAi, Ai);
 	}
 
 	// decides which move is the best move. (The Board, total amount of turns
 	// the AI 'thinks' forward, who's turn it is checking)
-	int miniMax_move(Box[][] grid, int diff, Box Ai, Box eAi, Box firstAi, int alpha, int beta) {
+	int miniMax_move(Box[][] grid, int diff, Box Ai, Box eAi, Box firstAi) {
 		// copies the grid to a temporary grid
 		Box[][] copy = copyGrid(grid);
 		Random rand = new Random();
@@ -113,18 +113,12 @@ public class MiniMax extends AI{
 							// do this over again but than the returning number
 							// times -1 since it is the other player, v stands for
 							// value
-							int v = -miniMax_move(newGrid, diff + 1,  eAi, Ai, firstAi, alpha, beta);
-							if(Ai == firstAi)
-								beta = v;
-							else
-								alpha = v;
+							int v = -miniMax_move(newGrid, diff + 1,  eAi, Ai, firstAi);
 							// if the next move has a higher value
 							if (v >= bestValue) {
 								bestMove = col;
 								bestValue = v;
 							}
-							if(beta <= alpha && difficulty - diff == difficulty / 2)
-								break;
 						}
 					}
 			}
